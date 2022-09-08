@@ -1,1 +1,3 @@
-#q quanquan-vim
+# Neovim config
+
+## Neovim
