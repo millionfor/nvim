@@ -356,27 +356,6 @@
             " nnoremap <silent><expr> <c-b> g:db_ui_locked ? "" : ":call DBUIToggle()<CR>"
             " tnoremap <silent><expr> <c-b> &ft == "floaterm" ? "<c-\><c-n>:call DBUIToggle()<CR>" : "<c-b>"
 
-
-
-    " 多游标
-            let g:VM_theme                      = 'ocean'
-            let g:VM_highlight_matches          = 'underline'
-            let g:VM_maps                       = {}
-            let g:VM_maps['Find Under']         = '<C-n>'
-            let g:VM_maps['Find Subword Under'] = '<C-n>'
-            let g:VM_maps['Select All']         = '<C-d>'
-            let g:VM_maps['Select l']           = '<C-Right>'
-            let g:VM_maps['Select h']           = '<C-Left>'
-            let g:VM_maps['Add Cursor Up']      = '<C-Up>'
-            let g:VM_maps['Add Cursor Down']    = '<C-Down>'
-            let g:VM_maps['Add Cursor At Pos']  = '<C-x>'
-            let g:VM_maps['Add Cursor At Word'] = '<C-w>'
-            let g:VM_maps['Remove Region']      = 'q'
-            let g:VM_maps['Increase']           = '+'
-            let g:VM_maps['Decrease']           = '_'
-            let g:VM_maps["Undo"]               = 'u'
-            let g:VM_maps["Redo"]               = '<C-r>'
-
     " vim-dadbod
         " let g:dbs = [{ 'name': 'connection_name', 'url': 'mysql://user:password@host:port' }]
         let g:db_ui_save_location = '~/.config/zsh/cache'
