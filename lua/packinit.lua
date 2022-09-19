@@ -1,5 +1,39 @@
-require('packer').startup({function(use)
-    use { 'mg979/vim-visual-multi' }; require('pack/vim-visual-multi')
-    use { 'kyazdani42/nvim-web-devicons', 'kyazdani42/nvim-tree.lua' }; require('pack/nvim-tree')
-    use { 'yaocccc/nvim-lines.lua' }; require('pack/nvim-lines')
-end, config = { git = { clone_timeout = 120 } }})
+local packer = require('packer')
+
+local G = require('G')
+local packer_bootstrap = false
+local install_path = G.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if G.fn.empty(G.fn.glob(install_path)) > 0 then
+    print('Installing packer.nvim...')
+    G.fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    G.cmd [[packadd packer.nvim]]
+    packer_bootstrap = true
+end
+
+packer.startup({function(use)
+  use { 'wbthomason/packer.nvim' }
+  use { 'mg979/vim-visual-multi' }
+  use { 'terryma/vim-expand-region' }
+  use { 'kyazdani42/nvim-web-devicons', 'kyazdani42/nvim-tree.lua' }
+  use { 'yaocccc/nvim-lines.lua' }
+  use { 'voldikss/vim-floaterm' }
+  use { 'lfv89/vim-interestingwords' }
+  use { 'junegunn/fzf', run = 'cd ~/.fzf && ./install --all', 'junegunn/fzf.vim' }
+  if packer_bootstrap then
+      require('packer').sync()
+  else
+      require('pack/vim-visual-multi')
+      require('pack/vim-floaterm')
+      require('pack/fzf')
+      require('pack/nvim-tree')
+      require('pack/nvim-lines')
+      require('pack/vim-expand-region')
+      require('pack/vim-interestingwords')
+  end
+end, config = {
+    git = { clone_timeout = 120 },
+    display = {
+        working_sym = '[ ]', error_sym = '[✗]', done_sym = '[✓]', removed_sym = ' - ', moved_sym = ' → ', header_sym = '─',
+        open_fn = function() return require("packer.util").float({ border = "rounded" }) end
+    }
+}})

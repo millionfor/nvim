@@ -3,23 +3,23 @@
             " Plug 'yianwillis/vimcdoc'
             Plug 'terryma/vim-expand-region'
             Plug 'lfv89/vim-interestingwords'
-            Plug 'mg979/vim-visual-multi', {'branch': 'master'}
+            " Plug 'mg979/vim-visual-multi', {'branch': 'master'}
             Plug 'luochen1990/rainbow'
             " Plug 'tpope/vim-dadbod'
-            Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DBUI'] }
+            " Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DBUI'] }
             Plug 'pangloss/vim-javascript', {'for': ['javascript', 'vim-plug']}
             Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm i'  }
             Plug 'neoclide/coc.nvim', {'branch': 'release'}
-            Plug 'voldikss/vim-floaterm' 
+            " Plug 'voldikss/vim-floaterm' 
         " 翻译
             Plug 'VincentCordobes/vim-translate'
 
-            Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-            Plug 'junegunn/fzf.vim'
+            " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+            " Plug 'junegunn/fzf.vim'
             " Plug 'yaocccc/vim-lines'
             Plug 'yaocccc/vim-surround'
             Plug 'millionfor/vim-comment'
-            Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+            " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
             Plug 'posva/vim-vue', { 'for': ['vue' ] }
             Plug 'wincent/vim-clipper'
             Plug 'scrooloose/syntastic'
@@ -29,8 +29,8 @@
         " vim 入口封面
             Plug 'mhinz/vim-startify'
         " nvim-tree
-            Plug 'kyazdani42/nvim-web-devicons'
-            Plug 'kyazdani42/nvim-tree.lua'
+            " Plug 'kyazdani42/nvim-web-devicons'
+            " Plug 'kyazdani42/nvim-tree.lua'
             
         " NERDTree左侧树形目录
             " Plug 'scrooloose/nerdtree'
@@ -286,43 +286,43 @@
             nnoremap <silent>       N         :call WordNavigation('backward')<cr>
 
     " floaterm
-            au BufEnter * if &buftype == 'terminal' | :call timer_start(50, { -> execute('startinsert!') }, { 'repeat': 5 }) | endif
-            let g:floaterm_title = ''
-            let g:floaterm_width = 0.8
-            let g:floaterm_height = 0.8
-            let g:floaterm_autoclose = 1
-            let g:floaterm_opener = 'edit'
-            hi! link FloatermBorder NONE
+            " au BufEnter * if &buftype == 'terminal' | :call timer_start(50, { -> execute('startinsert!') }, { 'repeat': 5 }) | endif
+            " let g:floaterm_title = ''
+            " let g:floaterm_width = 0.8
+            " let g:floaterm_height = 0.8
+            " let g:floaterm_autoclose = 1
+            " let g:floaterm_opener = 'edit'
+            " hi! link FloatermBorder NONE
         " floaterm toggle by name and cmd
-            func FTToggle(name, cmd, pre_cmd) abort
-                if floaterm#terminal#get_bufnr(a:name) != -1
-                    exec 'FloatermToggle ' . a:name
-                else
-                    exec a:pre_cmd
-                    exec printf('FloatermNew --name=%s %s', a:name, a:cmd)
-                endif
-                echo $PWD
-            endf
-            nnoremap <silent>   <c-t> :call FTToggle('TERM', '', "try \| call system('~/scripts/edit-profile.sh VIM_TEM_DIR " . $PWD . "') \| endtry")<cr>
-            nnoremap <silent>   <c-b> :call FTToggle('DBUI', 'nvim +CALLDB', '')<cr>
-            nnoremap <silent>   F     :call FTToggle('RANGER', 'ranger', '')<cr>
-            nnoremap <silent>   L     :call FTToggle('LAZYGIT', 'lazygit', '')<cr>
-            tmap <silent><expr> <c-t> &ft == "floaterm" ? printf('<c-\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('TERM') == bufnr('%') ? '' : '<c-t>') : "<c-t>"
-            tmap <silent><expr> <c-b> &ft == "floaterm" ? printf('<c-\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('DBUI') == bufnr('%') ? '' : '<c-b>') : "<c-b>"
-            tmap <silent><expr> F     &ft == "floaterm" ? printf('<c-\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('RANGER') == bufnr('%') ? '' : 'F') : "F"
-            tmap <silent><expr> L     &ft == "floaterm" ? printf('<c-\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('LAZYGIT') == bufnr('%') ? '' : 'L') : "L"
+            " func FTToggle(name, cmd, pre_cmd) abort
+            "     if floaterm#terminal#get_bufnr(a:name) != -1
+            "         exec 'FloatermToggle ' . a:name
+            "     else
+            "         exec a:pre_cmd
+            "         exec printf('FloatermNew --name=%s %s', a:name, a:cmd)
+            "     endif
+            "     echo $PWD
+            " endf
+            " nnoremap <silent>   <c-t> :call FTToggle('TERM', '', "try \| call system('~/scripts/edit-profile.sh VIM_TEM_DIR " . $PWD . "') \| endtry")<cr>
+            " nnoremap <silent>   <c-b> :call FTToggle('DBUI', 'nvim +CALLDB', '')<cr>
+            " nnoremap <silent>   F     :call FTToggle('RANGER', 'ranger', '')<cr>
+            " nnoremap <silent>   L     :call FTToggle('LAZYGIT', 'lazygit', '')<cr>
+            " tmap <silent><expr> <c-t> &ft == "floaterm" ? printf('<c-\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('TERM') == bufnr('%') ? '' : '<c-t>') : "<c-t>"
+            " tmap <silent><expr> <c-b> &ft == "floaterm" ? printf('<c-\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('DBUI') == bufnr('%') ? '' : '<c-b>') : "<c-b>"
+            " tmap <silent><expr> F     &ft == "floaterm" ? printf('<c-\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('RANGER') == bufnr('%') ? '' : 'F') : "F"
+            " tmap <silent><expr> L     &ft == "floaterm" ? printf('<c-\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('LAZYGIT') == bufnr('%') ? '' : 'L') : "L"
 
     " fzf
         " maps
-            let g:fzf_preview_window = ['right:45%', 'ctrl-/']
-            let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-            let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
-            com! -bar -bang Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right:45%', 'ctrl-/'), <bang>0)
-            nnoremap <silent>       <c-a>     :Ag<cr>
-            nnoremap <silent>       <c-f>     :Files $PWD<cr>
-            nnoremap <silent>       <c-h>     :History<cr>
-            nnoremap <silent>       <c-l>     :BLines<cr>
-            nnoremap <silent>       <c-g>     :GFiles?<cr>
+            " let g:fzf_preview_window = ['right:45%', 'ctrl-/']
+            " let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+            " let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.7 } }
+            " com! -bar -bang Ag call fzf#vim#ag(<q-args>, fzf#vim#with_preview({'options': '--delimiter=: --nth=4..'}, 'right:45%', 'ctrl-/'), <bang>0)
+            " nnoremap <silent>       <c-a>     :Ag<cr>
+            " nnoremap <silent>       <c-f>     :Files $PWD<cr>
+            " nnoremap <silent>       <c-h>     :History<cr>
+            " nnoremap <silent>       <c-l>     :BLines<cr>
+            " nnoremap <silent>       <c-g>     :GFiles?<cr>
 
 
         " vim-dadbod

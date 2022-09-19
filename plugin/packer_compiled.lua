@@ -74,6 +74,16 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  fzf = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/fzf",
+    url = "https://github.com/junegunn/fzf"
+  },
+  ["fzf.vim"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/fzf.vim",
+    url = "https://github.com/junegunn/fzf.vim"
+  },
   ["nvim-lines.lua"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-lines.lua",
@@ -88,6 +98,31 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/kyazdani42/nvim-web-devicons"
+  },
+  ["packer.nvim"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/packer.nvim",
+    url = "https://github.com/wbthomason/packer.nvim"
+  },
+  ["vim-expand-region"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-expand-region",
+    url = "https://github.com/terryma/vim-expand-region"
+  },
+  ["vim-floaterm"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-floaterm",
+    url = "https://github.com/voldikss/vim-floaterm"
+  },
+  ["vim-interestingwords"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-interestingwords",
+    url = "https://github.com/lfv89/vim-interestingwords"
+  },
+  ["vim-visual-multi"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-visual-multi",
+    url = "https://github.com/mg979/vim-visual-multi"
   }
 }
 
