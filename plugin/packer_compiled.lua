@@ -84,6 +84,16 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/fzf.vim",
     url = "https://github.com/junegunn/fzf.vim"
   },
+  ["markdown-preview.nvim"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim",
+    url = "https://github.com/iamcco/markdown-preview.nvim"
+  },
+  ["nvim-hlchunk"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-hlchunk",
+    url = "https://github.com/yaocccc/nvim-hlchunk"
+  },
   ["nvim-lines.lua"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-lines.lua",
@@ -104,6 +114,11 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/packer.nvim",
     url = "https://github.com/wbthomason/packer.nvim"
   },
+  ["vim-comment"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-comment",
+    url = "https://github.com/yaocccc/vim-comment"
+  },
   ["vim-expand-region"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-expand-region",
@@ -118,6 +133,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-interestingwords",
     url = "https://github.com/lfv89/vim-interestingwords"
+  },
+  ["vim-markdown-toc"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-markdown-toc",
+    url = "https://github.com/mzlogin/vim-markdown-toc"
   },
   ["vim-visual-multi"] = {
     loaded = true,

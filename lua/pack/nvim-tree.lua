@@ -14,7 +14,6 @@ nvim_tree.setup({
   sort_by = "name",
   view = {
     width = 36,
-    height = 30,
     hide_root_folder = false,
     side = "right",
     preserve_window_proportions = false,
@@ -33,6 +32,8 @@ nvim_tree.setup({
         { key = "D", action = "toggle_dotfiles" },
       },
     },
+    float = { enable = true, open_win_config = { border = "rounded", width = 30, height = 20, row = 0, col = 999 } }
+
   },
   renderer = {
     indent_markers = {

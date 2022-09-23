@@ -132,21 +132,21 @@
         nnoremap <silent><expr> sd   ":bd<cr>"
 
 " 一键运行文件
-    command! Run  call <SID>runFile()
-    noremap  <F5> :Run<cr>
-    inoremap <F5> <ESC>:Run<cr>
-    fun! s:runFile()
-        exec "w"
-        if     &filetype == 'javascript' | exec 'w !node %'
-        elseif &filetype == 'typescript' | exec 'w !ts-node %'
-        elseif &filetype == 'python' | exec 'w !python %'
-        elseif &filetype == 'go' | exec 'w !go run %'
-        elseif &filetype == 'java' | exec 'w !javac %' | exec 'w !java %<'
-        elseif &filetype == 'markdown' | exec 'MarkdownPreview'
-        elseif &filetype == 'c' | exec 'w !gcc % -o ' . expand('%:r') . ' && ./' . expand('%:r') . ' && rm ./' . expand('%:r')
-        elseif &filetype == 'sh' | exec 'w !./%'
-        endif
-    endf
+    " command! Run  call <SID>runFile()
+    " noremap  <F5> :Run<cr>
+    " inoremap <F5> <ESC>:Run<cr>
+    " fun! s:runFile()
+    "     exec "w"
+    "     if     &filetype == 'javascript' | exec 'w !node %'
+    "     elseif &filetype == 'typescript' | exec 'w !ts-node %'
+    "     elseif &filetype == 'python' | exec 'w !python %'
+    "     elseif &filetype == 'go' | exec 'w !go run %'
+    "     elseif &filetype == 'java' | exec 'w !javac %' | exec 'w !java %<'
+    "     elseif &filetype == 'markdown' | exec 'MarkdownPreview'
+    "     elseif &filetype == 'c' | exec 'w !gcc % -o ' . expand('%:r') . ' && ./' . expand('%:r') . ' && rm ./' . expand('%:r')
+    "     elseif &filetype == 'sh' | exec 'w !./%'
+    "     endif
+    " endf
 
 " 重设tab长度
     command! -nargs=* SetTab call <SID>switchTab(<q-args>)

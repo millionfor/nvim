@@ -22,6 +22,9 @@ G.g.line_nerdfont_enable = 1
 G.g.line_unnamed_filename= '~'
 G.g.line_statusline_getters = {'v:lua.GitInfo', 'v:lua.CocErrCount', 'v:lua.GetFt'}
 G.g.line_hl = { none = 'NONE', light = 'NONE', dark = 'NONE', ['break'] = '244', space = 238 }
+G.g.line_percent_bar = { '░░░', '▒░░', '█░░', '█▒░', '██░', '██▒', '███' }
+G.g.line_statusline_headsymbol = '▒'
+G.g.line_tabline_headsymbol = '▒'
 G.cmd('au VimEnter * hi VimLine_Dark ctermfg=245')
 G.cmd('au VimEnter * hi VimLine_Buf_Dark ctermfg=245')
 G.cmd('au VimEnter * hi VimLine_Other ctermfg=245')

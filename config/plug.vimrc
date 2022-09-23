@@ -1,14 +1,14 @@
 " Plug
     call plug#begin('~/.config/nvim/plugged')
             " Plug 'yianwillis/vimcdoc'
-            Plug 'terryma/vim-expand-region'
+            " Plug 'terryma/vim-expand-region'
             Plug 'lfv89/vim-interestingwords'
             " Plug 'mg979/vim-visual-multi', {'branch': 'master'}
             Plug 'luochen1990/rainbow'
             " Plug 'tpope/vim-dadbod'
             " Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DBUI'] }
             Plug 'pangloss/vim-javascript', {'for': ['javascript', 'vim-plug']}
-            Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm i'  }
+            " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm i'  }
             Plug 'neoclide/coc.nvim', {'branch': 'release'}
             " Plug 'voldikss/vim-floaterm' 
         " 翻译
@@ -38,7 +38,7 @@
             Plug 'ryanoasis/vim-devicons'
         " nerdtree 路径复制到剪切板
             Plug 'mortonfox/nerdtree-clip'
-            Plug 'yaocccc/nvim-hlchunk'
+            " Plug 'yaocccc/nvim-hlchunk'
         " 注释插件
             Plug 'scrooloose/nerdcommenter'
         " typescript-vim
@@ -53,7 +53,7 @@
             Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
             Plug 'nvim-treesitter/playground'
         " 压缩
-            Plug 'Shadowsith/vim-minify'
+            " Plug 'Shadowsith/vim-minify'
         " 注释
             Plug 'tpope/vim-commentary'
             Plug 'Shougo/context_filetype.vim'
@@ -83,90 +83,9 @@
             let g:prettier#autoformat_config_files = ["~/.prettierrc"]
             let g:prettier#exec_cmd_path = "/usr/local/bin/prettier"
 
-    " scrooloose/nerdcommenter
-            "   " Create default mappings
-            " let g:NERDCreateDefaultMappings = 1
 
-            " " Add spaces after comment delimiters by default
-            " let g:NERDSpaceDelims = 1
-
-            " " Use compact syntax for prettified multi-line comments
-            " let g:NERDCompactSexyComs = 1
-
-            " " Align line-wise comment delimiters flush left instead of following code indentation
-            " let g:NERDDefaultAlign = 'left'
-
-            " " Set a language to use its alternate delimiters by default
-            " let g:NERDAltDelims_java = 1
-
-            " " Add your own custom formats or override the defaults
-            " let g:NERDCustomDelimiters = { 'c': { 'left': '/**','right': '*/' } }
-
-            " " Allow commenting and inverting empty lines (useful when commenting a region)
-            " let g:NERDCommentEmptyLines = 1
-
-            " " Enable trimming of trailing whitespace when uncommenting
-            " let g:NERDTrimTrailingWhitespace = 1
-
-            " " Enable NERDCommenterToggle to check all selected lines is commented or not 
-            " let g:NERDToggleCheckAllLines = 1
-
-            " vnoremap <leader>c :OSCYank<CR>
-            " let g:oscyank_max_length = 1000000
-            " autocmd TextYankPost * if v:event.operator is 'y' && v:event.regname is '' | OSCYankReg " | endif
-            " autocmd TextYankPost * if v:event.operator is 'p' && v:event.regname is '+' | OSCYankReg + | endif
-
-            autocmd FileType vue syntax sync fromstart
-            " autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-            let g:vue_pre_processors = 'detect_on_enter'
-
-            au VimEnter * hi IndentLineSign ctermfg=248
-
-          " 支持哪些文件 默认为 '*.ts,*.js,*.json,*.go,*.c'
-            let g:hlchunk_files = '*.ts,*.js,*.json,*.go,*.c,*.vue,*.html'
-          " 缩进线的高亮
-            au VimEnter * hi HLIndentLine ctermfg=244
-          " 延时 默认为50
-            let g:hlchunk_time_delay = 50
-          " 高亮线符号(逆时针) 默认为 ['─', '─', '╭', '│', '╰', '─', '>']
-            let g:hlchunk_chars=['─', '─', '╭', '│', '╰', '─', '>']
-          " 最大支持行数 默认3000(超过5000行的文件不使用hlchunk)
-            let g:hlchunk_line_limit = 5000
-          " 最大支持列数 默认100(超过500列的文件不使用hlchunk)
-            let g:hlchunk_col_limit = 500
-
-    " 自定义按键
-            nmap     <silent>       E         :call Tests("doHover")<cr>
-
-            func Tests()
-              call setline(1,"2222") 
-            endfunc
-    "  " T快速向下打开一个终端
-           " nnoremap F :below 10sp +term<cr>a
     " defx-icons 配置
             set encoding=UTF-8
-    " scrooloose/nerdtree 设置目录树
-            " "NERDTree快捷键
-            " :nnoremap <F1> :NERDTree <cr>
-            " " 按<F1>打开或关闭文件目录树
-            " :nnoremap <F1> :NERDTreeToggle<cr>
-
-            " " 鼠标操作点击打开隐藏文件夹
-            " let NERDTreeMouseMode = 2
-            " " 显示隐藏文件 
-            " let NERDTreeShowHidden = 2
-            " " 开启NERDTree后进入vim如何默认光标在右侧文件编辑区
-            "   autocmd VimEnter *
-            "   \   if !argc()
-            "   \ |   Startify
-            "   \ |   NERDTree
-            "   \ |   wincmd w
-            "   \ | endif
-
-            " autocmd StdinReadPre * let s:std_in=1
-            " autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
-            " " 只有一个文件 自动退出NERDTree
-            " autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
 
 
     " vim-startify 封面设置
@@ -265,8 +184,8 @@
 
     " vim-expand-region 快速选择
         " v扩大选择 V缩小选择
-            vmap     <silent>       v         <Plug>(expand_region_expand)
-            vmap     <silent>       V         <Plug>(expand_region_shrink)
+            " vmap     <silent>       v         <Plug>(expand_region_expand)
+            " vmap     <silent>       V         <Plug>(expand_region_shrink)
 
     " rainbow
             let g:rainbow_active = 1
@@ -277,31 +196,6 @@
             let g:javascript_plugin_ngdoc = 1
             let g:javascript_plugin_flow = 1
 
-
-    " yaocccc
-        " line
-            let g:vim_line_comments = { 'vim': '"', 'vimrc': '"',
-                                     \  'js': '//', 'ts': '//', 'vue': '//',
-                                     \  'java': '//', 'class': '//',
-                                     \  'c': '//', 'h': '//',
-                                     \  'go': '//' }
-
-            let g:line_statusline_getters = ['CocErrCount', 'GitInfo']            
-            func! CocErrCount()                
-              return printf(' E%d ', get(get(b:, 'coc_diagnostic_info', {}), 'error', 0))            
-            endf            
-            func! GitInfo()                
-              let info = ''                
-              let branch = get(g:, 'coc_git_status', '')                
-              let diff = get(b:, 'coc_git_status', '')                
-              let info .= len(branch) ? printf(' %s ', branch) : ' none '                
-              let info .= len(diff) ? printf('%s ', trim(diff)) : ''                
-              return info            
-            endf
-        " comment
-            nnoremap <silent> ??           :NToggleComment<cr>
-            vnoremap <silent> /       :<c-u>VToggleComment<cr>
-            vnoremap <silent> ?       :<c-u>CToggleComment<cr>
 
 autocmd FileType apache setlocal commentstring=#\ %s
 

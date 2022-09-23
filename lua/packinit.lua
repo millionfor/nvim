@@ -1,5 +1,3 @@
-local packer = require('packer')
-
 local G = require('G')
 local packer_bootstrap = false
 local install_path = G.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
@@ -10,14 +8,15 @@ if G.fn.empty(G.fn.glob(install_path)) > 0 then
     packer_bootstrap = true
 end
 
-packer.startup({function(use)
+require('packer').startup({function(use)
   use { 'wbthomason/packer.nvim' }
   use { 'mg979/vim-visual-multi' }
   use { 'terryma/vim-expand-region' }
   use { 'kyazdani42/nvim-web-devicons', 'kyazdani42/nvim-tree.lua' }
-  use { 'yaocccc/nvim-lines.lua' }
+  use { 'yaocccc/nvim-lines.lua', 'yaocccc/vim-comment', 'yaocccc/nvim-hlchunk' }
   use { 'voldikss/vim-floaterm' }
   use { 'lfv89/vim-interestingwords' }
+  use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview', 'mzlogin/vim-markdown-toc' }
   use { 'junegunn/fzf', run = 'cd ~/.fzf && ./install --all', 'junegunn/fzf.vim' }
   if packer_bootstrap then
       require('packer').sync()
@@ -29,6 +28,8 @@ packer.startup({function(use)
       require('pack/nvim-lines')
       require('pack/vim-expand-region')
       require('pack/vim-interestingwords')
+      require('pack/markdown')
+      require('pack/vim-comment')
   end
 end, config = {
     git = { clone_timeout = 120 },
