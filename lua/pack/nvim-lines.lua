@@ -21,7 +21,7 @@ G.g.line_powerline_enable = 1
 G.g.line_nerdfont_enable = 1
 G.g.line_unnamed_filename= '~'
 G.g.line_statusline_getters = {'v:lua.GitInfo', 'v:lua.CocErrCount', 'v:lua.GetFt'}
-G.g.line_hl = { none = 'NONE', light = 'NONE', dark = 'NONE', ['break'] = '244', space = 238 }
+G.g.line_hl = { none = 'NONE', light = '24', dark = '238', ['break'] = '244', space = 238 }
 G.g.line_percent_bar = { '░░░', '▒░░', '█░░', '█▒░', '██░', '██▒', '███' }
 G.g.line_statusline_headsymbol = '▒'
 G.g.line_tabline_headsymbol = '▒'

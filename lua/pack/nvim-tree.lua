@@ -13,7 +13,7 @@ nvim_tree.setup({
   open_on_tab = false,
   sort_by = "name",
   view = {
-    width = 36,
+    width = 46,
     hide_root_folder = false,
     side = "left",
     preserve_window_proportions = false,
@@ -32,7 +32,7 @@ nvim_tree.setup({
         { key = "D", action = "toggle_dotfiles" },
       },
     },
-    float = { enable = true, open_win_config = { border = "rounded", width = 30, height = 60, row = 0, col = 999 } }
+    float = { enable = true, open_win_config = { border = "rounded", width = 46, height = 60, row = 0, col = 999 } }
 
   },
   renderer = {

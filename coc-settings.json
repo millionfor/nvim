@@ -52,5 +52,6 @@
         "staticcheck": true
     },
     "git.enableGutters": true,
-    "volar.takeOverMode.enabled": true
+    "volar.takeOverMode.enabled": true,
+    "vetur.ignoreProjectWarning": true
 }
