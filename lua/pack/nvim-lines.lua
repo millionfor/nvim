@@ -27,4 +27,12 @@ G.g.line_statusline_headsymbol = '▒'
 G.g.line_tabline_headsymbol = '▒'
 G.cmd('au VimEnter * hi VimLine_Dark ctermfg=245')
 G.cmd('au VimEnter * hi VimLine_Buf_Dark ctermfg=245')
-G.cmd('au VimEnter * hi VimLine_Other ctermfg=245')
+G.cmd('au VimEnter * hi VimLine_Dark_None ctermfg=245')
+G.cmd('au VimEnter * hi VimLine_Buf_Light ctermfg=238 ctermbg=244 guifg=#61AFEF')
+
+
+
+
+
+
+

@@ -29,13 +29,13 @@ require('packer').startup({function(use)
       require('pack/fzf')
       require('pack/coc')
       require('pack/nvim-tree')
-      require('pack/nvim-lines')
       require('pack/vim-expand-region')
       require('pack/vim-interestingwords')
       require('pack/markdown')
       require('pack/vim-comment')
       require('pack/tree-sitter')
       require('pack/vim-hlchunk')
+      require('pack/nvim-lines')
   end
 end, config = {
     git = { clone_timeout = 120 },
