@@ -13,6 +13,7 @@ require('packer').startup({function(use)
   use { 'mg979/vim-visual-multi' }
   use { 'terryma/vim-expand-region' }
   use { 'neoclide/coc.nvim', branch = 'release' }
+  use { 'yaegassy/coc-volar', 'yaegassy/coc-volar-tools' }
   use { 'kyazdani42/nvim-web-devicons', 'kyazdani42/nvim-tree.lua' }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', 'nvim-treesitter/playground', 'ful1e5/onedark.nvim' }
   use { 'yaocccc/nvim-lines.lua', 'yaocccc/vim-comment', 'yaocccc/nvim-hlchunk' }

@@ -74,6 +74,16 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["coc-volar"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/coc-volar",
+    url = "https://github.com/yaegassy/coc-volar"
+  },
+  ["coc-volar-tools"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/coc-volar-tools",
+    url = "https://github.com/yaegassy/coc-volar-tools"
+  },
   ["coc.nvim"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/coc.nvim",
