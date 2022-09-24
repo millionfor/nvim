@@ -2,90 +2,79 @@
     call plug#begin('~/.config/nvim/plugged')
             " Plug 'yianwillis/vimcdoc'
             " Plug 'terryma/vim-expand-region'
-            Plug 'lfv89/vim-interestingwords'
+            " Plug 'lfv89/vim-interestingwords'
             " Plug 'mg979/vim-visual-multi', {'branch': 'master'}
-            Plug 'luochen1990/rainbow'
+            " Plug 'luochen1990/rainbow'
             " Plug 'tpope/vim-dadbod'
             " Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DBUI'] }
-            Plug 'pangloss/vim-javascript', {'for': ['javascript', 'vim-plug']}
+            " Plug 'pangloss/vim-javascript', {'for': ['javascript', 'vim-plug']}
             " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm i'  }
             Plug 'neoclide/coc.nvim', {'branch': 'release'}
             " Plug 'voldikss/vim-floaterm' 
         " 翻译
-            Plug 'VincentCordobes/vim-translate'
+            " Plug 'VincentCordobes/vim-translate'
 
             " Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
             " Plug 'junegunn/fzf.vim'
             " Plug 'yaocccc/vim-lines'
-            Plug 'yaocccc/vim-surround'
-            Plug 'millionfor/vim-comment'
+            " Plug 'yaocccc/vim-surround'
+            " Plug 'millionfor/vim-comment'
             " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-            Plug 'posva/vim-vue', { 'for': ['vue' ] }
-            Plug 'wincent/vim-clipper'
-            Plug 'scrooloose/syntastic'
+            " Plug 'posva/vim-vue', { 'for': ['vue' ] }
+            " Plug 'wincent/vim-clipper'
+            " Plug 'scrooloose/syntastic'
             " Plug 'tpope/vim-dadbod'
             " Plug 'kristijanhusak/vim-dadbod-ui', { 'on': ['DBUI'] }
             " Plug 'ojroques/vim-oscyank', {'branch': 'main'}
         " vim 入口封面
-            Plug 'mhinz/vim-startify'
-        " nvim-tree
-            " Plug 'kyazdani42/nvim-web-devicons'
-            " Plug 'kyazdani42/nvim-tree.lua'
-            
-        " NERDTree左侧树形目录
-            " Plug 'scrooloose/nerdtree'
-        " nerdtree字体图标
-            Plug 'ryanoasis/vim-devicons'
-        " nerdtree 路径复制到剪切板
-            Plug 'mortonfox/nerdtree-clip'
-            " Plug 'yaocccc/nvim-hlchunk'
+            " Plug 'mhinz/vim-startify'
         " 注释插件
-            Plug 'scrooloose/nerdcommenter'
+            " Plug 'scrooloose/nerdcommenter'
         " typescript-vim
             " Plug 'leafgarland/typescript-vim'
            
         " jsx 支持    
-            Plug 'HerringtonDarkholme/yats.vim'
+            " Plug 'HerringtonDarkholme/yats.vim'
             " or Plug 'leafgarland/typescript-vim'
-            Plug 'maxmellon/vim-jsx-pretty'
+            " Plug 'maxmellon/vim-jsx-pretty'
 
             " Treesitter
-            Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-            Plug 'nvim-treesitter/playground'
+            " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+            " Plug 'nvim-treesitter/playground'
         " 压缩
             " Plug 'Shadowsith/vim-minify'
         " 注释
-            Plug 'tpope/vim-commentary'
-            Plug 'Shougo/context_filetype.vim'
-            Plug 'tyru/caw.vim'
+            " Plug 'tpope/vim-commentary'
+            " Plug 'Shougo/context_filetype.vim'
+            " Plug 'tyru/caw.vim'
         " post install (yarn install | npm install) then load plugin only for editing supported files
-            Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
+            " Plug 'prettier/vim-prettier', { 'do': 'yarn install --frozen-lockfile --production' }
     call plug#end()
 
 " Plug Setting
-            let g:translate#default_languages = {
-                  \ 'zh-CN': 'en',
-                  \ 'en': 'zh-CN'
-                  \ }
-            vnoremap <silent> M :TranslateVisual<CR>
-            vnoremap <silent> mm :TranslateReplace<CR>
-        " when running at every change you may want to disable quickfix
-            let g:prettier#quickfix_enabled = 1
-            " autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
-            let g:prettier#autoformat = 0
-            let g:prettier#autoformat_require_pragma = 0
+        "     let g:translate#default_languages = {
+        "           \ 'zh-CN': 'en',
+        "           \ 'en': 'zh-CN'
+        "           \ }
+        "     vnoremap <silent> M :TranslateVisual<CR>
+        "     vnoremap <silent> mm :TranslateReplace<CR>
+        " " when running at every change you may want to disable quickfix
+        "     let g:prettier#quickfix_enabled = 1
+        "     " autocmd TextChanged,InsertLeave *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue,*.svelte,*.yaml,*.html PrettierAsync
+        "     let g:prettier#autoformat = 0
+        "     let g:prettier#autoformat_require_pragma = 0
 
-            :nnoremap <F3> :PrettierAsync <cr>
+        "     :nnoremap <F3> :PrettierAsync <cr>
 
-            " 字符串使用单引号
-            " 尾逗号
-            " 末尾使用分号
-            let g:prettier#autoformat_config_files = ["~/.prettierrc"]
-            let g:prettier#exec_cmd_path = "/usr/local/bin/prettier"
+        "     " 字符串使用单引号
+        "     " 尾逗号
+        "     " 末尾使用分号
+        "     let g:prettier#autoformat_config_files = ["~/.prettierrc"]
+        "     let g:prettier#exec_cmd_path = "/usr/local/bin/prettier"
 
 
     " defx-icons 配置
-            set encoding=UTF-8
+            " set encoding=UTF-8
 
 
     " vim-startify 封面设置
@@ -94,26 +83,26 @@
             " \ '~/Project/test.cpp',
             " \]
             "起始页显示的列表长度
-            let g:startify_files_number = 14
-            "自动加载session
-            let g:startify_session_autoload = 1
-            "过滤列表，支持正则表达式
-            let g:startify_skiplist = [
-            \ '^/tmp',
-            \ ]
-            "自定义Header和Footer
-            let g:startify_custom_header = [
-            \'                                                                               ____                     ____                      _____ _____  ______           ', 
-            \'                                                           █████              / __ \                   / __ \                    |_   _|  __ \|  ____|   /\     ', 
-            \'                                                         ▒██▓  ██▒           | |  | |_   _  __ _ _ __ | |  | |_   _  __ _ _ __     | | | |  | | |__     /  \    ', 
-            \'                                                         ▒██▒  ██░           | |  | | | | |/ _  |  _ \| |  | | | | |/ _  |  _ \    | | | |  | |  __|   / /\ \   ',
-            \'                                                         ░██  █▀ ░           | |__| | |_| | (_| | | | | |__| | |_| | (_| | | | |  _| |_| |__| | |____ / ____ \  ',
-            \'                                                         ░▒███▒█▄             \___\_\\__,_|\__,_|_| |_|\___\_\\__,_|\__,_|_| |_| |_____|_____/|______/_/    \_\ ',
-            \'                                                         ░░ ▒▒░ ▒ ',
-            \'                                                          ░ ▒░  ░            +---------------------------------------------------------------------------------+',
-            \'                                                            ░   ░            |          圈圈(@millionfor) <millionfor@apache.org> wwww.quanquansy.com          |',
-            \'                                                             ░               +---------------------------------------------------------------------------------+',
-            \]
+            " let g:startify_files_number = 14
+            " "自动加载session
+            " let g:startify_session_autoload = 1
+            " "过滤列表，支持正则表达式
+            " let g:startify_skiplist = [
+            " \ '^/tmp',
+            " \ ]
+            " "自定义Header和Footer
+            " let g:startify_custom_header = [
+            " \'                                                                               ____                     ____                      _____ _____  ______           ', 
+            " \'                                                           █████              / __ \                   / __ \                    |_   _|  __ \|  ____|   /\     ', 
+            " \'                                                         ▒██▓  ██▒           | |  | |_   _  __ _ _ __ | |  | |_   _  __ _ _ __     | | | |  | | |__     /  \    ', 
+            " \'                                                         ▒██▒  ██░           | |  | | | | |/ _  |  _ \| |  | | | | |/ _  |  _ \    | | | |  | |  __|   / /\ \   ',
+            " \'                                                         ░██  █▀ ░           | |__| | |_| | (_| | | | | |__| | |_| | (_| | | | |  _| |_| |__| | |____ / ____ \  ',
+            " \'                                                         ░▒███▒█▄             \___\_\\__,_|\__,_|_| |_|\___\_\\__,_|\__,_|_| |_| |_____|_____/|______/_/    \_\ ',
+            " \'                                                         ░░ ▒▒░ ▒ ',
+            " \'                                                          ░ ▒░  ░            +---------------------------------------------------------------------------------+',
+            " \'                                                            ░   ░            |          圈圈(@millionfor) <millionfor@apache.org> wwww.quanquansy.com          |',
+            " \'                                                             ░               +---------------------------------------------------------------------------------+',
+            " \]
 
             " let g:startify_list_order = [
             " \ ['   These are my bookmarks:'],
@@ -143,6 +132,13 @@
                 \ 'coc-explorer', 'coc-git'
                 \ ]
         " maps
+            " gist list
+            nmap     <silent>       gl     :<c-u>CocList gist<cr>
+            " gist.create
+            nmap     <silent>       gc     :<c-u>CocCommand gist.create<cr>
+            " gist.update
+            nmap     <silent>       gu     :<c-u>CocCommand gist.update<cr>
+" maps
             nmap     <silent>       <F2>      <Plug>(coc-rename)
             nmap     <silent>       gd        <Plug>(coc-definition)
             nmap     <silent>       gy        <Plug>(coc-type-definition)
@@ -176,8 +172,7 @@
             nmap     <silent><expr> C         get(b:, 'coc_git_blame', '') ==# 'Not committed yet' ? "<Plug>(coc-git-chunkinfo)" : "<Plug>(coc-git-commit)"
             nmap     <silent>       <leader>g :call coc#config('git.addGBlameToVirtualText',  !get(g:coc_user_config, 'git.addGBlameToVirtualText', 0))<cr>
         " coc-explorer
-            nnoremap <silent>       tt        :CocCommand explorer --preset floating --position left<cr>
-            :nnoremap <F1> :CocCommand explorer --preset floating --position left<cr>
+            nnoremap <silent>       tt        :CocCommand explorer --preset floating<cr>
             au User CocExplorerOpenPre  hi Pmenu ctermbg=NONE
             au User CocExplorerQuitPost hi Pmenu ctermbg=238
             au User CocExplorerQuitPost echo
@@ -188,16 +183,9 @@
             " vmap     <silent>       V         <Plug>(expand_region_shrink)
 
     " rainbow
-            let g:rainbow_active = 1
-            let g:rainbow_conf = {'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'blue', 'yellow', 'cyan', 'magenta']}
+            " let g:rainbow_active = 1
+            " let g:rainbow_conf = {'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta', 'blue', 'yellow', 'cyan', 'magenta']}
 
-    " vim-javascript
-            let g:javascript_plugin_jsdoc = 1
-            let g:javascript_plugin_ngdoc = 1
-            let g:javascript_plugin_flow = 1
-
-
-autocmd FileType apache setlocal commentstring=#\ %s
 
 " some hook
 " cd ~/.config/coc/extensions/node_modules/coc-ccls

@@ -12,7 +12,9 @@ require('packer').startup({function(use)
   use { 'wbthomason/packer.nvim' }
   use { 'mg979/vim-visual-multi' }
   use { 'terryma/vim-expand-region' }
+  use { 'neoclide/coc.nvim', branch = 'release' }
   use { 'kyazdani42/nvim-web-devicons', 'kyazdani42/nvim-tree.lua' }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', 'nvim-treesitter/playground', 'ful1e5/onedark.nvim' }
   use { 'yaocccc/nvim-lines.lua', 'yaocccc/vim-comment', 'yaocccc/nvim-hlchunk' }
   use { 'voldikss/vim-floaterm' }
   use { 'lfv89/vim-interestingwords' }
@@ -24,12 +26,15 @@ require('packer').startup({function(use)
       require('pack/vim-visual-multi')
       require('pack/vim-floaterm')
       require('pack/fzf')
+      require('pack/coc')
       require('pack/nvim-tree')
       require('pack/nvim-lines')
       require('pack/vim-expand-region')
       require('pack/vim-interestingwords')
       require('pack/markdown')
       require('pack/vim-comment')
+      require('pack/tree-sitter')
+      require('pack/vim-hlchunk')
   end
 end, config = {
     git = { clone_timeout = 120 },
