@@ -21,6 +21,14 @@ require('packer').startup({function(use)
   use { 'lfv89/vim-interestingwords' }
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview', 'mzlogin/vim-markdown-toc' }
   use { 'junegunn/fzf', run = 'cd ~/.fzf && ./install --all', 'junegunn/fzf.vim' }
+
+  --自用
+  use { 'goolord/alpha-nvim', 'kyazdani42/nvim-web-devicons' }
+  use { 'VincentCordobes/vim-translate' }
+  use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production' }
+
+  
+
   if packer_bootstrap then
       require('packer').sync()
   else
@@ -36,6 +44,11 @@ require('packer').startup({function(use)
       require('pack/tree-sitter')
       require('pack/vim-hlchunk')
       require('pack/nvim-lines')
+
+      --自用
+      require('pack/alpha-nvim')
+      require('pack/vim-translate')
+      require('pack/vim-prettier')
   end
 end, config = {
     git = { clone_timeout = 120 },

@@ -74,6 +74,11 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["alpha-nvim"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/alpha-nvim",
+    url = "https://github.com/goolord/alpha-nvim"
+  },
   ["coc-volar"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/coc-volar",
@@ -168,6 +173,16 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-markdown-toc",
     url = "https://github.com/mzlogin/vim-markdown-toc"
+  },
+  ["vim-prettier"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-prettier",
+    url = "https://github.com/prettier/vim-prettier"
+  },
+  ["vim-translate"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-translate",
+    url = "https://github.com/VincentCordobes/vim-translate"
   },
   ["vim-visual-multi"] = {
     loaded = true,
