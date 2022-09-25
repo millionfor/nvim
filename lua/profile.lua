@@ -2,7 +2,7 @@ local G = require('G')
 
 -- 设置leader为\ 设置python3对应的目录，你可以手动 export PYTHON=$(which python3) 到你的终端配置中
 G.cmd([[
-    let mapleader="\\"
+    let mapleader=","
     let g:python3_host_prog = $PYTHON
 ]])
 

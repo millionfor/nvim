@@ -13,7 +13,8 @@ G.g.coc_global_extensions = {
     'coc-prettier',
     'coc-snippets', 'coc-pairs', 'coc-word',
     'coc-translator',
-    'coc-git'
+    'coc-git',
+    'coc-gist'
     -- 'coc-tabnine'
 }
 G.cmd('autocmd FileType javascript,typescript,json,vue vmap <buffer> = <Plug>(coc-format-selected)')
@@ -22,7 +23,7 @@ G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
 G.cmd("hi! link CocPum Pmenu")
 G.cmd("hi! link CocMenuSel PmenuSel")
 G.map({
-    { 'n', '<F2>', '<Plug>(coc-rename)', {silent = true} },
+    -- { 'n', '<F2>', '<Plug>(coc-rename)', {silent = true} },
     { 'n', 'gd', '<Plug>(coc-definition)', {silent = true} },
     { 'n', 'gy', '<Plug>(coc-type-definition)', {silent = true} },
     { 'n', 'gi', '<Plug>(coc-implementation)', {silent = true} },
@@ -47,4 +48,8 @@ G.map({
     { 'v', '<c-b>', 'coc#float#has_scroll() ? coc#float#scroll(0) : \"\\<C-b>\"',  {silent = true, noremap = true, expr = true, nowait = true} },
     { 'i', '<c-f>', 'coc#float#has_scroll() ? \"\\<c-r>=coc#float#scroll(1)\\<cr>\" : \"\\<Right>\"',  {silent = true, noremap = true, expr = true, nowait = true} },
     { 'i', '<c-b>', 'coc#float#has_scroll() ? \"\\<c-r>=coc#float#scroll(0)\\<cr>\" : \"\\<Left>\"',  {silent = true, noremap = true, expr = true, nowait = true} },
+
+    { 'n', 'gl', ":CocList gist<cr>", {silent = true, noremap = true} },
+    { 'n', 'gc', ":CocCommand gist.create<cr>", {silent = true, noremap = true} },
+    { 'n', 'gu', ":CocCommand gist.update<cr>", {silent = true, noremap = true} },
 })

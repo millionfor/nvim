@@ -47,7 +47,7 @@ func s:getTemplete(type)
         \    s:getCreatedTimeStr(),
         \    s:getModifiedTimeStr(),
         \    " * @Author          QuanQuan <millionfor@apache.org>",
-        \    " * @Description     x",
+        \    " * @Description     js",
         \    " */",
         \],
         \'typescript': [
@@ -56,7 +56,7 @@ func s:getTemplete(type)
         \    s:getCreatedTimeStr(),
         \    s:getModifiedTimeStr(),
         \    " * @Author          QuanQuan <millionfor@apache.org>",
-        \    " * @Description     x",
+        \    " * @Description     ts",
         \    " */",
         \],
         \'default': [
@@ -65,7 +65,7 @@ func s:getTemplete(type)
         \    s:getCreatedTimeStr(),
         \    s:getModifiedTimeStr(),
         \    " * @Author          QuanQuan <millionfor@apache.org>",
-        \    " * @Description     x",
+        \    " * @Description     default",
         \    " */",
         \],
         \}
