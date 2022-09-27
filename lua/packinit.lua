@@ -11,6 +11,7 @@ end
 require('packer').startup({function(use)
   use { 'wbthomason/packer.nvim' }
   use { 'mg979/vim-visual-multi' }
+  use { 'yaocccc/vim-surround' }
   use { 'terryma/vim-expand-region' }
   use { 'neoclide/coc.nvim', branch = 'release' }
   use { 'yaegassy/coc-volar', 'yaegassy/coc-volar-tools' }
