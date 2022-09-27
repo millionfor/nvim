@@ -15,7 +15,7 @@ require('packer').startup({function(use)
   use { 'neoclide/coc.nvim', branch = 'release' }
   use { 'yaegassy/coc-volar', 'yaegassy/coc-volar-tools' }
   use { 'kyazdani42/nvim-web-devicons', 'kyazdani42/nvim-tree.lua' }
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', 'nvim-treesitter/playground', 'ful1e5/onedark.nvim' }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', 'nvim-treesitter/playground' }
   use { 'yaocccc/nvim-lines.lua', 'yaocccc/vim-comment', 'yaocccc/nvim-hlchunk' }
   use { 'voldikss/vim-floaterm' }
   use { 'lfv89/vim-interestingwords' }
@@ -26,8 +26,7 @@ require('packer').startup({function(use)
   use { 'goolord/alpha-nvim', 'kyazdani42/nvim-web-devicons' }
   use { 'VincentCordobes/vim-translate' }
   use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production' }
-
-  
+  use { 'millionfor/onedark.nvim' }
 
   if packer_bootstrap then
       require('packer').sync()
@@ -49,6 +48,7 @@ require('packer').startup({function(use)
       require('pack/alpha-nvim')
       require('pack/vim-translate')
       require('pack/vim-prettier')
+      require('pack/onedark')
   end
 end, config = {
     git = { clone_timeout = 120 },

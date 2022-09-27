@@ -137,7 +137,7 @@ _G.packer_plugins = {
   ["onedark.nvim"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/onedark.nvim",
-    url = "https://github.com/ful1e5/onedark.nvim"
+    url = "https://github.com/millionfor/onedark.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
