@@ -17,7 +17,11 @@ require('packer').startup({function(use)
   use { 'yaegassy/coc-volar', 'yaegassy/coc-volar-tools' }
   use { 'kyazdani42/nvim-web-devicons', 'kyazdani42/nvim-tree.lua' }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', 'nvim-treesitter/playground' }
-  use { 'yaocccc/nvim-lines.lua', 'yaocccc/vim-comment', 'yaocccc/nvim-hlchunk' }
+  use { 
+    'yaocccc/nvim-lines.lua',
+    -- 'yaocccc/vim-comment',
+    'yaocccc/nvim-hlchunk'
+  }
   use { 'voldikss/vim-floaterm' }
   use { 'lfv89/vim-interestingwords' }
   use { 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', cmd = 'MarkdownPreview', 'mzlogin/vim-markdown-toc' }
@@ -28,6 +32,8 @@ require('packer').startup({function(use)
   use { 'VincentCordobes/vim-translate' }
   use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production' }
   use { 'millionfor/onedark.nvim' }
+  use { 'numToStr/Comment.nvim' }
+
 
   if packer_bootstrap then
       require('packer').sync()
@@ -40,7 +46,7 @@ require('packer').startup({function(use)
       require('pack/vim-expand-region')
       require('pack/vim-interestingwords')
       require('pack/markdown')
-      require('pack/vim-comment')
+      -- require('pack/vim-comment')
       require('pack/tree-sitter')
       require('pack/vim-hlchunk')
       require('pack/nvim-lines')
@@ -50,6 +56,7 @@ require('packer').startup({function(use)
       require('pack/vim-translate')
       require('pack/vim-prettier')
       require('pack/onedark')
+      require('pack/Comment')
   end
 end, config = {
     git = { clone_timeout = 120 },
