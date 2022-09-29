@@ -5,4 +5,3 @@ colorscheme solarized8_high
 call plug#begin('~/.config/nvim/plugged')
 call plug#end()
 
-

@@ -20,4 +20,5 @@ G.map({
     { 'n', '<c-l>', ':BLines<cr>', {silent = true, noremap = true}},
     { 'n', '<c-g>', ':GFiles?<cr>', {silent = true, noremap = true}},
     { 'n', '<c-h>', ':call CHistory()<cr>', {silent = true, noremap = true}},
+    { 'n', 'L', ":call lazygit()<cr>", {silent = true, noremap = true}},
 })

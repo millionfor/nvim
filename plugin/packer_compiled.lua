@@ -154,10 +154,10 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/playground",
     url = "https://github.com/nvim-treesitter/playground"
   },
-  ["vim-comment"] = {
+  ["toggleterm.nvim"] = {
     loaded = true,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-comment",
-    url = "https://github.com/yaocccc/vim-comment"
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/toggleterm.nvim",
+    url = "https://github.com/akinsho/toggleterm.nvim"
   },
   ["vim-expand-region"] = {
     loaded = true,
