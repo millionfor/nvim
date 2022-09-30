@@ -34,6 +34,7 @@ require('packer').startup({function(use)
   use { 'millionfor/onedark.nvim' }
   use { 'numToStr/Comment.nvim' }
   use { 'akinsho/toggleterm.nvim' }
+  use { 'puremourning/vimspector' }
 
   if packer_bootstrap then
       require('packer').sync()
@@ -58,6 +59,8 @@ require('packer').startup({function(use)
       require('pack/onedark')
       require('pack/Comment')
       require('pack/toggleterm')
+      require('pack/vimspector')
+
   end
 end, config = {
     git = { clone_timeout = 120 },

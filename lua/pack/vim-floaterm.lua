@@ -43,9 +43,9 @@ SetFTToggleMap('<c-b>', 'DBUI', 'nvim +CALLDB', '')
 -- SetFTToggleMap('<c-t>', 'TERM', '', 'call SetVimDir()')
 --
 G.map({
-    { 'n', '<F5>', ':call v:lua.RunFile()<cr>', {silent = true, noremap = true}},
-    { 'i', '<F5>', '<esc>:call v:lua.RunFile()<cr>', {silent = true, noremap = true}},
-    { 't', '<F5>', "&ft == \"floaterm\" ? printf('<c-\\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('RUN') == bufnr('%') ? '' : '<F5>') : '<F5>'", {silent = true, expr = true}},
+    { 'n', '<F2>', ':call v:lua.RunFile()<cr>', {silent = true, noremap = true}},
+    { 'i', '<F2>', '<esc>:call v:lua.RunFile()<cr>', {silent = true, noremap = true}},
+    { 't', '<F2>', "&ft == \"floaterm\" ? printf('<c-\\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('RUN') == bufnr('%') ? '' : '<F2>') : '<F2>'", {silent = true, expr = true}},
 })
 
 

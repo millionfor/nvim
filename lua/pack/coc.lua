@@ -14,7 +14,8 @@ G.g.coc_global_extensions = {
     'coc-snippets', 'coc-pairs', 'coc-word',
     'coc-translator',
     'coc-git',
-    'coc-gist'
+    'coc-gist',
+    'coc-vetur'
     -- 'coc-tabnine'
 }
 G.cmd('autocmd FileType javascript,typescript,json,vue vmap <buffer> = <Plug>(coc-format-selected)')
@@ -22,6 +23,9 @@ G.cmd('autocmd FileType javascript,typescript,json,vue nmap <buffer> = <Plug>(co
 G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
 G.cmd("hi! link CocPum Pmenu")
 G.cmd("hi! link CocMenuSel PmenuSel")
+
+  
+
 G.map({
     -- { 'n', '<F2>', '<Plug>(coc-rename)', {silent = true} },
     { 'n', 'gd', '<Plug>(coc-definition)', {silent = true} },
