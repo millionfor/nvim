@@ -9,6 +9,4 @@ require('keymap')
 require('packinit')
 -- 基础配置
 require('profile')
--- 模板管理
-require('template')
 

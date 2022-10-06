@@ -35,6 +35,8 @@ require('packer').startup({function(use)
   use { 'numToStr/Comment.nvim' }
   use { 'akinsho/toggleterm.nvim' }
   use { 'puremourning/vimspector' }
+  use { 'millionfor/nvim-template' }
+
 
   if packer_bootstrap then
       require('packer').sync()
@@ -60,7 +62,6 @@ require('packer').startup({function(use)
       require('pack/Comment')
       require('pack/toggleterm')
       require('pack/vimspector')
-
   end
 end, config = {
     git = { clone_timeout = 120 },

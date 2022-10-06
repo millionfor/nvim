@@ -124,6 +124,11 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-lines.lua",
     url = "https://github.com/yaocccc/nvim-lines.lua"
   },
+  ["nvim-template"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-template",
+    url = "https://github.com/millionfor/nvim-template"
+  },
   ["nvim-tree.lua"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-tree.lua",
