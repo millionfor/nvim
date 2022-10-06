@@ -19,7 +19,6 @@ require('packer').startup({function(use)
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', 'nvim-treesitter/playground' }
   use { 
     'yaocccc/nvim-lines.lua',
-    -- 'yaocccc/vim-comment',
     'yaocccc/nvim-hlchunk'
   }
   use { 'voldikss/vim-floaterm' }

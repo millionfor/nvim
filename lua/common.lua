@@ -1,6 +1,7 @@
 local G = require('G')
 
 G.cmd("let mapleader=','")
+G.cmd("let g:python3_host_prog = $PYTHON")
 
 G.cmd([[
   " Plug
@@ -8,11 +9,4 @@ G.cmd([[
   call plug#end()
 
   packadd! vimspector
- 
-  
 ]])
-
-
-
-
-
