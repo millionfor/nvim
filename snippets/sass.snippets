@@ -1,9 +1,9 @@
 
 snippet // "/** quanquan **/"
 	/**
-	 * @FileName        $TM_FILENAME_BASE
-	 * @CreatedTime     $CURRENT_DAY_NAME_SHORT, $CURRENT_MONTH_NAME_SHORT $CURRENT_DATE, $CURRENT_YEAR $CURRENT_HOUR:$CURRENT_MINUTE
-	 * @LastModified    $CURRENT_DAY_NAME_SHORT, $CURRENT_MONTH_NAME_SHORT $CURRENT_DATE, $CURRENT_YEAR $CURRENT_HOUR:$CURRENT_MINUTE
+	 * @FileName        ${0:`substitute(expand("%:t"), "." . expand("%:e"), "", "")`}
+	 * @CreatedTime     `strftime("%a, %b, %d %Y %H:%M")`
+	 * @LastModified    `strftime("%a, %b, %d %Y %H:%M")`
 	 * @Author          QuanQuan <millionfor@apache.org>
 	 * @Description     ${0}
 	 */
