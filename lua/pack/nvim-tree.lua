@@ -11,6 +11,7 @@ nvim_tree.setup({
   open_on_setup = false,
   open_on_setup_file = false,
   open_on_tab = false,
+  reload_on_bufenter = true,
   sort_by = "name",
   view = {
     width = 46,

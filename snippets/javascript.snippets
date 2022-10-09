@@ -4,8 +4,8 @@ extends vue
 snippet // "/** quanquan **/"
 	/**
 	 * @FileName        ${0:`substitute(expand("%:t"), "." . expand("%:e"), "", "")`}
-	 * @CreatedTime     `strftime("%a, %b, %d %Y %H:%M")`
-	 * @LastModified    `strftime("%a, %b, %d %Y %H:%M")`
+	 * @CreatedTime     `strftime("%a, %b %d, %Y %H:%M")`
+	 * @LastModified    `strftime("%a, %b %d, %Y %H:%M")`
 	 * @Author          QuanQuan <millionfor@apache.org>
 	 * @Description     ${0}
 	 */
@@ -15,8 +15,8 @@ ${0:#}!/usr/bin/env node
 /**
  * ${1: test}
  *
- * Created Time    `strftime("%a, %b, %d %Y %H:%M")`
- * Last Modified   `strftime("%a, %b, %d %Y %H:%M")`
+ * Created Time    `strftime("%a, %b %d, %Y %H:%M")`
+ * Last Modified   `strftime("%a, %b %d, %Y %H:%M")`
  *
  * Authors:
  *   QuanQuan <millionfor@apache.org>
@@ -26,7 +26,7 @@ snippet err "throw new Error"
 	throw new Error('Error => ${0}');
 
 snippet mjs "/* Modified by QuanQuan<millionfor@apache.org> 2021-10-10 */"
-	/* Modified by QuanQuan<millionfor@apache.org> `strftime("%a, %b, %d %Y %H:%M")` @Description "fix: ${0}" */
+	/* Modified by QuanQuan<millionfor@apache.org> `strftime("%a, %b %d, %Y %H:%M")` @Description "fix: ${0}" */
 
 snippet vimjs "javascript vim: set ft=javascript fdm=marker et ff=unix tw=300 sw=2:"
 	// vim: set ft=javascript fdm=marker et ff=unix tw=300 sw=2:

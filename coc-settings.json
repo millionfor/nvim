@@ -9,7 +9,6 @@
     "diagnostic.hintSign": "┃",
     "snippets.userSnippetsDirectory": "~/.config/nvim/snippets",
     "snippets.extends.javascript": ["typescript"],
-    "snippets.extends.vue": ["javascript", "sass", "css", "html", "vue"],
     "snippets.extends.sass": ["css", "sass"],
     "snippets.extends.scss": ["css", "sass"],
     "tabnine.priority": 80,
