@@ -22,16 +22,18 @@ nvim_tree.setup({
     relativenumber = false,
     signcolumn = "yes",
     mappings = {
-      custom_only = false,
-      list = {
-        -- user mappings go here
-        { key = { "l", "<CR>", "o" }, action = "edit" },
-        { key = "h", action = "close_node" },
-        { key = "v", action = "vsplit" },
-        { key = "O", action = "cd" },
-        { key = "H", action = "toggle_git_ignored" },
-        { key = "D", action = "toggle_dotfiles" },
-      },
+        list = {
+            { key = "P", action = "cd" },
+            { key = "<BS>", action = "dir_up" },
+            { key = "<Esc>", action = "close" },
+            { key = "<Tab>", action = "expand" },
+            { key = "<Right>", action = "expand" },
+            { key = "<Left>", action = "close_node" },
+            { key = ">", action = "next_git_item" },
+            { key = "<", action = "prev_git_item" },
+            { key = "?", action = "toggle_help" },
+            { key = "A", action = "create" },
+        },
     },
     float = { enable = true, open_win_config = { border = "rounded", width = 46, height = 60, row = 0, col = 999 } }
 

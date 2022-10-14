@@ -78,8 +78,9 @@ G.map({
     { 'v', '<c-s-right>', '$',       { noremap = true } },
 
     -- 选中全文 选中{ 复制全文
-    { 'n', '<m-a>',       'ggVG',    { noremap = true } },
-    { 'n', '<m-s>',       'vi{',     { noremap = true } },
+    { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
+    { 'n', '<leader>a',       'vi{',     { noremap = true } },
+    { 'n', '<leader>b',       'vi[',     { noremap = true } },
     { 'n', '<leader>y',   ':%yank<cr>', { noremap = true } },
 
     -- emacs风格快捷键 清空一行
