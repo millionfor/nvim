@@ -90,7 +90,6 @@ G.cmd([[
     set scrolloff=5
     set noshowmode
     set nu
-    set rnu
     set numberwidth=2
     set cul
     set signcolumn=yes
