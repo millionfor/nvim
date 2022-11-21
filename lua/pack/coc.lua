@@ -1,6 +1,7 @@
 local G = require('G')
 G.g.coc_global_extensions = {
     'coc-tsserver',
+    '@yaegassy/coc-volar',
     'coc-json',
     'coc-html', 'coc-css',
     'coc-clangd',
