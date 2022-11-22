@@ -19,7 +19,8 @@ require('packer').startup({function(use)
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', 'nvim-treesitter/playground' }
   use { 
     'yaocccc/nvim-lines.lua',
-    'yaocccc/nvim-hlchunk'
+    'yaocccc/nvim-hlchunk',
+    'yaocccc/vim-echo'
   }
   use { 'voldikss/vim-floaterm' }
   use { 'lfv89/vim-interestingwords' }
@@ -63,6 +64,7 @@ require('packer').startup({function(use)
       require('pack/toggleterm')
       require('pack/vimspector')
       require('pack/vim-jsdoc')
+      require('pack/vim-echo')
   end
 end, config = {
     git = { clone_timeout = 120 },
