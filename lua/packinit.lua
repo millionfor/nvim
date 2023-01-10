@@ -9,6 +9,7 @@ if G.fn.empty(G.fn.glob(install_path)) > 0 then
 end
 
 require('packer').startup({function(use)
+  use { 'millionfor/onedark.nvim' }
   use { 'wbthomason/packer.nvim' }
   use { 'mg979/vim-visual-multi' }
   use { 'yaocccc/vim-surround' }
@@ -31,7 +32,6 @@ require('packer').startup({function(use)
   use { 'goolord/alpha-nvim', 'kyazdani42/nvim-web-devicons' }
   use { 'VincentCordobes/vim-translate' }
   use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production' }
-  use { 'millionfor/onedark.nvim' }
   use { 'numToStr/Comment.nvim' }
   use { 'akinsho/toggleterm.nvim' }
   use { 'puremourning/vimspector' }
@@ -52,6 +52,7 @@ require('packer').startup({function(use)
       require('pack/markdown')
       -- require('pack/vim-comment')
       require('pack/tree-sitter')
+      require('pack/onedark')
       require('pack/vim-hlchunk')
       require('pack/nvim-lines')
 
@@ -59,7 +60,6 @@ require('packer').startup({function(use)
       require('pack/alpha-nvim')
       require('pack/vim-translate')
       require('pack/vim-prettier')
-      require('pack/onedark')
       require('pack/Comment')
       require('pack/toggleterm')
       require('pack/vimspector')

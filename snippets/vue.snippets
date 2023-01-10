@@ -76,59 +76,23 @@ snippet vcp "components: { },"
 snippet v3tss "vue3 typescript setup"
 <template>
   <div :class="classes">
-    `strftime("%a, %b %d, %Y %H:%M")`
+    `substitute(expand("%:t"), "." . expand("%:e"), "", "")`
   </div>
 </template>
 
 <script setup lang="ts">
   import { computed } from 'vue';
 
-  const prefixCls = 'vi-`strftime("%a, %b %d, %Y %H:%M")`'
-  const classes = computed(() => { return [``$0${ prefixCls }`] })
+  const prefixCls = 'vi-`substitute(expand("%:t"), "." . expand("%:e"), "", "")`'
+  const classes = computed(() => { return [\`${ prefixCls }\`] })
 
 </script>
 <style lang="scss" >
-  $-prefix-cls: 'vi-`strftime("%a, %b %d, %Y %H:%M")`';
+  $-prefix-cls: 'vi-`substitute(expand("%:t"), "." . expand("%:e"), "", "")`';
   .#{$-prefix-cls} {
   }
 </style>
 <!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=300: -->
-
-
-snippet v3tsn "vue + composition-api + ts"
-	<template>
-	  <div :class="classes">
-      `strftime("%a, %b %d, %Y %H:%M")`
-	  </div>
-	</template>
-
-	<script lang="ts">
-	  import { defineComponent, computed } from '@nuxtjs/composition-api'
-
-	  const prefixCls = 'vi-`strftime("%a, %b %d, %Y %H:%M")`'
-
-	  export default defineComponent({
-	    fetchOnServer: false,
-	    middleware: 'auth',
-
-	    setup () {
-
-	      const classes = computed(() => {
-	        return [
-	          ``$0${ prefixCls }`
-	        ]
-	      })
-
-	      return { classes }
-	    },
-	  })
-	</script>
-	<style lang="scss" rel="stylesheet/scss">
-	  $-prefix-cls: 'vi-`strftime("%a, %b %d, %Y %H:%M")`';
-	  .#{$-prefix-cls} {
-	  }
-	</style>
-	<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=300: -->
 
 snippet vue2 "v2 simple template'"
 <template>

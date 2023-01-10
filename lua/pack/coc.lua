@@ -55,4 +55,6 @@ G.map({
     { 'n', 'gl', ":CocList gist<cr>", {silent = true, noremap = true} },
     { 'n', 'gc', ":CocCommand gist.create<cr>", {silent = true, noremap = true} },
     { 'n', 'gu', ":CocCommand gist.update<cr>", {silent = true, noremap = true} },
+    { 'n', '=', "<Plug>(coc-format-selected)", {silent = true} },
+    { 'x', '=', "<Plug>(coc-format-selected)", {silent = true} },
 })
