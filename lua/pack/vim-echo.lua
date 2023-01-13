@@ -4,4 +4,4 @@ G.map({
     { 'v', 'C', ':<c-u>VECHO<cr>', {silent = true, noremap = true}},
 })
 
-G.g.vim_echo_by_ft = { vim = 'echo(%s)', go = 'fmt.Println(%s)', vue = 'console.log(`logger-%s`, %s)', js = 'console.log(`logger-%s`, %s)', ts = 'console.log(%s)', sh = 'echo $%s' }
+G.g.vim_echo_by_file = { js = 'console.log("logger-[[ECHO]]", [ECHO]);', vue = 'console.log("logger-[[ECHO]]", [ECHO]);', ts = 'console.log("logger-[[ECHO]]", [ECHO]);' }

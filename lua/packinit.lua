@@ -36,6 +36,7 @@ require('packer').startup({function(use)
   use { 'akinsho/toggleterm.nvim' }
   use { 'puremourning/vimspector' }
   use { 'millionfor/nvim-template' }
+  use { 'github/copilot.vim' }
   use { 'heavenshell/vim-jsdoc', run = 'make install' }
 
 
@@ -55,6 +56,8 @@ require('packer').startup({function(use)
       require('pack/onedark')
       require('pack/vim-hlchunk')
       require('pack/nvim-lines')
+      require('pack/copilot')
+      
 
       --自用
       require('pack/alpha-nvim')

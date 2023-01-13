@@ -9,5 +9,6 @@ G.cmd([[
   call plug#end()
 
   packadd! vimspector
+
 ]])
 
