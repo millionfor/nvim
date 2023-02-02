@@ -15,7 +15,6 @@ require('packer').startup({function(use)
   use { 'yaocccc/vim-surround' }
   use { 'terryma/vim-expand-region' }
   use { 'neoclide/coc.nvim', branch = 'release' }
-  use { 'yaegassy/coc-volar', 'yaegassy/coc-volar-tools' }
   use { 'kyazdani42/nvim-web-devicons', 'kyazdani42/nvim-tree.lua' }
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', 'nvim-treesitter/playground' }
   use { 

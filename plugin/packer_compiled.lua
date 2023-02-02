@@ -84,16 +84,6 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/alpha-nvim",
     url = "https://github.com/goolord/alpha-nvim"
   },
-  ["coc-volar"] = {
-    loaded = true,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/coc-volar",
-    url = "https://github.com/yaegassy/coc-volar"
-  },
-  ["coc-volar-tools"] = {
-    loaded = true,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/coc-volar-tools",
-    url = "https://github.com/yaegassy/coc-volar-tools"
-  },
   ["coc.nvim"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/coc.nvim",
