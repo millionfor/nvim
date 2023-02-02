@@ -151,12 +151,6 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
     url = "https://github.com/nvim-tree/nvim-web-devicons"
   },
-  ["onedark.nvim"] = {
-    config = { "require('pack/onedark').setup()" },
-    loaded = true,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/onedark.nvim",
-    url = "https://github.com/millionfor/onedark.nvim"
-  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -176,25 +170,6 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-comment",
     url = "https://github.com/yaocccc/vim-comment"
   },
-  ["vim-dadbod"] = {
-    after = { "vim-dadbod-ui" },
-    commands = { "DBUI" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-dadbod",
-    url = "https://github.com/tpope/vim-dadbod"
-  },
-  ["vim-dadbod-ui"] = {
-    config = { "require('pack/vim-dadbod').setup()" },
-    load_after = {
-      ["vim-dadbod"] = true
-    },
-    loaded = false,
-    needs_bufread = true,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-dadbod-ui",
-    url = "https://github.com/kristijanhusak/vim-dadbod-ui"
-  },
   ["vim-echo"] = {
     commands = { "VECHO" },
     config = { "require('pack/vim-echo').setup()" },
@@ -211,13 +186,6 @@ _G.packer_plugins = {
     only_cond = false,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-expand-region",
     url = "https://github.com/terryma/vim-expand-region"
-  },
-  ["vim-fcitx2en"] = {
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-fcitx2en",
-    url = "https://github.com/yaocccc/vim-fcitx2en"
   },
   ["vim-floaterm"] = {
     config = { "require('pack/vim-floaterm').setup()" },
@@ -246,19 +214,6 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-prettier",
     url = "https://github.com/prettier/vim-prettier"
   },
-  ["vim-showmarks"] = {
-    loaded = true,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-showmarks",
-    url = "https://github.com/yaocccc/vim-showmarks"
-  },
-  ["vim-startuptime"] = {
-    commands = { "StartupTime" },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-startuptime",
-    url = "https://github.com/dstein64/vim-startuptime"
-  },
   ["vim-surround"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-surround",
@@ -278,13 +233,6 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-visual-multi",
     url = "https://github.com/mg979/vim-visual-multi"
   },
-  vimcdoc = {
-    loaded = false,
-    needs_bufread = false,
-    only_cond = false,
-    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vimcdoc",
-    url = "https://github.com/yianwillis/vimcdoc"
-  },
   vimspector = {
     config = { "require('pack/vimspector').setup()" },
     loaded = true,
@@ -294,38 +242,34 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-hlchunk
-time([[Config for nvim-hlchunk]], true)
-require('pack/nvim-hlchunk').setup()
-time([[Config for nvim-hlchunk]], false)
--- Config for: onedark.nvim
-time([[Config for onedark.nvim]], true)
-require('pack/onedark').setup()
-time([[Config for onedark.nvim]], false)
--- Config for: nvim-lines.lua
-time([[Config for nvim-lines.lua]], true)
-require('pack/nvim-lines').setup()
-time([[Config for nvim-lines.lua]], false)
--- Config for: vimspector
-time([[Config for vimspector]], true)
-require('pack/vimspector').setup()
-time([[Config for vimspector]], false)
 -- Config for: vim-floaterm
 time([[Config for vim-floaterm]], true)
 require('pack/vim-floaterm').setup()
 time([[Config for vim-floaterm]], false)
--- Config for: alpha-nvim
-time([[Config for alpha-nvim]], true)
-require('pack/alpha-nvim').setup()
-time([[Config for alpha-nvim]], false)
 -- Config for: vim-prettier
 time([[Config for vim-prettier]], true)
 require('pack/vim-prettier').setup()
 time([[Config for vim-prettier]], false)
+-- Config for: nvim-lines.lua
+time([[Config for nvim-lines.lua]], true)
+require('pack/nvim-lines').setup()
+time([[Config for nvim-lines.lua]], false)
+-- Config for: alpha-nvim
+time([[Config for alpha-nvim]], true)
+require('pack/alpha-nvim').setup()
+time([[Config for alpha-nvim]], false)
+-- Config for: vimspector
+time([[Config for vimspector]], true)
+require('pack/vimspector').setup()
+time([[Config for vimspector]], false)
 -- Config for: coc.nvim
 time([[Config for coc.nvim]], true)
 require('pack/coc').setup()
 time([[Config for coc.nvim]], false)
+-- Config for: nvim-hlchunk
+time([[Config for nvim-hlchunk]], true)
+require('pack/nvim-hlchunk').setup()
+time([[Config for nvim-hlchunk]], false)
 -- Config for: vim-translate
 time([[Config for vim-translate]], true)
 require('pack/vim-translate').setup()
@@ -342,6 +286,20 @@ time([[Sequenced loading]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
+pcall(vim.api.nvim_create_user_command, 'NvimTreeFindFileToggle', function(cmdargs)
+          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeFindFileToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('NvimTreeFindFileToggle ', 'cmdline')
+      end})
+pcall(vim.api.nvim_create_user_command, 'NvimTreeToggle', function(cmdargs)
+          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('NvimTreeToggle ', 'cmdline')
+      end})
 pcall(vim.api.nvim_create_user_command, 'VECHO', function(cmdargs)
           require('packer.load')({'vim-echo'}, { cmd = 'VECHO', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
         end,
@@ -356,34 +314,6 @@ pcall(vim.api.nvim_create_user_command, 'MarkdownPreview', function(cmdargs)
           require('packer.load')({'markdown-preview.nvim'}, {}, _G.packer_plugins)
           return vim.fn.getcompletion('MarkdownPreview ', 'cmdline')
       end})
-pcall(vim.api.nvim_create_user_command, 'StartupTime', function(cmdargs)
-          require('packer.load')({'vim-startuptime'}, { cmd = 'StartupTime', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'vim-startuptime'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('StartupTime ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'DBUI', function(cmdargs)
-          require('packer.load')({'vim-dadbod'}, { cmd = 'DBUI', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'vim-dadbod'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('DBUI ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'NvimTreeToggle', function(cmdargs)
-          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('NvimTreeToggle ', 'cmdline')
-      end})
-pcall(vim.api.nvim_create_user_command, 'NvimTreeFindFileToggle', function(cmdargs)
-          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeFindFileToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
-        end,
-        {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('NvimTreeFindFileToggle ', 'cmdline')
-      end})
 time([[Defining lazy-load commands]], false)
 
 vim.cmd [[augroup packer_load_aucmds]]
@@ -394,9 +324,7 @@ vim.cmd [[au FileType markdown ++once lua require("packer.load")({'vim-markdown-
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au InsertLeavePre * ++once lua require("packer.load")({'vim-fcitx2en'}, { event = "InsertLeavePre *" }, _G.packer_plugins)]]
-vim.cmd [[au VimEnter * ++once lua require("packer.load")({'vimcdoc'}, { event = "VimEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au CursorHold * ++once lua require("packer.load")({'vim-visual-multi', 'vim-expand-region', 'vim-interestingwords'}, { event = "CursorHold *" }, _G.packer_plugins)]]
+vim.cmd [[au CursorHold * ++once lua require("packer.load")({'vim-expand-region', 'vim-interestingwords', 'vim-visual-multi'}, { event = "CursorHold *" }, _G.packer_plugins)]]
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'copilot.vim'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-treesitter'}, { event = "BufRead *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)

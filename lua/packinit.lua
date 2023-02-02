@@ -94,16 +94,14 @@ require('packer').startup({
         use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
 
         -- 样式
-        require('pack/onedark').config()
-        use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()"}
+        -- require('pack/onedark').config()
+        -- use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()"}
 
         -- 部分个人自写插件
         require('pack/quanquan').config()                                               -- yaocccc/* 共用一个config
 
         use { 'yaocccc/vim-comment' }                                                  -- 注释插件
-        use { 'yaocccc/vim-fcitx2en', event = 'InsertLeavePre' }                       -- 退出输入模式时自动切换到英文
         use { 'yaocccc/vim-surround' }                                                 -- 操作成对的 ""  {}  [] 等的插件
-        use { 'yaocccc/vim-showmarks' }                                                -- 显示mark在signcolumn
     end,
     config = {
         git = { clone_timeout = 120, depth = 1 },
