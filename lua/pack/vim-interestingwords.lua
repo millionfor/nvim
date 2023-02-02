@@ -1,14 +1,19 @@
 local G = require('G')
+local M = {}
 
-G.g.interestingWordsRandomiseColors = 1
+function M.config()
+    G.g.interestingWordsRandomiseColors = 1
+    G.map({
+        { 'n', 'ff', ":call InterestingWords('n')<cr>", {silent = true, noremap = true}},
+        { 'n', 'FF', ":call UncolorAllWords()<cr>", {silent = true, noremap = true}},
+        { 'n', 'n', ":call WordNavigation('forward')<cr>", {silent = true, noremap = true}},
+        { 'n', 'N', ":call WordNavigation('backward')<cr>", {silent = true, noremap = true}},
+    })
+end
 
-G.g.interestingWordsGUIColors = { '#8CCBEA', '#A4E57E', '#FFDB72', '#FF7272', '#FFB3FF', '#9999FF' }
+function M.setup()
+    -- do nothing
+end
 
-G.map({
-    { 'n', 'ff', ":call InterestingWords('n')<cr>", {silent = true, noremap = true}},
-    { 'n', 'FF', ":call UncolorAllWords()<cr>", {silent = true, noremap = true}},
-    { 'n', 'n', ":call WordNavigation('forward')<cr>", {silent = true, noremap = true}},
-    { 'n', 'N', ":call WordNavigation('backward')<cr>", {silent = true, noremap = true}},
-})
-
+return M
 

@@ -1,18 +1,27 @@
-
 local G = require('G')
+local M = {}
 
-require("onedark").setup({
-  function_style = "italic",
-  -- sidebars = {"qf", "vista_kind", "terminal", "packer"},
+function M.config()
+end
 
-  -- Change the "hint" color to the "orange0" color, and make the "error" color bright red
-  colors = {
-  },
+function M.setup()
+    -- do nothing
+  require("onedark").setup({
+    function_style = "italic",
+    -- sidebars = {"qf", "vista_kind", "terminal", "packer"},
 
-  -- Overwrite the highlight groups
-  overrides = function(c)
-    return {
-    }
-  end
-})
+    -- Change the "hint" color to the "orange0" color, and make the "error" color bright red
+    colors = {
+    },
+
+    -- Overwrite the highlight groups
+    overrides = function(c)
+      return {
+      }
+    end
+  })
+end
+
+return M
+
 

@@ -1,6 +1,9 @@
 local G = require('G')
 
--- 设置leader为\ 设置python3对应的目录，你可以手动 export PYTHON=$(which python3) 到你的终端配置中
+-- 设置python3对应的目录，你可以手动 export PYTHON=$(which python3) 到你的终端配置中
+G.cmd([[
+    let g:python3_host_prog = $PYTHON
+]])
 
 -- 设置命令提示 唯一标识 共享剪贴板
 G.cmd([[
@@ -17,7 +20,7 @@ G.cmd([[
 G.cmd([[
     set hlsearch
     set showmatch
-    noremap <leader> :nohlsearch<CR>
+    noremap \ :nohlsearch<CR>
     set incsearch
     set inccommand=
     set ignorecase
@@ -34,7 +37,6 @@ G.cmd([[
 -- 设置鼠标移动
 G.cmd([[
     set mouse=a
-    set selection=exclusive
 ]])
 
 -- 错误无提示音 去除屏幕闪烁
@@ -49,9 +51,9 @@ G.cmd([[
 G.cmd([[
     set autoindent
     set smartindent
-    set tabstop=2
-    set softtabstop=2
-    set shiftwidth=2
+    set tabstop=4
+    set softtabstop=4
+    set shiftwidth=4
     set smarttab
     set expandtab
 ]])
@@ -62,9 +64,6 @@ G.cmd([[
     set noswapfile
     set nowrap
 ]])
-
--- 光标回到上次位置
-G.cmd([[ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif ]])
 
 -- 持久化撤销
 G.cmd([[
@@ -83,6 +82,7 @@ G.cmd([[
 
 -- show
 G.cmd([[
+    hi Normal ctermfg=7 ctermbg=NONE cterm=NONE \"添加默认颜色 避免加载报错"
     colorscheme onedark
     set cmdheight=1
     set updatetime=300
@@ -98,9 +98,3 @@ G.cmd([[
     set fillchars=stlnc:#
 ]])
 
--- 提示多余空格和TODO
-G.cmd([[
-    hi ErrSpace ctermbg=238
-    " autocmd BufWinEnter * syn match ErrSpace /\s\+$\| \+\ze\t\+\|\t\+\zs \+/
-    autocmd BufWinEnter * syn match Todo /TODO\(:.*\)*/
-]])

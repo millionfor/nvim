@@ -1,11 +1,22 @@
 local G = require('G')
 
-G.cmd([[au BufEnter * if &buftype == '' && &readonly == 1 | set buftype=acwrite | set noreadonly | endif]])
-G.cmd('command! W w !sudo tee > /dev/null %')
+G.cmd([[
+func MagicSave()
+    " If the directory is not exited, create it
+    if empty(glob(expand("%:p:h")))
+        call system("mkdir -p " . expand("%:p:h"))
+    endif
+    " If the file is not writable, use sudo to write it
+    if &buftype == 'acwrite'
+        w !sudo tee > /dev/null %
+    else
+        w
+    endif
+endf
+]])
 G.map({
     -- 设置s t 无效 ;=: ,重复上一次宏操作
     { 'n', 's',           '<nop>',   {} },
-    { 's', 's',           '<nop>',   {} },
     { 'n', ';',           ':',       {} },
     { 'v', ';',           ':',       {} },
     { 'n', '+',           '<c-a>',   { noremap = true } },
@@ -40,7 +51,7 @@ G.map({
     { 'v', 'P',           'Pgvy',    { noremap = true } },
 
     -- S保存 Q退出
-    { 'n', 'S',           '&buftype == "acwrite" ? ":W<CR>" : ":w!<CR>"', { noremap = true, silent = true, expr = true } },
+    { 'n', 'S',           ':call MagicSave()<cr>', { noremap = true, silent = true } },
     { 'n', 'Q',           ':q!<cr>', { noremap = true, silent = true } },
 
     -- VISUAL SELECT模式 s-tab tab左右缩进
@@ -60,7 +71,7 @@ G.map({
     { 'n', '<s-down>',    'Vj',      { noremap = true } },
     { 'v', '<s-up>',      'k',       { noremap = true } },
     { 'v', '<s-down>',    'j',       { noremap = true } },
-    { 'n', '<s-left>',    'vh',      { noremap = true } },
+    { 'n', '<s-left>',    '<left>vh',{ noremap = true } },
     { 'n', '<s-right>',   'vl',      { noremap = true } },
 
     -- CTRL SHIFT + 方向 快速跳转
@@ -75,13 +86,11 @@ G.map({
     { 'v', '<c-s-up>',    '10k',     { noremap = true } },
     { 'v', '<c-s-down>',  '10j',     { noremap = true } },
     { 'v', '<c-s-left>',  '^',       { noremap = true } },
-    { 'v', '<c-s-right>', '$',       { noremap = true } },
+    { 'v', '<c-s-right>', '$h',      { noremap = true } },
 
     -- 选中全文 选中{ 复制全文
-    { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
-    { 'n', '<leader>a',       'vi{',     { noremap = true } },
-    { 'n', '<leader>b',       'vi[',     { noremap = true } },
-    { 'n', '<leader>y',   ':%yank<cr>', { noremap = true } },
+    { 'n', '<m-a>',       'ggVG',    { noremap = true } },
+    { 'n', '<m-s>',       'vi{',     { noremap = true } },
 
     -- emacs风格快捷键 清空一行
     { 'n', '<c-u>',       'cc<Esc>', { noremap = true } },
@@ -122,7 +131,6 @@ G.map({
     -- buffers
     { 'n', 'W',           ':bw<cr>',          { noremap = true, silent = true } },
     { 'n', 'ss',          ':bn<cr>',          { noremap = true, silent = true } },
-    { 'n', 'sd',          ':bd<cr>',          { noremap = true, silent = true } },
     { 'n', '<m-left>',    ':bp<cr>',          { noremap = true, silent = true } },
     { 'n', '<m-right>',   ':bn<cr>',          { noremap = true, silent = true } },
     { 'v', '<m-left>',    '<esc>:bp<cr>',     { noremap = true, silent = true } },
@@ -132,6 +140,9 @@ G.map({
 
     -- tt 打开一个10行大小的终端
     { 'n', 'tt',          ':below 10sp | term<cr>a', { noremap = true, silent = true } },
+
+    -- 切换是否wrap
+    { 'n', '\\w',         "&wrap == 1 ? ':set nowrap<cr>' : ':set wrap<cr>'", { noremap = true, expr = true } },
 })
 
 -- 重设tab长度
@@ -153,11 +164,16 @@ G.cmd([[
 
 -- 折叠
 G.map({
-    { 'n', '--', "foldclosed(line('.')) == -1 ? ':call MagicFold()<cr>' : 'za'", { noremap = true, silent = true, expr = true } },
-    { 'v', '-',  'zf', { noremap = true } },
+    { 'n', '--', ":call MagicFold()<cr>", { noremap = true, silent = true } },
+    { 'v', '-',  'zf', { noremap = true, silent = true } },
 })
 G.cmd([[
     fun! MagicFold()
+        if foldclosed(line('.')) != -1
+            exe 'norm! za'
+            return
+        endif
+
         let l:line = trim(getline('.'))
         if l:line == '' | return | endif
         let [l:up, l:down] = [0, 0]
@@ -211,9 +227,8 @@ G.cmd([[
     fun! ToggleHump()
         let [l, c1, c2] = [line('.'), col("'<"), col("'>")]
         let line = getline(l)
-        echo c1 c2
         let w = line[c1 - 1 : c2 - 2]
-        let w = w =~ '_' ? substitute(w, '\v_(.)', '\u\1', 'G') : substitute(substitute(w, '\v^(\u)', '\l\1', 'G'), '\v(\u)', '_\l\1', 'G')
+        let w = w =~ '_' ? substitute(w, '\v_(.)', '\u\1', 'g') : substitute(substitute(w, '\v^(\u)', '\l\1', 'g'), '\v(\u)', '_\l\1', 'g')
         call setbufline('%', l, printf('%s%s%s', c1 == 1 ? '' : line[:c1-2], w, c2 == 1 ? '' : line[c2-1:]))
         call cursor(l, c1)
     endf

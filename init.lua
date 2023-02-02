@@ -1,11 +1,5 @@
--- 基础配置
-require('profile')
--- 颜色
-require('colors')
--- 老公共配置
-require('common')
--- 包管理
-require('packinit')
--- key设置
-require('keymap')
+require('profile')  -- 基础配置
+require('packinit') -- 插件配置
+require('keymap')   -- 按键配置
+require('autocmd')  -- 自动命令配置
 
