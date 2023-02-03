@@ -82,7 +82,7 @@ G.cmd([[
 
 -- show
 G.cmd([[
-    hi Normal ctermfg=7 ctermbg=NONE cterm=NONE \"添加默认颜色 避免加载抱错"
+    hi Normal ctermfg=7 ctermbg=NONE cterm=NONE \"添加默认颜色 避免加载抱错
     colorscheme solarized8_high
     set cmdheight=1
     set updatetime=300

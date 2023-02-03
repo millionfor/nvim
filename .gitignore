@@ -10,3 +10,5 @@ cache/
 **/dump.rdb
 **/.DS_Store
 node_modules
+
+plugin/packer_compiled.lua

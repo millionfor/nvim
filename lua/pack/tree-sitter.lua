@@ -1,6 +1,14 @@
 local G = require('G')
 local M = {}
 
+function M.parser_bootstrap()
+    local lang = G.api.nvim_eval('&ft')
+    local has_parser = require('nvim-treesitter.parsers').has_parser(lang)
+    if not has_parser then
+        G.cmd([[ try | silent! call execute('TSInstall ' . &ft) | catch | endtry ]])
+    end
+end
+
 function M.config()
     G.hi({
         ["@variable"] = {fg="NONE"};
@@ -45,38 +53,18 @@ function M.config()
         { 'n', 'H', ':TSHighlightCapturesUnderCursor<CR>', {silent = true, noremap = true}},
         { 'n', 'R', ':write | edit | TSBufEnable highlight<CR>', {silent = true, noremap = true}},
     })
+    -- some custom highlights
+    G.cmd('match Todo /TODO\\(:.*\\)*/')
 end
 
 function M.setup()
-  local nvim_treesitter_config = require('nvim-treesitter.configs')
-
-  require("nvim-treesitter.install").prefer_git = true
-
-  nvim_treesitter_config.setup {
-      ensure_installed = 'all',
-      ignore_install = { "swift", "phpdoc" },
-
-      highlight = {
-          enable = false,
-          additional_vim_regex_highlighting = false,
-          disable = function(lang, buf)
-              local max_filesize = 100 * 1024 -- 100 KB
-              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-              if ok and stats and stats.size > max_filesize then
-                  return true
-              end
-          end,
-      },
-      incremental_selection = {
-        enable = true,
-      },
-  }
-
-  G.map({ { 'n', 'H', ':TSHighlightCapturesUnderCursor<CR>', {silent = true, noremap = true}} })
-
-  -- some custom highlights
-  G.cmd('match Todo /TODO\\(:.*\\)*/')
+    require('nvim-treesitter.configs').setup {
+        ensure_installed = {},
+        highlight = {
+            enable = true
+        },
+    }
+    G.cmd([[ au FileType * lua require('pack/tree-sitter').parser_bootstrap() ]])
 end
 
 return M
-
