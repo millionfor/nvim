@@ -93,7 +93,9 @@ require('packer').startup({
         -- require('pack/comment-nvim').config()
         -- use { 'numToStr/Comment.nvim', config = "require('pack/comment-nvim').setup()" }
 
-        use({ 'monsonjeremy/onedark.nvim', branch = 'treesitter', config ="require('onedark').setup()" })
+        require('pack/onedark').config()
+        use({ 'navarasu/onedark.nvim', onfig ="require('pack/onedark').setup()" })
+
         -- 启动页
         require('pack/alpha-nvim').config()
         use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}

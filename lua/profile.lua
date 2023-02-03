@@ -81,10 +81,9 @@ G.cmd([[
 ]])
 
 -- show
+  --  colorscheme solarized8_high
 G.cmd([[
     hi Normal ctermfg=7 ctermbg=NONE cterm=NONE \"添加默认颜色 避免加载抱错
-
-    colorscheme onedark
     set cmdheight=1
     set updatetime=300
     set shortmess+=cI
