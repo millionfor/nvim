@@ -51,9 +51,9 @@ G.cmd([[
 G.cmd([[
     set autoindent
     set smartindent
-    set tabstop=4
-    set softtabstop=4
-    set shiftwidth=4
+    set tabstop=2
+    set softtabstop=2
+    set shiftwidth=2
     set smarttab
     set expandtab
 ]])
@@ -83,7 +83,8 @@ G.cmd([[
 -- show
 G.cmd([[
     hi Normal ctermfg=7 ctermbg=NONE cterm=NONE \"添加默认颜色 避免加载抱错
-    colorscheme solarized8_high
+
+    colorscheme onedark
     set cmdheight=1
     set updatetime=300
     set shortmess+=cI

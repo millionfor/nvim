@@ -1,11 +1,27 @@
+
+
 local G = require('G')
+local M = {}
 
--- g.g.jsdoc_formatter = 'jsdoc'
 
-G.map({
-  { 'n', '<leader>z', '<Plug>(jsdoc)', { noremap = true, silent = true } },
+function M.config()
+    -- g.g.jsdoc_formatter = 'jsdoc'
 
-  { 'v', 'zz', ":JsDoc<cr>", { noremap = true } },
-})
+    G.map({
+      { 'n', '<leader>z', '<Plug>(jsdoc)', { noremap = true, silent = true } },
 
-G.cmd('autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript.html')
+      { 'v', 'zz', ":JsDoc<cr>", { noremap = true } },
+    })
+
+    G.cmd('autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript.html')
+
+end
+
+function M.setup()
+    -- do nothing
+end
+
+return M
+
+
+

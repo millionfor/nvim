@@ -66,42 +66,42 @@ require('packer').startup({
         use { 'yaocccc/nvim-lines.lua', config = "require('pack/nvim-lines').setup()" }
         
         -- prettier格式化
-        -- require('pack/vim-prettier').config()
-        -- use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production', config = "require('pack/vim-prettier').setup()" }
+        require('pack/vim-prettier').config()
+        use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production', config = "require('pack/vim-prettier').setup()" }
 
         -- 翻译
-        -- require('pack/vim-translate').config()
-        -- use { 'VincentCordobes/vim-translate', config = "require('pack/vim-translate').setup()" }
+        require('pack/vim-translate').config()
+        use { 'VincentCordobes/vim-translate', config = "require('pack/vim-translate').setup()" }
         
         -- 断点调试
-        -- require('pack/vimspector').config()
-        -- use { 'puremourning/vimspector', config = "require('pack/vimspector').setup()" }
+        require('pack/vimspector').config()
+        use { 'puremourning/vimspector', config = "require('pack/vimspector').setup()" }
         
         -- 高亮范围
-        -- require('pack/nvim-hlchunk').config()
-        -- use { 'yaocccc/nvim-hlchunk', config = "require('pack/nvim-hlchunk').setup()" }
+        require('pack/nvim-hlchunk').config()
+        use { 'yaocccc/nvim-hlchunk', config = "require('pack/nvim-hlchunk').setup()" }
         
         -- 快速打印
-        -- require('pack/vim-echo').config()
-        -- use { 'yaocccc/vim-echo', cmd = "VECHO",  config = "require('pack/vim-echo').setup()" }
+        require('pack/vim-echo').config()
+        use { 'yaocccc/vim-echo', cmd = "VECHO",  config = "require('pack/vim-echo').setup()" }
+        
+        -- 注解
+        require('pack/vim-jsdoc').config()
+        use { 'heavenshell/vim-jsdoc', run = 'make install',  config = "require('pack/vim-jsdoc').setup()" }
         
         -- 快速注释
-        -- require('pack/Comment').config()
-        -- use { 'numToStr/Comment.nvim', config = "require('pack/Comment').setup()" }
+        -- require('pack/comment-nvim').config()
+        -- use { 'numToStr/Comment.nvim', config = "require('pack/comment-nvim').setup()" }
 
+        use({ 'monsonjeremy/onedark.nvim', branch = 'treesitter', config ="require('onedark').setup()" })
         -- 启动页
-        -- require('pack/alpha-nvim').config()
-        -- use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
-
-        -- 样式
-        -- require('pack/onedark').config()
-        -- use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()"}
-
-        -- 部分个人自写插件
-        -- require('pack/quanquan').config()                                               -- yaocccc/* 共用一个config
-
+        require('pack/alpha-nvim').config()
+        use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
+            
         use { 'yaocccc/vim-comment' }                                                  -- 注释插件
         use { 'yaocccc/vim-surround' }                                                 -- 操作成对的 ""  {}  [] 等的插件
+        -- quanquan
+        require('pack/quanquan').config()
     end,
     config = {
         git = { clone_timeout = 120, depth = 1 },

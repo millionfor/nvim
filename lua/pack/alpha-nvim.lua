@@ -9,7 +9,7 @@ function M.config()
 end
 
 function M.setup()
-    local alpha = require'alpha'
+  local alpha = require'alpha'
 
   local startify = require'alpha.themes.startify'
 

@@ -2,7 +2,7 @@ local G = require('G')
 local M = {}
 
 
-function M.config()
+function M.setup()
   require("Comment").setup({
     ---Add a space b/w comment and the line
     padding = true,
@@ -52,7 +52,7 @@ function M.config()
 
 end
 
-function M.setup()
+function M.config()
     -- do nothing
 end
 

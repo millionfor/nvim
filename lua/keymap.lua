@@ -156,6 +156,13 @@ G.map({
 
     -- 切换是否wrap
     { 'n', '\\w',         "&wrap == 1 ? ':set nowrap<cr>' : ':set wrap<cr>'", { noremap = true, expr = true } },
+
+    -- 选中全文 选中{ 复制全文
+    { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
+    { 'n', '<leader>a',       'vi{',     { noremap = true } },
+    { 'n', '<leader>b',       'vi[',     { noremap = true } },
+    { 'n', '<leader>y',   ':%yank<cr>', { noremap = true } },
+
 })
 
 -- 重设tab长度

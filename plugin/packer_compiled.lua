@@ -74,6 +74,12 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
+  ["alpha-nvim"] = {
+    config = { "require('pack/alpha-nvim').setup()" },
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/alpha-nvim",
+    url = "https://github.com/goolord/alpha-nvim"
+  },
   ["coc.nvim"] = {
     config = { "require('pack/coc').setup()" },
     loaded = true,
@@ -110,6 +116,12 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/markdown-preview.nvim",
     url = "https://github.com/iamcco/markdown-preview.nvim"
   },
+  ["nvim-hlchunk"] = {
+    config = { "require('pack/nvim-hlchunk').setup()" },
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-hlchunk",
+    url = "https://github.com/yaocccc/nvim-hlchunk"
+  },
   ["nvim-lines.lua"] = {
     config = { "require('pack/nvim-lines').setup()" },
     loaded = true,
@@ -134,6 +146,17 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/nvim-treesitter",
     url = "https://github.com/nvim-treesitter/nvim-treesitter"
   },
+  ["nvim-web-devicons"] = {
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/nvim-web-devicons",
+    url = "https://github.com/nvim-tree/nvim-web-devicons"
+  },
+  ["onedark.nvim"] = {
+    config = { "require('onedark').setup()" },
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/onedark.nvim",
+    url = "https://github.com/monsonjeremy/onedark.nvim"
+  },
   ["packer.nvim"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/packer.nvim",
@@ -152,6 +175,15 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-comment",
     url = "https://github.com/yaocccc/vim-comment"
+  },
+  ["vim-echo"] = {
+    commands = { "VECHO" },
+    config = { "require('pack/vim-echo').setup()" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-echo",
+    url = "https://github.com/yaocccc/vim-echo"
   },
   ["vim-expand-region"] = {
     config = { "require('pack/vim-expand-region').setup()" },
@@ -175,6 +207,12 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-interestingwords",
     url = "https://github.com/lfv89/vim-interestingwords"
   },
+  ["vim-jsdoc"] = {
+    config = { "require('pack/vim-jsdoc').setup()" },
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-jsdoc",
+    url = "https://github.com/heavenshell/vim-jsdoc"
+  },
   ["vim-markdown-toc"] = {
     loaded = false,
     needs_bufread = true,
@@ -182,10 +220,22 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-markdown-toc",
     url = "https://github.com/mzlogin/vim-markdown-toc"
   },
+  ["vim-prettier"] = {
+    config = { "require('pack/vim-prettier').setup()" },
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-prettier",
+    url = "https://github.com/prettier/vim-prettier"
+  },
   ["vim-surround"] = {
     loaded = true,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-surround",
     url = "https://github.com/yaocccc/vim-surround"
+  },
+  ["vim-translate"] = {
+    config = { "require('pack/vim-translate').setup()" },
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-translate",
+    url = "https://github.com/VincentCordobes/vim-translate"
   },
   ["vim-visual-multi"] = {
     config = { "require('pack/vim-visual-multi').setup()" },
@@ -194,22 +244,56 @@ _G.packer_plugins = {
     only_cond = false,
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-visual-multi",
     url = "https://github.com/mg979/vim-visual-multi"
+  },
+  vimspector = {
+    config = { "require('pack/vimspector').setup()" },
+    loaded = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vimspector",
+    url = "https://github.com/puremourning/vimspector"
   }
 }
 
 time([[Defining packer_plugins]], false)
+-- Config for: vim-prettier
+time([[Config for vim-prettier]], true)
+require('pack/vim-prettier').setup()
+time([[Config for vim-prettier]], false)
 -- Config for: vim-floaterm
 time([[Config for vim-floaterm]], true)
 require('pack/vim-floaterm').setup()
 time([[Config for vim-floaterm]], false)
--- Config for: nvim-lines.lua
-time([[Config for nvim-lines.lua]], true)
-require('pack/nvim-lines').setup()
-time([[Config for nvim-lines.lua]], false)
+-- Config for: vim-translate
+time([[Config for vim-translate]], true)
+require('pack/vim-translate').setup()
+time([[Config for vim-translate]], false)
+-- Config for: onedark.nvim
+time([[Config for onedark.nvim]], true)
+require('onedark').setup()
+time([[Config for onedark.nvim]], false)
+-- Config for: alpha-nvim
+time([[Config for alpha-nvim]], true)
+require('pack/alpha-nvim').setup()
+time([[Config for alpha-nvim]], false)
+-- Config for: nvim-hlchunk
+time([[Config for nvim-hlchunk]], true)
+require('pack/nvim-hlchunk').setup()
+time([[Config for nvim-hlchunk]], false)
 -- Config for: coc.nvim
 time([[Config for coc.nvim]], true)
 require('pack/coc').setup()
 time([[Config for coc.nvim]], false)
+-- Config for: vimspector
+time([[Config for vimspector]], true)
+require('pack/vimspector').setup()
+time([[Config for vimspector]], false)
+-- Config for: nvim-lines.lua
+time([[Config for nvim-lines.lua]], true)
+require('pack/nvim-lines').setup()
+time([[Config for nvim-lines.lua]], false)
+-- Config for: vim-jsdoc
+time([[Config for vim-jsdoc]], true)
+require('pack/vim-jsdoc').setup()
+time([[Config for vim-jsdoc]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd fzf ]]
@@ -222,12 +306,19 @@ time([[Sequenced loading]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
-pcall(vim.api.nvim_create_user_command, 'MarkdownPreview', function(cmdargs)
-          require('packer.load')({'markdown-preview.nvim'}, { cmd = 'MarkdownPreview', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+pcall(vim.api.nvim_create_user_command, 'NvimTreeToggle', function(cmdargs)
+          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
         end,
         {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'markdown-preview.nvim'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('MarkdownPreview ', 'cmdline')
+          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('NvimTreeToggle ', 'cmdline')
+      end})
+pcall(vim.api.nvim_create_user_command, 'VECHO', function(cmdargs)
+          require('packer.load')({'vim-echo'}, { cmd = 'VECHO', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'vim-echo'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('VECHO ', 'cmdline')
       end})
 pcall(vim.api.nvim_create_user_command, 'NvimTreeFindFileToggle', function(cmdargs)
           require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeFindFileToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
@@ -236,12 +327,12 @@ pcall(vim.api.nvim_create_user_command, 'NvimTreeFindFileToggle', function(cmdar
           require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
           return vim.fn.getcompletion('NvimTreeFindFileToggle ', 'cmdline')
       end})
-pcall(vim.api.nvim_create_user_command, 'NvimTreeToggle', function(cmdargs)
-          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+pcall(vim.api.nvim_create_user_command, 'MarkdownPreview', function(cmdargs)
+          require('packer.load')({'markdown-preview.nvim'}, { cmd = 'MarkdownPreview', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
         end,
         {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('NvimTreeToggle ', 'cmdline')
+          require('packer.load')({'markdown-preview.nvim'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('MarkdownPreview ', 'cmdline')
       end})
 time([[Defining lazy-load commands]], false)
 
@@ -254,7 +345,7 @@ time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
 vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'copilot.vim'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au CursorHold * ++once lua require("packer.load")({'vim-interestingwords', 'vim-visual-multi', 'vim-expand-region'}, { event = "CursorHold *" }, _G.packer_plugins)]]
+vim.cmd [[au CursorHold * ++once lua require("packer.load")({'vim-visual-multi', 'vim-expand-region', 'vim-interestingwords'}, { event = "CursorHold *" }, _G.packer_plugins)]]
 vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-treesitter'}, { event = "BufRead *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")

@@ -11,3 +11,4 @@ G.cmd([[
     au BufLeave,BufWinLeave * silent! mkview
 ]])
 
+
