@@ -20,7 +20,7 @@ function M.config()
     ]])
     G.map({
         { 'n', '<c-a>', ':Ag<cr>', {silent = true, noremap = true}},
-        { 'n', '<c-f>', ':Files<cr>', {silent = true, noremap = true}},
+        { 'n', '<c-f>', ':Files $PWD<cr>', {silent = true, noremap = true}},
         { 'n', '<c-l>', ':BLines<cr>', {silent = true, noremap = true}},
         { 'n', '<c-g>', ':GFiles?<cr>', {silent = true, noremap = true}},
         { 'n', '<c-h>', ':CHistory<cr>', {silent = true, noremap = true}},
@@ -32,4 +32,3 @@ function M.setup()
 end
 
 return M
-

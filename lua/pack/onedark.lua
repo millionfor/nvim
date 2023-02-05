@@ -8,11 +8,6 @@ function M.config()
 end
 
 function M.setup()
-  -- do nothing
-  require('onedark').setup {
-      style = 'darker'
-  }
-  require('onedark').load()
 end
 
 return M

@@ -94,7 +94,7 @@ require('packer').startup({
         -- use { 'numToStr/Comment.nvim', config = "require('pack/comment-nvim').setup()" }
 
         require('pack/onedark').config()
-        use({ 'navarasu/onedark.nvim', onfig ="require('pack/onedark').setup()" })
+        use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()" }
 
         -- 启动页
         require('pack/alpha-nvim').config()
