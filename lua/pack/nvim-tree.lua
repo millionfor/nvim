@@ -52,12 +52,8 @@ function M.setup()
     local nvim_tree = require("nvim-tree")
     nvim_tree.setup({
         sort_by = "case_sensitive",
-        actions = {
-            open_file = {
-                window_picker = { enable = false }
-            }
-        },
         view = {
+            hide_root_folder = false,
             mappings = {
                 list = {
                     { key = "P", action = "cd" },
@@ -101,10 +97,55 @@ function M.setup()
                 glyphs = { git = { unstaged = "~", staged = "✓", unmerged = "", renamed = "+", untracked = "?", deleted = "", ignored = " " } }
             }
         },
-        filters = { dotfiles = true },
         diagnostics = {
             enable = true, show_on_dirs = true, debounce_delay = 50,
             icons = { hint = "", info = "", warning = "", error = "" }
+        },
+        actions = {
+          use_system_clipboard = true,
+          change_dir = {
+            enable = true,
+            global = false,
+            restrict_above_cwd = false,
+          },
+          open_file = {
+            quit_on_open = false,
+            resize_window = true,
+            window_picker = {
+              enable = true,
+              chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+              exclude = {
+                filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
+                buftype = { "nofile", "terminal", "help" },
+              },
+            },
+          },
+        },
+        trash = {
+          cmd = "trash",
+          require_confirm = true,
+        },
+        log = {
+          enable = false,
+          truncate = false,
+          types = {
+            all = false,
+            config = false,
+            copy_paste = false,
+            diagnostics = false,
+            git = false,
+            profile = false,
+          },
+        },
+        git = {
+          enable = true,
+          ignore = true,
+          timeout = 400,
+        },
+        filters = {
+          dotfiles = false,
+          custom = {},
+          exclude = {},
         },
     })
 end
