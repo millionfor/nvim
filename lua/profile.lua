@@ -73,12 +73,32 @@ G.cmd([[
 -- vim保存1000条文件记录
 G.cmd([[ set viminfo=!,'10000,<50,s10,h ]])
 
+
+
 -- 折叠
-G.cmd([[
-    set foldenable
-    set foldmethod=manual
-    set viewdir=~/.config/nvim/cache/viewdir
-]])
+G.opt.foldenable = true
+G.opt.foldmethod = 'manual'
+G.opt.viewdir = os.getenv('HOME') .. '/.config/nvim/cache/viewdir'
+G.opt.foldtext = 'v:lua.MagicFoldText()'
+
+function MagicFoldText()
+    local line = G.fn.getline(G.v.foldstart)
+    local folded = G.v.foldend - G.v.foldstart + 1
+    local empty = line:find('%S') - 1
+    local funcs = {
+        [0] = function(_) return '' .. line end,
+        [1] = function(_) return '+' .. line:sub(2) end,
+        [2] = function(_) return '+ ' .. line:sub(3) end,
+        [-1] = function(c)
+            local result = ' ' .. line:sub(c + 1)
+            local foldednumlen = #tostring(folded)
+            for _ = 1, c - 2 - foldednumlen do result = '-' .. result end
+            return '+' .. folded .. result
+        end,
+    }
+    return funcs[empty <= 2 and empty or -1](empty) .. ' folded ' .. folded .. ' lines '
+end
+
 
 -- show
   --  colorscheme solarized8_high

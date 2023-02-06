@@ -5,6 +5,8 @@ G.b = vim.b
 G.o = vim.o
 G.fn = vim.fn
 G.api = vim.api
+G.opt = vim.opt
+
 
 function G.map(maps)
     for _,map in pairs(maps) do
