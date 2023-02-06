@@ -99,6 +99,26 @@ function MagicFoldText()
     return funcs[empty <= 2 and empty or -1](empty) .. ' folded ' .. folded .. ' lines '
 end
 
+function MagicFoldText()
+    local line = G.fn.getline(G.v.foldstart)
+    print('line', line)
+    local folded = G.v.foldend - G.v.foldstart + 1
+    print('folded', line)
+    local empty = line:find('%S') - 1
+    print('empty', line)
+    local funcs = {
+        [0] = function(_) return '' .. line end,
+        [1] = function(_) return '+' .. line:sub(2) end,
+        [2] = function(_) return '+ ' .. line:sub(3) end,
+        [-1] = function(c)
+            local result = ' ' .. line:sub(c + 1)
+            local foldednumlen = #tostring(folded)
+            for _ = 1, c - 2 - foldednumlen do result = '-' .. result end
+            return '+' .. folded .. result
+        end,
+    }
+    return funcs[empty <= 2 and empty or -1](empty) .. ' folded ' .. folded .. ' lines '
+end
 
 -- show
   --  colorscheme solarized8_high
@@ -115,6 +135,6 @@ G.cmd([[
     set signcolumn=yes
     let &t_SI.="\e[5 q"
     let &t_EI.="\e[1 q"
-    set fillchars=stlnc:#
+    set fillchars=fold:-,stlnc:#
 ]])
 
