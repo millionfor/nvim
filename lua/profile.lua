@@ -76,36 +76,22 @@ G.cmd([[ set viminfo=!,'10000,<50,s10,h ]])
 
 
 -- 折叠
+G.cmd([[
+  set foldcolumn=1
+]])
+
 G.opt.foldenable = true
 G.opt.foldmethod = 'manual'
 G.opt.viewdir = os.getenv('HOME') .. '/.config/nvim/cache/viewdir'
 G.opt.foldtext = 'v:lua.MagicFoldText()'
 
 function MagicFoldText()
-    local line = G.fn.getline(G.v.foldstart)
+    local spacetext = ("        "):sub(0, G.opt.shiftwidth:get())
+    local line = G.fn.getline(G.v.foldstart):gsub("\t", spacetext)
     local folded = G.v.foldend - G.v.foldstart + 1
-    local empty = line:find('%S') - 1
-    local funcs = {
-        [0] = function(_) return '' .. line end,
-        [1] = function(_) return '+' .. line:sub(2) end,
-        [2] = function(_) return '+ ' .. line:sub(3) end,
-        [-1] = function(c)
-            local result = ' ' .. line:sub(c + 1)
-            local foldednumlen = #tostring(folded)
-            for _ = 1, c - 2 - foldednumlen do result = '-' .. result end
-            return '+' .. folded .. result
-        end,
-    }
-    return funcs[empty <= 2 and empty or -1](empty) .. ' folded ' .. folded .. ' lines '
-end
-
-function MagicFoldText()
-    local line = G.fn.getline(G.v.foldstart)
-    print('line', line)
-    local folded = G.v.foldend - G.v.foldstart + 1
-    print('folded', line)
-    local empty = line:find('%S') - 1
-    print('empty', line)
+    local findresult = line:find('%S')
+    if not findresult then return '+ folded ' .. folded .. ' lines ' end
+    local empty = findresult - 1
     local funcs = {
         [0] = function(_) return '' .. line end,
         [1] = function(_) return '+' .. line:sub(2) end,

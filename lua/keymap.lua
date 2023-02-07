@@ -185,9 +185,15 @@ G.cmd([[
 -- 折叠
 G.map({
     { 'n', '-', "za", { noremap = true, silent = true } },
-    { 'v', '-', 'zf', { noremap = true, silent = true } },
+    { 'v', '-', ':call v:lua.MagicFold()<CR>', { noremap = true, silent = true } },
 })
 
+function MagicFold()
+    local max = 1
+    if G.fn.foldlevel("'<") > 0 then G.fn.execute("normal! '<zd") end
+    if G.fn.foldlevel("'>") > 0 then G.fn.execute("normal! '>zd") end
+    G.fn.execute('normal! gvzf')
+end
 
 -- space 行首行尾跳转
 G.map({
