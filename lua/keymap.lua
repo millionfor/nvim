@@ -151,7 +151,7 @@ G.map({
     { 'i', '<m-left>',    '<esc>:bp<cr>',     { noremap = true, silent = true } },
     { 'i', '<m-right>',   '<esc>:bn<cr>',     { noremap = true, silent = true } },
 
-    -- tt 打开一个10行大小的终端
+  -- tt 打开一个10行大小的终端
     { 'n', 'tt',          ':below 10sp | term<cr>a', { noremap = true, silent = true } },
 
     -- 切换是否wrap
@@ -162,7 +162,8 @@ G.map({
     { 'n', '<leader>a',       'vi{',     { noremap = true } },
     { 'n', '<leader>b',       'vi[',     { noremap = true } },
     { 'n', '<leader>y',   ':%yank<cr>', { noremap = true } },
-
+    -- 清除折行
+    { 'n', 'qc',   'zE', { noremap = true } },
 })
 
 -- 重设tab长度
