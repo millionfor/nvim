@@ -159,8 +159,10 @@ G.map({
 
     -- 选中全文 选中{ 复制全文
     { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
-    { 'n', '<leader>a',       'vi{',     { noremap = true } },
-    { 'n', '<leader>b',       'vi[',     { noremap = true } },
+    { 'n', '<leader>A',       'vi{',     { noremap = true } },
+    { 'n', '<leader>a',       'va{',     { noremap = true } },
+    { 'n', '<leader>B',       'vi[',     { noremap = true } },
+    { 'n', '<leader>b',       'va[',     { noremap = true } },
     { 'n', '<leader>y',   ':%yank<cr>', { noremap = true } },
     -- 清除折行
     { 'n', 'qc',   'zE', { noremap = true } },
