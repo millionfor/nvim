@@ -159,10 +159,21 @@ G.map({
 
     -- 选中全文 选中{ 复制全文
     { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
-    { 'n', '<leader>A',       'vi{',     { noremap = true } },
-    { 'n', '<leader>a',       'va{',     { noremap = true } },
-    { 'n', '<leader>B',       'vi[',     { noremap = true } },
-    { 'n', '<leader>b',       'va[',     { noremap = true } },
+    
+    -- 选择内容(不包含标签)
+    { 'n', 'it',       'vit',     { noremap = true } },
+    -- 选择内容(包含标签)
+    { 'n', 'at',       'vat',     { noremap = true } },
+    
+    -- 选中{}内容(包含括号)
+    { 'n', '<leader>1',       'va{',     { noremap = true } },
+    -- 选中{}内的内容(不包含括号)
+    { 'n', '<leader>!',       'vi{',     { noremap = true } },
+    -- 选中[]内容(包含括号)
+    { 'n', '<leader>2',       'va[',     { noremap = true } },
+    -- 选中[]内的内容(不包含括号)
+    { 'n', '<leader>@',       'vi[',     { noremap = true } },
+    -- 复制
     { 'n', '<leader>y',   ':%yank<cr>', { noremap = true } },
     -- 清除折行
     { 'n', 'qc',   'zE', { noremap = true } },
