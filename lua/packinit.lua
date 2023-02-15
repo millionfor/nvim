@@ -97,8 +97,8 @@ require('packer').startup({
         use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()" }
 
         -- 启动页
-        require('pack/alpha-nvim').config()
-        use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
+        -- require('pack/alpha-nvim').config()
+        -- use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
             
         use { 'yaocccc/vim-comment' }                                                  -- 注释插件
         use { 'yaocccc/vim-surround' }                                                 -- 操作成对的 ""  {}  [] 等的插件
