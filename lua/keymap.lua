@@ -198,8 +198,10 @@ G.cmd([[
 
 -- 折叠
 G.map({
-    { 'n', '-', "za", { noremap = true, silent = true } },
-    { 'v', '-', ':call v:lua.MagicFold()<CR>', { noremap = true, silent = true } },
+    -- { 'n', '-', "za", { noremap = true, silent = true } },
+    -- { 'v', '-', ':call v:lua.MagicFold()<CR>', { noremap = true, silent = true } },
+    { 'n', '-',           "foldlevel('.') != 0 ? 'za' : 'va{zf'", { noremap = true, silent = true, expr = true } },
+    { 'v', '-',           ':call v:lua.MagicFold()<CR>', { noremap = true, silent = true } },
 })
 
 function MagicFold()
