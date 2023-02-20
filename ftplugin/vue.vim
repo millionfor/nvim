@@ -1,5 +1,5 @@
 
 augroup vue
     au!
-    autocmd BufWritePre *.vue :call CocAction('format')
+    autocmd BufWritePre *.vue :PrettierAsync
 augroup END
