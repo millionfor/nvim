@@ -77,7 +77,7 @@ G.cmd([[ set viminfo=!,'10000,<50,s10,h ]])
 
 -- 折叠
 G.cmd([[
-  set foldcolumn=1
+  set foldcolumn=0
 ]])
 
 G.opt.foldenable = true
