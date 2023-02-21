@@ -33,15 +33,6 @@ function M.setup()
     },
   }
 
-
-  local info = {
-    type = 'text',
-    opts = {
-      hl = 'DevIconVim',
-      position = 'left',
-    },
-  }
-
   local message = {
     type = 'text',
     val = ' ',
@@ -55,7 +46,6 @@ function M.setup()
     type = 'group',
     val = {
       logo,
-      info,
       message,
     },
   }

@@ -92,6 +92,9 @@ require('packer').startup({
         -- 快速注释
         -- require('pack/comment-nvim').config()
         -- use { 'numToStr/Comment.nvim', config = "require('pack/comment-nvim').setup()" }
+        
+        -- signcolumn显示折叠信息
+        use { 'yaocccc/nvim-foldsign', event = 'CursorHold', config = 'require("nvim-foldsign").setup()' }
 
         require('pack/onedark').config()
         use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()" }
