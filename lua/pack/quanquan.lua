@@ -4,17 +4,6 @@ local M = {}
 function M.config()
     -- vim-surround
     G.g.use_toggle_surround = 0
-
-    -- vim-echo
-    G.map({
-        { 'v', 'C', ':<c-u>VECHO<cr>', {silent = true, noremap = true}},
-    })
-    G.g.vim_echo_by_file = {
-        js = 'console.log("logger-[[ECHO]]", [ECHO]);',
-        ts = 'console.log("logger-[[ECHO]]", [ECHO]);',
-        vue = 'console.log("logger-[[ECHO]]", [ECHO]);',
-    }
-
     -- vim-comment
     G.g.vim_line_comments = {
         vim = '"',
