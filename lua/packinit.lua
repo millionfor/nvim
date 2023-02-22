@@ -17,6 +17,9 @@ require('packer').startup({
     function(use)
         -- packer 管理自己的版本
         use { 'wbthomason/packer.nvim' }
+
+        -- wilder 弹出式命令行
+        use { 'gelguy/wilder.nvim', event = 'CmdlineEnter', run = 'UpdateRemotePlugins', config = 'require("pack/wilder").setup()' }
   
         -- vv 快速选中内容插件
         require('pack/vim-expand-region').config()
