@@ -18,21 +18,25 @@ function M.setup()
     })
     wilder.set_option('pipeline', {
         wilder.branch(
-            wilder.cmdline_pipeline(),
+            {
+                wilder.check(function (ctx, x)
+                    return G.fn.empty(x)
+                end),
+                wilder.history(),
+            },
+            wilder.cmdline_pipeline({
+                fuzzy = 1,
+                fuzzy_filter = wilder.vim_fuzzy_filter(),
+            }),
             wilder.search_pipeline()
         ),
-        wilder.debounce(10)
+        wilder.debounce(30)
     })
     wilder.set_option('renderer', wilder.popupmenu_renderer(
         wilder.popupmenu_border_theme({
             highlights = {
-                accent = wilder.make_hl(
-                    'WilderPoppupMenuAccent',
-                    'Pmenu',
-                    {
-                        {}, {12}, {foreground = '#f4468f'},
-                    }
-                ),
+                accent = "WilderAccent",
+                selected_accent = "WilderSelectedAccent",
             },
             highlighter = wilder.basic_highlighter(),
             left = { ' ', wilder.popupmenu_devicons() },
@@ -40,6 +44,11 @@ function M.setup()
             border = 'rounded',
         })
     ))
+    G.cmd("silent! UpdateRemotePlugins")
+    G.hi({
+        WilderAccent = { fg = 12 },
+        WilderSelectedAccent = { fg = 12, bg = 239 },
+    })
     G.map({
         { 'c', '<tab>', [[wilder#in_context() ? wilder#next() : '<tab>']], { noremap = true, expr = true } },
         { 'c', '<Down>', [[wilder#in_context() ? wilder#next() : '<down>']], { noremap = true, expr = true } },
@@ -48,3 +57,4 @@ function M.setup()
 end
 
 return M
+
