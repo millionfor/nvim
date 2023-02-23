@@ -19,10 +19,10 @@ function M.setup()
     wilder.set_option('pipeline', {
         wilder.branch(
             {
-                wilder.check(function (ctx, x)
+                wilder.check(function (_, x)
                     return G.fn.empty(x)
                 end),
-                wilder.history(),
+                wilder.history(15),
             },
             wilder.cmdline_pipeline({
                 fuzzy = 1,
@@ -35,6 +35,7 @@ function M.setup()
     wilder.set_option('renderer', wilder.popupmenu_renderer(
         wilder.popupmenu_border_theme({
             highlights = {
+                selected = "WilderSelected",
                 accent = "WilderAccent",
                 selected_accent = "WilderSelectedAccent",
             },
@@ -42,12 +43,14 @@ function M.setup()
             left = { ' ', wilder.popupmenu_devicons() },
             right = { ' ', wilder.popupmenu_scrollbar() },
             border = 'rounded',
+            max_height = 17 -- 最大高度限制 因为要计算上下 所以17支持最多15个选项
         })
     ))
     G.cmd("silent! UpdateRemotePlugins")
     G.hi({
-        WilderAccent = { fg = 12 },
-        WilderSelectedAccent = { fg = 12, bg = 239 },
+        WilderAccent = { fg = '#16AABF' },
+        WilderSelected = { bg = '#41444B' },
+        WilderSelectedAccent = { fg = '#16AABF' },
     })
     G.map({
         { 'c', '<tab>', [[wilder#in_context() ? wilder#next() : '<tab>']], { noremap = true, expr = true } },
