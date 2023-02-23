@@ -5,7 +5,6 @@ function M.config()
     G.g.coc_global_extensions = {
         'coc-marketplace',
         '@yaegassy/coc-volar',
-        'coc-tsserver',
         'coc-json',
         'coc-html', 'coc-css',
         'coc-clangd',
@@ -13,14 +12,14 @@ function M.config()
         'coc-sumneko-lua',
         'coc-vimlsp',
         'coc-sh', 'coc-db',
-        'coc-java', 'coc-pyright',
+        'coc-pyright',
         'coc-toml', 'coc-solidity',
         'coc-prettier',
         'coc-snippets', 'coc-pairs', 'coc-word',
         'coc-translator',
         'coc-git',
         'coc-gist',
-        'coc-vetur'
+        '@yaegassy/coc-volar'
     }
     G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
     G.cmd("hi! link CocPum Pmenu")
