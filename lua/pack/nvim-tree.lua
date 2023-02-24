@@ -53,7 +53,16 @@ function M.setup()
     nvim_tree.setup({
         sort_by = "case_sensitive",
         view = {
-            hide_root_folder = false,
+          centralize_selection = false,
+          cursorline = true,
+          debounce_delay = 15,
+          width = 40,
+          hide_root_folder = false,
+          side = "left",
+          preserve_window_proportions = false,
+          number = false,
+          relativenumber = false,
+          signcolumn = "yes",
             mappings = {
                 list = {
                     { key = "P", action = "cd" },
@@ -71,18 +80,6 @@ function M.setup()
                     { key = "C", action = "" },
                 },
             },
-            float = {
-                enable = true,
-                open_win_config = function()
-                    local columns = G.o.columns
-                    local lines = G.o.lines
-                    local width = math.max(math.floor(columns * 0.5), 50)
-                    local height = math.max(math.floor(lines * 0.5), 20)
-                    local left = math.ceil((columns - width) * 0.5)
-                    local top = math.ceil((lines - height) * 0.5 - 2)
-                    return { relative = "editor", border = "rounded", width = 46, height = 60, row = 0, col = 999 }
-                end,
-            }
         },
         update_focused_file = {
             enable = true,

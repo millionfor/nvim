@@ -85,6 +85,15 @@ G.map({
     { 'v', '<s-down>',    'j',       { noremap = true } },
     { 'n', '<s-left>',    '<left>vh',{ noremap = true } },
     { 'n', '<s-right>',   'vl',      { noremap = true } },
+    
+    { 'i', '<s-k>',      '<esc>vk', { noremap = true } },
+    { 'i', '<s-j>',    '<esc>vj', { noremap = true } },
+    { 'n', '<s-k>',      'Vk',      { noremap = true } },
+    { 'n', '<s-j>',    'Vj',      { noremap = true } },
+    { 'v', '<s-k>',      'k',       { noremap = true } },
+    { 'v', '<s-j>',    'j',       { noremap = true } },
+    { 'n', '<s-h>',    '<left>vh',{ noremap = true } },
+    { 'n', '<s-l>',   'vl',      { noremap = true } },
 
     -- CTRL SHIFT + 方向 快速跳转
     { 'i', '<c-s-up>',    '<up><up><up><up><up><up><up><up><up><up>', { noremap = true, silent = true } },
@@ -135,7 +144,7 @@ G.map({
     { 'n', 's<Right>',    '<c-w>l',           { noremap = true } },
     { 'n', 's<Up>',       '<c-w>k',           { noremap = true } },
     { 'n', 's<Down>',     '<c-w>j',           { noremap = true } },
-    { 'n', '<c-Space>',   '<c-w>w',           { noremap = true } },
+    { 'n', '<s-Space>',   '<c-w>w',           { noremap = true } },
     { 'n', 's=',          '<c-w>=',           { noremap = true } },
     { 'n', '<m-.>',       "winnr() <= winnr('$') - winnr() ? '<c-w>10>' : '<c-w>10<'", { noremap = true, expr = true } },
     { 'n', '<m-,>',       "winnr() <= winnr('$') - winnr() ? '<c-w>10<' : '<c-w>10>'", { noremap = true, expr = true } },
