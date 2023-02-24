@@ -50,7 +50,7 @@ function M.setup()
     G.hi({
         WilderAccent = { fg = '#16AABF' },
         WilderSelected = { bg = '#41444B' },
-        WilderSelectedAccent = { fg = '#16AABF' },
+        WilderSelectedAccent = { fg = '#16AABF', bg = '#41444B' },
     })
     G.map({
         { 'c', '<tab>', [[wilder#in_context() ? wilder#next() : '<tab>']], { noremap = true, expr = true } },
