@@ -16,15 +16,11 @@ function M.config()
     })
     -- some custom highlights
     -- G.cmd('match Todo /TODO\\(:.*\\)*/')
-    G.hi({
-        ["@text.todo.unchecked"] = { fg = 172 };
-        ["@text.todo.checked"] = { fg = 37 };
-    })
     -- some custom highlights
     G.hi({
-        Todo = { fg = 234, bg = 38, bold = true };
+        Todo = { fg = 234, bg = 138, bold = true };
         TodoText = { fg = 38, bg = 'NONE', bold = true };
-        Note = { fg = 234, bg = 78, bold = true };
+        Note = { fg = 234, bg = 178, bold = true };
         NoteText = { fg = 78, bg = 'NONE', bold = true };
     })
     G.cmd([[call matchadd('Todo', '\s\{0,1\}TODO:\{0,1\}\s\{0,1\}')]])
