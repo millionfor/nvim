@@ -86,8 +86,8 @@ G.map({
     { 'n', '<s-left>',    '<left>vh',{ noremap = true } },
     { 'n', '<s-right>',   'vl',      { noremap = true } },
     
-    { 'i', '<s-k>',      '<esc>vk', { noremap = true } },
-    { 'i', '<s-j>',    '<esc>vj', { noremap = true } },
+    { 'n', '<s-k>',      '<esc>vk', { noremap = true } },
+    { 'n', '<s-j>',    '<esc>vj', { noremap = true } },
     { 'n', '<s-k>',      'Vk',      { noremap = true } },
     { 'n', '<s-j>',    'Vj',      { noremap = true } },
     { 'v', '<s-k>',      'k',       { noremap = true } },
@@ -136,8 +136,8 @@ G.map({
     { 'n', '<m-r>',       '"_ciw',            { noremap = true } },
 
     -- windows: sp 上下窗口 sv 左右分屏 sc关闭当前 so关闭其他 s方向切换
-    { 'n', 'sv',          ':vsp<cr><c-w>w',   { noremap = true } },
-    { 'n', 'sp',          ':sp<cr><c-w>w',    { noremap = true } },
+    { 'n', 'sh',          ':vsp<cr><c-w>w',   { noremap = true } },
+    { 'n', 'sw',          ':sp<cr><c-w>w',    { noremap = true } },
     { 'n', 'sc',          ':close<cr>',       { noremap = true } },
     { 'n', 'so',          ':only<cr>',        { noremap = true } },
     { 'n', 's<Left>',     '<c-w>h',           { noremap = true } },
