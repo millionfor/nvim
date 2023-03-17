@@ -1,4 +1,16 @@
 
+snippet dflex "display: flex"
+  @include e(charging) {
+    display: flex;
+    flex-direction: row;
+    @include m(tips) {
+      flex-grow: 1;
+    }
+    @include m(send) {
+      flex-grow: 1;
+    }
+  }
+
 snippet mcss "/* Modified by QuanQuan<millionfor@apache.org> 2021-10-10 */"
 	/* Modified by QuanQuan<millionfor@apache.org> `strftime("%a, %b %d, %Y %H:%M")` @Description "fix: ${0}" */
 snippet 3wteo 

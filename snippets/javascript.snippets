@@ -146,6 +146,14 @@ snippet pnum "@param {Number} xxx xxx "
 snippet pstr "@param {String} xxx xxx "
 	@param {String} ${1} ${0}
 
+snippet pfunc "/* @param {string} */"
+	/**
+	 * ${1}
+	 *
+	 * @param {Array} ${0}
+	 * @returns { Promise<String> } ${2}
+	 */
+
 snippet parrp "/* @param {Array} */"
 	/**
 	 * ${1}
