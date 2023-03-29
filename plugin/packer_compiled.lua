@@ -184,6 +184,25 @@ _G.packer_plugins = {
     path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/start/vim-comment",
     url = "https://github.com/yaocccc/vim-comment"
   },
+  ["vim-dadbod"] = {
+    after = { "vim-dadbod-ui" },
+    commands = { "DBUI" },
+    loaded = false,
+    needs_bufread = false,
+    only_cond = false,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-dadbod",
+    url = "https://github.com/tpope/vim-dadbod"
+  },
+  ["vim-dadbod-ui"] = {
+    config = { "require('pack/vim-dadbod').setup()" },
+    load_after = {
+      ["vim-dadbod"] = true
+    },
+    loaded = false,
+    needs_bufread = true,
+    path = "/Users/gongzijian/.local/share/nvim/site/pack/packer/opt/vim-dadbod-ui",
+    url = "https://github.com/kristijanhusak/vim-dadbod-ui"
+  },
   ["vim-echo"] = {
     commands = { "VECHO" },
     config = { "require('pack/vim-echo').setup()" },
@@ -270,22 +289,26 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Config for: nvim-hlchunk
-time([[Config for nvim-hlchunk]], true)
-require('pack/nvim-hlchunk').setup()
-time([[Config for nvim-hlchunk]], false)
 -- Config for: vim-translate
 time([[Config for vim-translate]], true)
 require('pack/vim-translate').setup()
 time([[Config for vim-translate]], false)
--- Config for: vim-floaterm
-time([[Config for vim-floaterm]], true)
-require('pack/vim-floaterm').setup()
-time([[Config for vim-floaterm]], false)
+-- Config for: nvim-hlchunk
+time([[Config for nvim-hlchunk]], true)
+require('pack/nvim-hlchunk').setup()
+time([[Config for nvim-hlchunk]], false)
+-- Config for: vim-jsdoc
+time([[Config for vim-jsdoc]], true)
+require('pack/vim-jsdoc').setup()
+time([[Config for vim-jsdoc]], false)
 -- Config for: nvim-lines.lua
 time([[Config for nvim-lines.lua]], true)
 require('pack/nvim-lines').setup()
 time([[Config for nvim-lines.lua]], false)
+-- Config for: vimspector
+time([[Config for vimspector]], true)
+require('pack/vimspector').setup()
+time([[Config for vimspector]], false)
 -- Config for: onedark.nvim
 time([[Config for onedark.nvim]], true)
 require('pack/onedark').setup()
@@ -294,22 +317,18 @@ time([[Config for onedark.nvim]], false)
 time([[Config for alpha-nvim]], true)
 require('pack/alpha-nvim').setup()
 time([[Config for alpha-nvim]], false)
--- Config for: vim-jsdoc
-time([[Config for vim-jsdoc]], true)
-require('pack/vim-jsdoc').setup()
-time([[Config for vim-jsdoc]], false)
--- Config for: vimspector
-time([[Config for vimspector]], true)
-require('pack/vimspector').setup()
-time([[Config for vimspector]], false)
--- Config for: coc.nvim
-time([[Config for coc.nvim]], true)
-require('pack/coc').setup()
-time([[Config for coc.nvim]], false)
 -- Config for: vim-prettier
 time([[Config for vim-prettier]], true)
 require('pack/vim-prettier').setup()
 time([[Config for vim-prettier]], false)
+-- Config for: coc.nvim
+time([[Config for coc.nvim]], true)
+require('pack/coc').setup()
+time([[Config for coc.nvim]], false)
+-- Config for: vim-floaterm
+time([[Config for vim-floaterm]], true)
+require('pack/vim-floaterm').setup()
+time([[Config for vim-floaterm]], false)
 -- Load plugins in order defined by `after`
 time([[Sequenced loading]], true)
 vim.cmd [[ packadd fzf ]]
@@ -322,12 +341,12 @@ time([[Sequenced loading]], false)
 
 -- Command lazy-loads
 time([[Defining lazy-load commands]], true)
-pcall(vim.api.nvim_create_user_command, 'VECHO', function(cmdargs)
-          require('packer.load')({'vim-echo'}, { cmd = 'VECHO', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+pcall(vim.api.nvim_create_user_command, 'NvimTreeToggle', function(cmdargs)
+          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
         end,
         {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'vim-echo'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('VECHO ', 'cmdline')
+          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('NvimTreeToggle ', 'cmdline')
       end})
 pcall(vim.api.nvim_create_user_command, 'NvimTreeFindFileToggle', function(cmdargs)
           require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeFindFileToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
@@ -336,6 +355,13 @@ pcall(vim.api.nvim_create_user_command, 'NvimTreeFindFileToggle', function(cmdar
           require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
           return vim.fn.getcompletion('NvimTreeFindFileToggle ', 'cmdline')
       end})
+pcall(vim.api.nvim_create_user_command, 'VECHO', function(cmdargs)
+          require('packer.load')({'vim-echo'}, { cmd = 'VECHO', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+        end,
+        {nargs = '*', range = true, bang = true, complete = function()
+          require('packer.load')({'vim-echo'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('VECHO ', 'cmdline')
+      end})
 pcall(vim.api.nvim_create_user_command, 'MarkdownPreview', function(cmdargs)
           require('packer.load')({'markdown-preview.nvim'}, { cmd = 'MarkdownPreview', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
         end,
@@ -343,12 +369,12 @@ pcall(vim.api.nvim_create_user_command, 'MarkdownPreview', function(cmdargs)
           require('packer.load')({'markdown-preview.nvim'}, {}, _G.packer_plugins)
           return vim.fn.getcompletion('MarkdownPreview ', 'cmdline')
       end})
-pcall(vim.api.nvim_create_user_command, 'NvimTreeToggle', function(cmdargs)
-          require('packer.load')({'nvim-tree.lua'}, { cmd = 'NvimTreeToggle', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
+pcall(vim.api.nvim_create_user_command, 'DBUI', function(cmdargs)
+          require('packer.load')({'vim-dadbod'}, { cmd = 'DBUI', l1 = cmdargs.line1, l2 = cmdargs.line2, bang = cmdargs.bang, args = cmdargs.args, mods = cmdargs.mods }, _G.packer_plugins)
         end,
         {nargs = '*', range = true, bang = true, complete = function()
-          require('packer.load')({'nvim-tree.lua'}, {}, _G.packer_plugins)
-          return vim.fn.getcompletion('NvimTreeToggle ', 'cmdline')
+          require('packer.load')({'vim-dadbod'}, {}, _G.packer_plugins)
+          return vim.fn.getcompletion('DBUI ', 'cmdline')
       end})
 time([[Defining lazy-load commands]], false)
 
@@ -356,14 +382,14 @@ vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
 time([[Defining lazy-load filetype autocommands]], true)
-vim.cmd [[au FileType markdown ++once lua require("packer.load")({'vim-markdown-toc', 'markdown-preview.nvim'}, { ft = "markdown" }, _G.packer_plugins)]]
+vim.cmd [[au FileType markdown ++once lua require("packer.load")({'markdown-preview.nvim', 'vim-markdown-toc'}, { ft = "markdown" }, _G.packer_plugins)]]
 time([[Defining lazy-load filetype autocommands]], false)
   -- Event lazy-loads
 time([[Defining lazy-load event autocommands]], true)
-vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'copilot.vim'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au BufRead * ++once lua require("packer.load")({'nvim-treesitter'}, { event = "BufRead *" }, _G.packer_plugins)]]
+vim.cmd [[au CursorHold * ++once lua require("packer.load")({'vim-expand-region', 'vim-visual-multi', 'nvim-foldsign', 'vim-interestingwords'}, { event = "CursorHold *" }, _G.packer_plugins)]]
+vim.cmd [[au InsertEnter * ++once lua require("packer.load")({'copilot.vim'}, { event = "InsertEnter *" }, _G.packer_plugins)]]
 vim.cmd [[au CmdlineEnter * ++once lua require("packer.load")({'wilder.nvim'}, { event = "CmdlineEnter *" }, _G.packer_plugins)]]
-vim.cmd [[au CursorHold * ++once lua require("packer.load")({'vim-interestingwords', 'vim-visual-multi', 'nvim-foldsign', 'vim-expand-region'}, { event = "CursorHold *" }, _G.packer_plugins)]]
 time([[Defining lazy-load event autocommands]], false)
 vim.cmd("augroup END")
 vim.cmd [[augroup filetypedetect]]

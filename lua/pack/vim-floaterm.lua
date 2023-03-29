@@ -41,7 +41,7 @@ function M.config()
     -- c老索
     -- M.setFTToggleMap('<c-t>', 'TERM', '')
     -- M.setFTToggleMap('<c-r>', 'RANGER', 'ranger')
-    -- M.setFTToggleMap('<c-b>', 'DBUI', 'nvim +CALLDB')
+    M.setFTToggleMap('<c-b>', 'DBUI', 'nvim +CALLDB')
     G.map({
         { 'n', '<F5>', ':lua require("pack/vim-floaterm").runFile()<cr>', {silent = true, noremap = true}},
         { 'i', '<F5>', '<esc>:lua require("pack/vim-floaterm").runFile()<cr>', {silent = true, noremap = true}},
