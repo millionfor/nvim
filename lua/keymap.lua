@@ -251,3 +251,8 @@ G.cmd([[
     endf
 ]])
 
+-- G.cmd([[
+--   au InsertEnter * hi CursorLine guibg=#25435C
+--   au InsertLeave * hi CursorLine guibg=none
+-- ]])
+
