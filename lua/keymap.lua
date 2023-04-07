@@ -86,6 +86,8 @@ G.map({
     { 'n', '<s-left>',    '<left>vh',{ noremap = true } },
     { 'n', '<s-right>',   'vl',      { noremap = true } },
     
+    { 'v', '<s-right>',   'e',       { noremap = true } },
+    { 'i', '<s-right>',   '<esc>ea', { noremap = true } },
     { 'n', '<s-k>',      '<esc>vk', { noremap = true } },
     { 'n', '<s-j>',    '<esc>vj', { noremap = true } },
     { 'n', '<s-k>',      'Vk',      { noremap = true } },
