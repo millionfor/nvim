@@ -50,14 +50,11 @@ G.cmd([[
 -- 缩进对齐
 G.cmd([[
     set autoindent
-    set smartindent
     set tabstop=2
     set softtabstop=2
     set shiftwidth=2
     set smarttab
-    set cindent
     set expandtab
-    set cinoptions={2s}
 ]])
 
 -- 不自动备份 不换行
