@@ -24,8 +24,53 @@
 #
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
-snippet find "select ~"
-	SELECT ${4:*} FROM ${1:qsm} . ${2:qsm_} WHERE ${3:where} ORDER BY id DESC LIMIT 100;
+# 按条件查询单条数据
+snippet find-id "按索引查找"
+	SELECT * FROM ${1:qsm}.${2:qsm_} WHERE ${3:id=1} ORDER BY ${4:id} DESC LIMIT 100;
+
+# 按条件查询list
+snippet find-list "查询列表"
+	SELECT * from ${1:qsm}.${2:qsm_} LIMIT ${3:100};
+
+snippet update-id "更新某条数据并查询列表"
+	UPDATE ${1:qsm}.${2:qsm_} SET ${3:desc} = '${4:xxxxx}' WHERE ${4:id} = ${5:1};
+	SELECT * from ${1:qsm}.${2:qsm_} LIMIT 100;
+
+# 创建表
+snippet create-table "创建表"
+	CREATE TABLE ${1:qsm}.${2:qsm_tablename} (
+		id INT(11) NOT NULL AUTO_INCREMENT,
+		name VARCHAR(50) NOT NULL,
+		age INT(11) NOT NULL,
+		email VARCHAR(50) DEFAULT NULL,
+		created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		PRIMARY KEY (id)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+# 删除表
+snippet delete-table "删除表"
+	DROP TABLE ${1:qsm}.${2:qsm_tablename};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 snippet update "update ~"
 	UPDATE ${1:tableName} SET ${2:updation} WHERE (id = ${3::id});

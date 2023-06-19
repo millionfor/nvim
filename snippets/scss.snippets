@@ -1,4 +1,11 @@
 
+snippet owt "text-overflow: ellipsis;"
+display: inline-block;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+width: ${0}px;
+
 snippet inp "prefixCls (){}"
 @include prefixCls(${0:variable}) {
 		@include e() {}
