@@ -32,8 +32,8 @@ end
 
 function M.config()
     G.g.floaterm_title = ''
-    G.g.floaterm_width = 0.8
-    G.g.floaterm_height = 0.8
+    G.g.floaterm_width = 0.9
+    G.g.floaterm_height = 0.9
     G.g.floaterm_autoclose = 0
     G.g.floaterm_opener = 'edit'
     G.cmd("au BufEnter * if &buftype == 'terminal' | :call timer_start(50, { -> execute('startinsert!') }, { 'repeat': 3 }) | endif")

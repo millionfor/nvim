@@ -25,19 +25,22 @@
 # Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
 
 # 按条件查询单条数据
-snippet find-id "按索引查找"
+snippet fid "按索引查找"
 	SELECT * FROM ${1:qsm}.${2:qsm_} WHERE ${3:id=1} ORDER BY ${4:id} DESC LIMIT 100;
 
 # 按条件查询list
-snippet find-list "查询列表"
+snippet fl "查询列表"
 	SELECT * from ${1:qsm}.${2:qsm_} LIMIT ${3:100};
 
-snippet update-id "更新某条数据并查询列表"
-	UPDATE ${1:qsm}.${2:qsm_} SET ${3:desc} = '${4:xxxxx}' WHERE ${4:id} = ${5:1};
+# 更新某条数据
+snippet uid "更新某条数据并查询列表"
+	UPDATE ${1:qsm}.${2:qsm_} SET ${3:desc} = '${4:desc}' WHERE ${5:id} = ${6:1};
 	SELECT * from ${1:qsm}.${2:qsm_} LIMIT 100;
 
+# 添加数据
+
 # 创建表
-snippet create-table "创建表"
+snippet cr "创建表"
 	CREATE TABLE ${1:qsm}.${2:qsm_tablename} (
 		id INT(11) NOT NULL AUTO_INCREMENT,
 		name VARCHAR(50) NOT NULL,
@@ -49,9 +52,16 @@ snippet create-table "创建表"
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 # 删除表
-snippet delete-table "删除表"
+snippet dt "删除表"
 	DROP TABLE ${1:qsm}.${2:qsm_tablename};
 
+# 更改某个表某个字段属性
+snippet at "更改某个表某个字段属性"
+	ALTER TABLE ${1:qsm} MODIFY ${2:name} VARCHAR(255);
+
+# 更改表名
+snippet rt "更改表名"
+	RENAME TABLE ${1:qsm_old_table} TO ${2:qsm_new_table};
 
 
 
