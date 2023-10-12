@@ -49,6 +49,8 @@ func s:getTemplete(type)
         \    " * @Author          QuanQuan <millionfor@apache.org>",
         \    " * @Description     js",
         \    " */",
+        \    " ",
+        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=300 sw=2:",
         \],
         \'typescript': [
         \    "/**",
@@ -58,6 +60,8 @@ func s:getTemplete(type)
         \    " * @Author          QuanQuan <millionfor@apache.org>",
         \    " * @Description     ts",
         \    " */",
+        \    " ",
+        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=300 sw=2:",
         \],
         \'default': [
         \    "/**",
@@ -67,6 +71,8 @@ func s:getTemplete(type)
         \    " * @Author          QuanQuan <millionfor@apache.org>",
         \    " * @Description     default",
         \    " */",
+        \    " ",
+        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=300 sw=2:",
         \],
         \}
     return get(templates, a:type, templates['default'])

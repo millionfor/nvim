@@ -115,6 +115,8 @@ function set_js_template()
     " * @Author          QuanQuan <millionfor@apache.org>",
     " * @Description     ts",
     " */",
+    " ",
+    "// vim: set ft=javascript fdm=marker et ff=unix tw=300 sw=2:",
   }
 
   -- 将模板代码插入到文件中
