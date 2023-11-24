@@ -8,6 +8,7 @@ function M.config()
         'coc-json',
         'coc-html', 'coc-css',
         'coc-clangd',
+        'coc-python',
         'coc-go',
         'coc-sumneko-lua',
         'coc-vimlsp',

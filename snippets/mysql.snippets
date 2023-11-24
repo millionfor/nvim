@@ -74,6 +74,10 @@ snippet delete-更新表中字段属性 "更新某个表某个字段属性"
 snippet update-更新表名 "更新表名"
 	RENAME TABLE ${1:qsm_old_table} TO ${2:qsm_new_table};
 
+# 添加表字段
+snippet add-添加表字段 "添加表字段"
+	ALTER TABLE ${1:qsm}.${2:qsm_}
+	ADD email VARCHAR(255);
 
 
 
