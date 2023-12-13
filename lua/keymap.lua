@@ -171,6 +171,9 @@ G.map({
     -- 选中全文 选中{ 复制全文
     { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
     
+    -- vim-dadbod 快捷键映射 
+    -- { 'n', '<leader>W',       'W',    { noremap = true } },
+    
     -- 选择内容(不包含标签)
     { 'n', 'it',       'vit',     { noremap = true } },
     -- 选择内容(包含标签)

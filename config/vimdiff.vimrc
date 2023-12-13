@@ -59,7 +59,7 @@ if &diff
 endif
 " }}}
 
-
+let s:mysql = {}
 
 " Format the statusline
 set statusline=\ %m%r%h%w<%r%{__get_cur_dir()}%h>\%=\[%{&ft},%{&ff},%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ [%l,%v,0x%B\/%L,%p%%]
