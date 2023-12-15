@@ -80,6 +80,9 @@ snippet add-添加表字段 "添加表字段"
 	ADD email VARCHAR(255);
 
 
+# 更新字段注释
+snippet update-更新字段注释 "更新字段注释"
+	ALTER TABLE ${1:qsm}.${2:qsm_} MODIFY COLUMN ${3:字段名} VARCHAR(50) COMMENT '更新后的注释内容';
 
 
 
