@@ -5,7 +5,7 @@ local M = {}
 
 
 function M.config()
-    -- g.g.jsdoc_formatter = 'jsdoc'
+    G.g.jsdoc_formatter = 'tsdoc'
 
     G.map({
       { 'n', '<leader>z', '<Plug>(jsdoc)', { noremap = true, silent = true } },
@@ -13,7 +13,7 @@ function M.config()
       { 'v', 'zz', ":JsDoc<cr>", { noremap = true } },
     })
 
-    G.cmd('autocmd BufRead,BufNewFile *.vue setlocal filetype=javascript.html')
+    G.cmd('autocmd BufRead,BufNewFile *.vue,*.ts,*.js setlocal filetype=javascript.html')
 
 end
 
