@@ -34,7 +34,7 @@ function M.setup()
             left = { ' ', wilder.popupmenu_devicons() },
             right = { ' ', wilder.popupmenu_scrollbar() },
             border = 'rounded',
-            max_height = 12 -- 最大高度限制 因为要计算上下 所以12支持最多10个选项
+            max_height = 24 -- 最大高度限制 因为要计算上下 所以12支持最多10个选项
         })
     ))
     G.cmd("silent! UpdateRemotePlugins")
