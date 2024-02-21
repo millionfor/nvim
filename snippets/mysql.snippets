@@ -1,0 +1,112 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+
+# 按条件查询list
+snippet query "查询列表"
+	SELECT * from ${1:qsm}.${2:qsm_} LIMIT ${3:100};
+
+# 添加数据
+snippet add-添加数据 "添加数据"
+	INSERT INTO ${1:qsm} (${2:value1}, ${3:value2}, ${4:value3}) VALUES (${2:value1}, ${3:value2}, ${4:value3});
+
+# 按条件查询单条数据
+snippet query-查询按条件 "查询按条件"
+	SELECT * FROM ${1:qsm}.${2:qsm_} WHERE ${3:id=1} ORDER BY ${4:id} DESC LIMIT 100;
+
+# 更新某条数据
+snippet update-更新表中某条数据 "更新某条数据并查询列表"
+	UPDATE ${1:qsm}.${2:qsm_} SET ${3:desc} = '${4:desc}' WHERE ${5:id} = ${6:1};
+	SELECT * from ${1:qsm}.${2:qsm_} LIMIT 100;
+
+# 创建表
+snippet created-创建表 "创建表"
+	CREATE TABLE ${1:qsm}.${2:qsm_tablename} (
+		id INT(11) NOT NULL AUTO_INCREMENT,
+		name VARCHAR(50) NOT NULL,
+		age INT(11) NOT NULL,
+		email VARCHAR(50) DEFAULT NULL,
+		created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+		updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+		PRIMARY KEY (id)
+	) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+# 删除表
+snippet delete-删除表 "删除表"
+	DROP TABLE ${1:qsm}.${2:qsm_tablename};
+
+# 删除表中某个字段
+snippet delete-删除表字段 "删除表中某个字段"
+	ALTER TABLE 表名 DROP COLUMN 字段名;
+
+# 删除表中某条数据
+snippet delete-删除表中某条数据 "删除表中某条数据"
+	DELETE FROM ${1:qsm}.${2:qsm_tablename} WHERE id = 1;
+
+# 更改某个表某个字段属性
+snippet delete-更新表中字段属性 "更新某个表某个字段属性"
+	ALTER TABLE ${1:qsm} MODIFY ${2:name} VARCHAR(255);
+
+# 更改表名
+snippet update-更新表名 "更新表名"
+	RENAME TABLE ${1:qsm_old_table} TO ${2:qsm_new_table};
+
+# 添加表字段
+snippet add-添加表字段 "添加表字段"
+	ALTER TABLE ${1:qsm}.${2:qsm_}
+	ADD email VARCHAR(255);
+
+
+# 更新字段注释
+snippet update-更新字段注释 "更新字段注释"
+	ALTER TABLE ${1:qsm}.${2:qsm_} MODIFY COLUMN ${3:字段名} VARCHAR(50) COMMENT '更新后的注释内容';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+snippet update "update ~"
+	UPDATE ${1:tableName} SET ${2:updation} WHERE (id = ${3::id});
+
+snippet insert "insert ~"
+	INSERT INTO ${1:tableName} 
+	(${1:fields})
+	VALUES 
+	(${2:value});
+
+
+
+

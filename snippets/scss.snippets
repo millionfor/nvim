@@ -1,4 +1,23 @@
 
+snippet owt "text-overflow: ellipsis;"
+display: inline-block;
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+width: ${0}px;
+
+snippet inp "prefixCls (){}"
+@include prefixCls(${0:variable}) {
+		@include e() {}
+		@include m() {}
+}
+
+snippet ine "@include e() {}"
+@include e(${0:variable}) {}
+
+snippet inm "@include m() {}"
+@include m(${0:variable}) {}
+
 snippet scss "/** quanquan **/"
 	/**
 	 * @FileName        ${0:`substitute(expand("%:t"), "." . expand("%:e"), "", "")`}

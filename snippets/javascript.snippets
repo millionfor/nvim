@@ -12,6 +12,7 @@ snippet // "/** quanquan **/"
 
 snippet node "#!/usr/bin/env"
 ${0:#}!/usr/bin/env node
+
 /**
  * ${1: test}
  *
@@ -31,8 +32,8 @@ snippet mtodojs "// TODO (2020/04/05): test"
 snippet mjs "/* Modified by QuanQuan<millionfor@apache.org> 2021-10-10 */"
 	/* Modified by QuanQuan<millionfor@apache.org> `strftime("%a, %b %d, %Y %H:%M")` @Description "fix: ${0}" */
 
-snippet vimjs "javascript vim: set ft=javascript fdm=marker et ff=unix tw=300 sw=2:"
-	// vim: set ft=javascript fdm=marker et ff=unix tw=300 sw=2:
+snippet vimjs "javascript vim: set ft=javascript fdm=marker et ff=unix tw=80 sw=2:"
+	// vim: set ft=javascript fdm=marker et ff=unix tw=80 sw=2:
 snippet ay "async"
 	async${0}	
 snippet aw "await"
@@ -102,6 +103,9 @@ snippet swc " switch case "
 	  default:
 	    console.log(3)
 	}
+
+snippet pd "await new Promise(resolve => _.delay(resolve, 5000));"
+await new Promise(resolve => _.delay(resolve, ${0:3000}));
 
 snippet rnp " return new Promise((resolve, reject) => {${0}) "
 	return new Promise((resolve, reject) => {

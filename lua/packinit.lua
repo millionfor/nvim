@@ -32,6 +32,11 @@ require('packer').startup({
         -- 多光标插件
         require('pack/vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()", event = 'CursorHold' }
+        
+        -- 数据库可视化UI
+        require('pack/vim-dadbod').config()
+        use { 'tpope/vim-dadbod', cmd = "DBUI" }
+        use { 'kristijanhusak/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
 
         -- coc-nvim
         require('pack/coc').config()

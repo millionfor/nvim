@@ -57,7 +57,7 @@ function set_vue_template()
     string.format("  .#{$-prefix-cls} {", filename),
     "  }",
     "</style>",
-    "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=300: -->",
+    "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=80: -->",
   }
 
   -- 将模板代码插入到文件中
@@ -115,6 +115,8 @@ function set_js_template()
     " * @Author          QuanQuan <millionfor@apache.org>",
     " * @Description     ts",
     " */",
+    " ",
+    "// vim: set ft=javascript fdm=marker et ff=unix tw=80 sw=2:",
   }
 
   -- 将模板代码插入到文件中

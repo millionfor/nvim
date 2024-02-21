@@ -86,6 +86,8 @@ G.map({
     { 'n', '<s-left>',    '<left>vh',{ noremap = true } },
     { 'n', '<s-right>',   'vl',      { noremap = true } },
     
+    { 'v', '<s-right>',   'e',       { noremap = true } },
+    { 'i', '<s-right>',   '<esc>ea', { noremap = true } },
     { 'n', '<s-k>',      '<esc>vk', { noremap = true } },
     { 'n', '<s-j>',    '<esc>vj', { noremap = true } },
     { 'n', '<s-k>',      'Vk',      { noremap = true } },
@@ -136,8 +138,8 @@ G.map({
     { 'n', '<m-r>',       '"_ciw',            { noremap = true } },
 
     -- windows: sp 上下窗口 sv 左右分屏 sc关闭当前 so关闭其他 s方向切换
-    { 'n', 'sh',          ':vsp<cr><c-w>w',   { noremap = true } },
-    { 'n', 'sw',          ':sp<cr><c-w>w',    { noremap = true } },
+    { 'n', 'sv',          ':vsp<cr><c-w>w',   { noremap = true } },
+    { 'n', 'sp',          ':sp<cr><c-w>w',    { noremap = true } },
     { 'n', 'sc',          ':close<cr>',       { noremap = true } },
     { 'n', 'so',          ':only<cr>',        { noremap = true } },
     { 'n', 's<Left>',     '<c-w>h',           { noremap = true } },
@@ -168,6 +170,9 @@ G.map({
 
     -- 选中全文 选中{ 复制全文
     { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
+    
+    -- vim-dadbod 快捷键映射 
+    -- { 'n', '<leader>W',       'W',    { noremap = true } },
     
     -- 选择内容(不包含标签)
     { 'n', 'it',       'vit',     { noremap = true } },
@@ -250,4 +255,9 @@ G.cmd([[
         call cursor(l, c1)
     endf
 ]])
+
+-- G.cmd([[
+--   au InsertEnter * hi CursorLine guibg=#25435C
+--   au InsertLeave * hi CursorLine guibg=none
+-- ]])
 
