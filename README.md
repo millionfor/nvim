@@ -2,6 +2,20 @@
 
 A neovim based configuration
 
+## Install
+
+```
+    git clone git@github.com:millionfor/nvim.git ~/.config
+    vim :PackerInstall
+```
+
+## Problem
+
+```
+cd /root/.local/share/nvim/site/pack/packer/start 
+git clone git@github.com:millionfor/onedark.nvim.git
+
+```
 
 
 ## vim-doc
