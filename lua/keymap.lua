@@ -63,8 +63,9 @@ G.map({
     { 'v', 'P',           'Pgvy',    { noremap = true } },
 
     -- S保存 Q退出
-    { 'n', 'S',           ':call MagicSave()<cr>', { noremap = true, silent = true } },
-    { 'n', 'Q',           ':q!<cr>', { noremap = true, silent = true } },
+    { 'n', 'S',           ':call v:lua.MagicSave()<cr>', { noremap = true, silent = true } },
+    { 'v', 'S',           ':call v:lua.MagicSave()<cr>', { noremap = true, silent = true } },
+    { 'n', 'Q',           ':q!<cr>',                     { noremap = true, silent = true } },
 
     -- VISUAL SELECT模式 s-tab tab左右缩进
     { 'v', '<',           '<gv',     { noremap = true } },
@@ -165,9 +166,6 @@ G.map({
   -- tt 打开一个10行大小的终端
     { 'n', 'tt',          ':below 10sp | term<cr>a', { noremap = true, silent = true } },
 
-    -- 切换是否wrap
-    { 'n', '\\w',         "&wrap == 1 ? ':set nowrap<cr>' : ':set wrap<cr>'", { noremap = true, expr = true } },
-
     -- 选中全文 选中{ 复制全文
     { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
     
@@ -191,73 +189,58 @@ G.map({
     { 'n', '<leader>y',   ':%yank<cr>', { noremap = true } },
     -- 清除折行
     { 'n', 'qc',   'zE', { noremap = true } },
+
+    -- 切换是否wrap
+    { 'n', '\\w',         "&wrap == 1 ? ':set nowrap<cr>' : ':set wrap<cr>'", { noremap = true, expr = true } },
+
+    -- 折叠
+    { 'n', '-',           "foldlevel('.') > 0 ? 'za' : 'va{zf^'",             { noremap = true, silent = true, expr = true } },
+    { 'v', '-',           'zf',                                               { noremap = true, silent = true } },
+
+    -- space 行首行尾跳转
+    { 'n', '<space>',     ':call v:lua.MagicMove()<cr>',                      { noremap = true, silent = true } },
+    { 'n', '0',           '%',                                                { noremap = true } },
+    { 'v', '0',           '%',                                                { noremap = true } },
+
+    -- 驼峰转换
+    { 'v', 'T',           ':call v:lua.MagicToggleHump(v:true)<CR>',          { noremap = true, silent = true } },
+    { 'v', 't',           ':call v:lua.MagicToggleHump(v:false)<CR>',         { noremap = true, silent = true } },
 })
 
--- 重设tab长度
-G.cmd('command! -nargs=* SetTab call SwitchTab(<q-args>)')
-G.cmd([[
-    fun! SwitchTab(tab_len)
-        if !empty(a:tab_len)
-            let [&shiftwidth, &softtabstop, &tabstop] = [a:tab_len, a:tab_len, a:tab_len]
-        else
-            let l:tab_len = input('input shiftwidth: ')
-            if !empty(l:tab_len)
-                let [&shiftwidth, &softtabstop, &tabstop] = [l:tab_len, l:tab_len, l:tab_len]
-            endif
-        endif
-        redraw!
-        echo printf('shiftwidth: %d', &shiftwidth)
-    endf
-]])
-
--- 折叠
-G.map({
-    -- { 'n', '-', "za", { noremap = true, silent = true } },
-    -- { 'v', '-', ':call v:lua.MagicFold()<CR>', { noremap = true, silent = true } },
-    { 'n', '-',           "foldlevel('.') != 0 ? 'za' : 'va{zf'", { noremap = true, silent = true, expr = true } },
-    { 'v', '-',           ':call v:lua.MagicFold()<CR>', { noremap = true, silent = true } },
-})
-
-function MagicFold()
-    local max = 1
-    if G.fn.foldlevel("'<") > 0 then G.fn.execute("normal! '<zd") end
-    if G.fn.foldlevel("'>") > 0 then G.fn.execute("normal! '>zd") end
-    G.fn.execute('normal! gvzf')
+-- 光标在$ 0 ^依次跳转
+function MagicMove()
+    local first = 1
+    local head = #G.fn.getline('.') - #G.fn.substitute(G.fn.getline('.'), '^\\s*', '', 'G') + 1
+    local before = G.fn.col('.')
+    G.fn.execute(before == first and first ~= head and 'norm! ^' or 'norm! $')
+    local after = G.fn.col('.')
+    if before == after then
+        G.fn.execute('norm! 0')
+    end
 end
 
--- space 行首行尾跳转
-G.map({
-    { 'n', '<space>', ':call MagicMove()<cr>', { noremap = true, silent = true } },
-    { 'n', '0', '%', { noremap = true } },
-    { 'v', '0', '%', { noremap = true } },
-})
-G.cmd([[
-    fun! MagicMove()
-        let [l:first, l:head] = [1, len(getline('.')) - len(substitute(getline('.'), '^\s*', '', 'G')) + 1]
-        let l:before = col('.')
-        exe l:before == l:first && l:first != l:head ? 'norm! ^' : 'norm! $'
-        let l:after = col('.')
-        if l:before == l:after
-            exe 'norm! 0'
-        endif
-    endf
-]])
+-- 1 当目录不存在时 先创建目录, 2 当前文件是acwrite时, 用sudo保存
+function MagicSave()
+    if G.fn.empty(G.fn.glob(G.fn.expand('%:p:h'))) then G.fn.system('mkdir -p ' .. G.fn.expand('%:p:h')) end
+    if G.o.buftype == 'acwrite' then
+        G.fn.execute('w !sudo tee > /dev/null %')
+    else
+        G.fn.execute('w')
+    end
+end
 
--- 驼峰转换
-G.map({ { 'v', 't', ':call ToggleHump()<CR>', { noremap = true, silent = true } }, })
-G.cmd([[
-    fun! ToggleHump()
-        let [l, c1, c2] = [line('.'), col("'<"), col("'>")]
-        let line = getline(l)
-        let w = line[c1 - 1 : c2 - 2]
-        let w = w =~ '_' ? substitute(w, '\v_(.)', '\u\1', 'g') : substitute(substitute(w, '\v^(\u)', '\l\1', 'g'), '\v(\u)', '_\l\1', 'g')
-        call setbufline('%', l, printf('%s%s%s', c1 == 1 ? '' : line[:c1-2], w, c2 == 1 ? '' : line[c2-1:]))
-        call cursor(l, c1)
-    endf
-]])
-
--- G.cmd([[
---   au InsertEnter * hi CursorLine guibg=#25435C
---   au InsertLeave * hi CursorLine guibg=none
--- ]])
-
+-- 驼峰转换 MagicToggleHump(true) 首字母大写 MagicToggleHump(false) 首字母小写
+function MagicToggleHump(upperCase)
+    G.fn.execute('normal! gv"tx')
+    local w = G.fn.getreg('t')
+    local toHump = w:find('_') ~= nil
+    if toHump then
+        w = w:gsub('_(%w)', function(c) return c:upper() end)
+    else
+        w = w:gsub('(%u)', function(c) return '_' .. c:lower() end)
+    end
+    if w:sub(1, 1) == '_' then w = w:sub(2) end
+    if upperCase then w = w:sub(1,1):upper() .. w:sub(2) end
+    G.fn.setreg('t', w)
+    G.fn.execute('normal! "tP')
+end
