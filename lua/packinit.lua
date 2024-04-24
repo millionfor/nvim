@@ -47,7 +47,11 @@ require('packer').startup({
 
         -- github copilot
         require('pack/copilot').config()
-        use { 'github/copilot.vim', config = "require('pack/copilot').setup()", event = 'InsertEnter' }
+        use { 'github/copilot.vim', config = "require('pack/copilot').setup()" }
+        
+        -- require('pack/codeium').config()
+        -- use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
+
 
         -- 浮动终端
         require('pack/vim-floaterm').config()
