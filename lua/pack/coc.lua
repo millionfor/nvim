@@ -19,7 +19,8 @@ function M.config()
         'coc-snippets', 'coc-pairs', 'coc-word',
         'coc-translator',
         'coc-git',
-        'coc-gist'
+        'coc-gist',
+        'coc-tsserver'
     }
     G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
     G.cmd("hi! link CocPum Pmenu")

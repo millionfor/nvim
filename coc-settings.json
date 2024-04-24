@@ -61,5 +61,10 @@
   },
   "git.enableGutters": true,
   "volar.takeOverMode.enabled": true,
-  "vetur.ignoreProjectWarning": true
+  "vetur.ignoreProjectWarning": true,
+  "github.copilot.advanced": {
+    "authProvider": "github-enterprise"
+  },
+  "github-enterprise.uri": "https://cocopilot.org",
+  "copilot.autoUpdateCompletion": true
 }
