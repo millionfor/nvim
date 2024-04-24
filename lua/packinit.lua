@@ -47,7 +47,7 @@ require('packer').startup({
 
         -- github copilot
         require('pack/copilot').config()
-        use { 'github/copilot.vim', config = "require('pack/copilot').setup()" }
+        use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
         
         -- require('pack/codeium').config()
         -- use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
