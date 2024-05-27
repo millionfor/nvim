@@ -15,7 +15,7 @@ function M.config()
   --   { 'n', '<leader>k', ':call codeium#CycleCompletions()<cr>', { noremap = true, silent = true } },
   -- })
 
-    G.map({ {'i', '<Right>', 'codeium#Accept()', {script = true, silent = true, expr = true}} })
+    -- G.map({ {'i', '<Right>', 'codeium#Accept()', {script = true, silent = true, expr = true}} })
 end
 
 function M.setup()

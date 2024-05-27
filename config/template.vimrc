@@ -39,7 +39,7 @@ func s:getTemplete(type)
         \    ".#{$-prefix-cls} {",
         \    "}",
         \    "</style>",
-        \    "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=80: -->",
+        \    "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=120: -->",
         \],
         \'javascript': [
         \    "/**",
@@ -50,7 +50,7 @@ func s:getTemplete(type)
         \    " * @Description     js",
         \    " */",
         \    " ",
-        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=80 sw=2:",
+        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=120 sw=2:",
         \],
         \'typescript': [
         \    "/**",
@@ -61,7 +61,7 @@ func s:getTemplete(type)
         \    " * @Description     ts",
         \    " */",
         \    " ",
-        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=80 sw=2:",
+        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=120 sw=2:",
         \],
         \'default': [
         \    "/**",
@@ -72,7 +72,7 @@ func s:getTemplete(type)
         \    " * @Description     default",
         \    " */",
         \    " ",
-        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=80 sw=2:",
+        \    " // vim: set ft=javascript fdm=marker et ff=unix tw=120 sw=2:",
         \],
         \}
     return get(templates, a:type, templates['default'])

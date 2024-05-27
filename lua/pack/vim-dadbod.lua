@@ -30,7 +30,7 @@ SELECT * from `{schema}`.`{table}` LIMIT 100;',
 
             ['↪ 查列表<条件>'] = '# ↪ 查列表<条件> \
 # SELECT * FROM `qsm`.`qsm_` WHERE id ORDER BY 1 DESC LIMIT 100; \
-SELECT * FROM `{schema}`.`{table}` WHERE id ORDER BY ___ DESC LIMIT 100;',
+SELECT * FROM `{schema}`.`{table}` WHERE name = ___ ORDER BY id DESC LIMIT 100;',
 
             ['↪ 查表字段'] = '# ↪ 查表字段 \
 # DESCRIBE `qsm`.`qsm_`; \

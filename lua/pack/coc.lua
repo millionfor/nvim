@@ -4,7 +4,6 @@ local M = {}
 function M.config()
     G.g.coc_global_extensions = {
         'coc-marketplace',
-        '@yaegassy/coc-volar',
         'coc-json',
         'coc-html', 'coc-css',
         'coc-clangd',
@@ -20,8 +19,7 @@ function M.config()
         'coc-translator',
         'coc-git',
         'coc-gist',
-        'coc-vetur',
-        'coc-tsserver'
+        '@yaegassy/coc-volar'
     }
     G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
     G.cmd("hi! link CocPum Pmenu")

@@ -48,7 +48,7 @@
       "default": true
     }
   ],
-  "clangd.path": "/User/gongzijian/.config/coc/extensions/coc-clangd-data/install/11.0.0/clangd_11.0.0/bin/clangd",
+  "clangd.path": "/Users/gongzijian/.config/coc/extensions/clangd_18.1.3/bin/clangd",
   "prettier": {
     "tabWidth": 2,
     "printWidth": 80,
@@ -61,10 +61,5 @@
   },
   "git.enableGutters": true,
   "volar.takeOverMode.enabled": true,
-  "vetur.ignoreProjectWarning": true,
-  "github.copilot.advanced": {
-    "authProvider": "github-enterprise"
-  },
-  "github-enterprise.uri": "https://cocopilot.org",
-  "copilot.autoUpdateCompletion": true
+  "vetur.ignoreProjectWarning": true
 }
