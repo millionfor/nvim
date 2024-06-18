@@ -120,6 +120,7 @@ require('packer').startup({
             
         use { 'yaocccc/vim-comment' }                                                  -- 注释插件
         use { 'yaocccc/vim-surround' }                                                 -- 操作成对的 ""  {}  [] 等的插件
+        use { 'yaocccc/nvim-hl-mdcodeblock.lua', after = 'nvim-treesitter', config = "require('pack/markdown').setup_hlcodeblock()" }
         -- quanquan
         require('pack/quanquan').config()
     end,

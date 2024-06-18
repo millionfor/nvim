@@ -8,10 +8,18 @@ function M.config()
     G.g.mkdp_preview_options = { hide_yaml_meta = 1, disable_filename = 1 }
     -- G.g.mkdp_theme = 'dark'
     G.g.vmt_fence_text = 'markdown-toc'
+
 end
 
 function M.setup()
     -- do nothing
+end
+
+function M.setup_hlcodeblock()
+    G.hi({ ["MDCodeBlock"] = { bg = '#1F2229' }, })
+    require('hl-mdcodeblock').setup({
+        minumum_len = 300,
+    })
 end
 
 return M

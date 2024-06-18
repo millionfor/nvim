@@ -1,6 +1,9 @@
 extends vue
 
 
+snippet oent "Object.entries"
+	Object.entries(${0}).map(([key, value]) => ({ key, value }));
+
 snippet zs "/** quanquan **/"
 	/**
 	 * @FileName        ${0:`substitute(expand("%:t"), "." . expand("%:e"), "", "")`}
