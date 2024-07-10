@@ -89,8 +89,8 @@ require('packer').startup({
         use { 'VincentCordobes/vim-translate', config = "require('pack/vim-translate').setup()" }
         
         -- 断点调试
-        require('pack/vimspector').config()
-        use { 'puremourning/vimspector', config = "require('pack/vimspector').setup()" }
+        -- require('pack/vimspector').config()
+        -- use { 'puremourning/vimspector', config = "require('pack/vimspector').setup()" }
         
         -- 高亮范围
         require('pack/nvim-hlchunk').config()
@@ -103,10 +103,19 @@ require('packer').startup({
         -- 注解
         require('pack/vim-jsdoc').config()
         use { 'heavenshell/vim-jsdoc', run = 'make install',  config = "require('pack/vim-jsdoc').setup()" }
+
         
         -- 快速注释
         -- require('pack/comment-nvim').config()
         -- use { 'numToStr/Comment.nvim', config = "require('pack/comment-nvim').setup()" }
+
+        -- 启动页
+        require('pack/alpha-nvim').config()
+        use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
+
+        -- nodejs debugger
+        require('pack/nvim-dap-ui').config()
+        use { "rcarriga/nvim-dap-ui", config = "require('pack/nvim-dap-ui').setup()", requires = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } }
         
         -- signcolumn显示折叠信息
         use { 'yaocccc/nvim-foldsign', event = 'CursorHold', config = 'require("nvim-foldsign").setup()' }
@@ -114,15 +123,23 @@ require('packer').startup({
         require('pack/onedark').config()
         use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()" }
 
-        -- 启动页
-        require('pack/alpha-nvim').config()
-        use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
-            
+        
+        -- vscode debugger
+        use { 'mxsdev/nvim-dap-vscode-js' }
+        use { 'theHamsta/nvim-dap-virtual-text' }
+        use {
+          "microsoft/vscode-js-debug",
+          opt = true,
+          run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
+        }
+
+
         use { 'yaocccc/vim-comment' }                                                  -- 注释插件
         use { 'yaocccc/vim-surround' }                                                 -- 操作成对的 ""  {}  [] 等的插件
         use { 'yaocccc/nvim-hl-mdcodeblock.lua', after = 'nvim-treesitter', config = "require('pack/markdown').setup_hlcodeblock()" }
         -- quanquan
         require('pack/quanquan').config()
+
     end,
     config = {
         git = { clone_timeout = 120, depth = 1 },

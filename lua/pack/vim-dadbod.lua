@@ -4,9 +4,12 @@ local M = {}
 function M.DBUI()
     G.cmd('set laststatus=0 showtabline=0 nonu signcolumn=no nofoldenable')
     G.cmd('exec "DBUI"')
+    G.cmd('only')
 end
 
 function M.config()
+    -- <leader>W 保存缓冲区内容
+    --
     G.g.db_ui_save_location = '~/.cache'
     G.g.db_ui_use_nerd_fonts = 1
     G.g.db_ui_force_echo_notifications = 1

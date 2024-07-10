@@ -12,21 +12,20 @@ A neovim based configuration
 ## Problem
 
 ```
-cd /root/.local/share/nvim/site/pack/packer/start 
+cd /root/.local/share/nvim/site/pack/packer/start
 git clone git@github.com:millionfor/onedark.nvim.git
 
 ```
-
 
 ## vim-doc
 
 ### 复制宏/粘贴宏
 
-qq 录制 宏 => @q 拷贝宏 down +^ 下行qq<Down><Down><Down>q  @q粘贴宏
+qq 录制 宏 => @q 拷贝宏 down +^ 下行 qq<Down><Down><Down>q @q 粘贴宏
 
 q + ${a-z}寄存器
- :reg a 查看录制的宏
-100@a 执行录制的宏100次
+:reg a 查看录制的宏
+100@a 执行录制的宏 100 次
 
 ### 光标使用
 
@@ -141,3 +140,10 @@ q + ${a-z}寄存器
 | ---  | ---                                              | -    |
 | ---  | ---                                              | -    |
 
+### vim-vim-dadbod
+
+| 命令      | 说明             | 其他 |
+| --------- | ---------------- | ---- |
+| <leader>W | 保存缓冲区的内容 | -    |
+| r         | 修改文件名称     | -    |
+| S         | 执行 SQL 语句     | -    |
