@@ -116,7 +116,7 @@ function set_js_template()
     " * @Description     ts",
     " */",
     " ",
-    "// vim: set ft=javascript fdm=marker et ff=unix tw=120 sw=2:",
+    "// vim: set ft=typescript fdm=marker et ff=unix tw=120 sw=2:",
   }
 
   -- 将模板代码插入到文件中
