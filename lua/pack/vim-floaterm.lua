@@ -42,11 +42,11 @@ function M.config()
     -- M.setFTToggleMap('<c-t>', 'TERM', '')
     -- M.setFTToggleMap('<c-r>', 'RANGER', 'ranger')
     M.setFTToggleMap('<c-b>', 'DBUI', 'nvim +CALLDB')
-    -- G.map({
-    --     { 'n', '<F5>', ':lua require("pack/vim-floaterm").runFile()<cr>', {silent = true, noremap = true}},
-    --     { 'i', '<F5>', '<esc>:lua require("pack/vim-floaterm").runFile()<cr>', {silent = true, noremap = true}},
-    --     { 't', '<F5>', "&ft == \"floaterm\" ? printf('<c-\\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('RUN') == bufnr('%') ? '' : '<F5>') : '<F5>'", {silent = true, expr = true}}
-    -- })
+    G.map({
+        { 'n', '<F5>', ':lua require("pack/vim-floaterm").runFile()<cr>', {silent = true, noremap = true}},
+        { 'i', '<F5>', '<esc>:lua require("pack/vim-floaterm").runFile()<cr>', {silent = true, noremap = true}},
+        { 't', '<F5>', "&ft == \"floaterm\" ? printf('<c-\\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('RUN') == bufnr('%') ? '' : '<F5>') : '<F5>'", {silent = true, expr = true}}
+    })
 end
 
 function M.setup()

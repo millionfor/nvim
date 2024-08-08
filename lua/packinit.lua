@@ -16,7 +16,7 @@ end
 require('packer').startup({
     function(use)
         -- packer 管理自己的版本
-        use { 'wbthomason/packer.nvim' }
+        use { 'wbthomason/packer.nvim', config = 'require("pack/toggleterm").setup()' }
 
         -- 启动时间分析
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
@@ -46,11 +46,11 @@ require('packer').startup({
         use { 'neoclide/coc.nvim', config = "require('pack/coc').setup()", branch = 'release' }
 
         -- github copilot
-        require('pack/copilot').config()
-        use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
+        -- require('pack/copilot').config()
+        -- use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
         
-        -- require('pack/codeium').config()
-        -- use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
+        require('pack/codeium').config()
+        use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
 
 
         -- 浮动终端

@@ -244,7 +244,7 @@ end
   -- 打开/关闭dapui
   vim.keymap.set('n', '<leader>ui', require 'dapui'.toggle)
   -- 打开/关闭repl
-  vim.keymap.set('n', '<F5>', require 'dap'.continue)
+  vim.keymap.set('n', '<F6>', require 'dap'.continue)
   -- 进入下一行
   vim.keymap.set('n', '<F10>', require 'dap'.step_over)
   -- 进入函数
