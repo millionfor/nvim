@@ -15,7 +15,7 @@ function M.config()
           let command_fmt = 'rg --color=always --column --line-number --no-heading --smart-case'
           let command_fmt .= ' --glob "!vendor" --glob "!node_modules"'
           let command_fmt .= ' --colors "path:fg:green" --colors "path:style:bold"'
-          let command_fmt .= ' --colors "match:fg:151"'
+          let command_fmt .= ' --colors "match:fg:198"'
           let command_fmt .= ' -- %s || true'
           let initial_command = printf(command_fmt, shellescape(a:query))
           let reload_command = printf(command_fmt, '{q}')
