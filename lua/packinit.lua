@@ -16,7 +16,7 @@ end
 require('packer').startup({
     function(use)
         -- packer 管理自己的版本
-        use { 'wbthomason/packer.nvim', config = 'require("pack/toggleterm").setup()' }
+        use { 'wbthomason/packer.nvim' }
 
         -- 启动时间分析
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
@@ -132,6 +132,8 @@ require('packer').startup({
           opt = true,
           run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
         }
+
+        use { 'ojroques/vim-oscyank', config = "require('pack/vim-oscyank').setup()" }
 
 
         use { 'yaocccc/vim-comment' }                                                  -- 注释插件

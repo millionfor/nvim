@@ -1,6 +1,6 @@
 
-augroup vue
-    au!
-    autocmd BufWritePre *.vue :PrettierAsync
-augroup END
+" augroup vue
+"     au!
+"     autocmd BufWritePre *.vue :PrettierAsync
+" augroup END
 
