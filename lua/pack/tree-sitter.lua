@@ -33,8 +33,8 @@ end
 function M.setup()
     require('nvim-treesitter.configs').setup({
         -- 列举常用语言自动安装parser
-        -- ensure_installed = { 'typescript', 'javascript', 'vue', 'go', 'lua', 'markdown', 'tsx' },
-        ensure_installed = 'all',
+        ensure_installed = { 'typescript', 'javascript', 'vue', 'go', 'lua', 'markdown', 'tsx' },
+        -- ensure_installed = 'all',
         highlight = {
             enable = true
         },
