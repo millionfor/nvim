@@ -52,10 +52,13 @@ require('packer').startup({
         require('pack/codeium').config()
         use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
 
-
         -- 浮动终端
         require('pack/vim-floaterm').config()
         use { 'voldikss/vim-floaterm', config = "require('pack/vim-floaterm').setup()" }
+        
+        -- 输入法
+        require('pack/im-select').config()
+        use { 'keaising/im-select.nvim', config = "require('pack/im-select').setup()" }
 
         -- fzf
         require('pack/fzf').config()
@@ -114,8 +117,8 @@ require('packer').startup({
         use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
 
         -- nodejs debugger
-        require('pack/nvim-dap-ui').config()
-        use { "rcarriga/nvim-dap-ui", config = "require('pack/nvim-dap-ui').setup()", requires = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } }
+        -- require('pack/nvim-dap-ui').config()
+        -- use { "rcarriga/nvim-dap-ui", config = "require('pack/nvim-dap-ui').setup()", requires = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } }
         
         -- signcolumn显示折叠信息
         use { 'yaocccc/nvim-foldsign', event = 'CursorHold', config = 'require("nvim-foldsign").setup()' }

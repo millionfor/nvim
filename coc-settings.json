@@ -24,7 +24,7 @@
   "translator.engines": ["youdao"],
   "tsserver.trace.server": "messages",
   "tsserver.enableJavascript": true,
-  "tsserver.enable": false,
+  "tsserver.enable": true,
   "pyright.inlayHints.enable": false,
   "git.addedSign.hlGroup": "GitGutterAdd",
   "git.changedSign.hlGroup": "GitGutterChange",
@@ -61,5 +61,6 @@
   },
   "git.enableGutters": true,
   "volar.takeOverMode.enabled": true,
-  "vetur.ignoreProjectWarning": true
+  "vetur.ignoreProjectWarning": true,
+  "snippets.ultisnips.pythonPrompt": false,
 }
