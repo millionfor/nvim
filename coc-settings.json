@@ -21,7 +21,7 @@
   "tabnine.priority": 80,
   "pairs.enableCharacters": ["(", "[", "{", "'", "\"", "`"],
   "pairs.enableBackspace": true,
-  "translator.engines": ["youdao"],
+  "translator.engines": ["google"],
   "tsserver.trace.server": "messages",
   "tsserver.enableJavascript": true,
   "tsserver.enable": true,
@@ -48,7 +48,7 @@
       "default": true
     }
   ],
-  "clangd.path": "/Users/gongzijian/.config/coc/extensions/clangd_18.1.3/bin/clangd",
+  "clangd.path": "/usr/bin/clangd",
   "prettier": {
     "tabWidth": 2,
     "printWidth": 80,
