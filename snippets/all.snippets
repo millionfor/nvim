@@ -13,4 +13,150 @@ snippet chv "update package.json version"
 chore: optimize and upgrade the current architecture (v`jq -r ".version" package.json`)
 endsnippet
 
+snippet hm "hmos"
+/**
+ * @FileName        Index
+ * @CreatedTime     三, 11 13, 2024 15:34
+ * @LastModified    三, 11 13, 2024 15:34
+ * @Author          QuanQuan <millionfor@apache.org>
+ * @Description     Index
+ */
+
+import router from '@ohos.router'
+
+import _ from '@wolfx/lodash';
+
+import { Log } from '../../module/logger'
+import Loading from './../../module/loading'
+import { TitleBar } from './../../components/titleBar/TitleBar'
+
+@Entry
+@Component
+struct MedicationIndex {
+  @State log: Log = new Log('HydeeHcAtomicService');
+  @State loading: Loading = new Loading()
+
+  @State TitleBarModel: TitleBar.Model = new TitleBar.Model()
+    .setOnLeftClickListener(() => {
+      router.back()
+    })
+    .setTitleName("用药指导")
+
+  build() {
+    Column() {
+      Column() { 
+        TitleBar({ 
+          model: this.TitleBarModel
+        })
+      }
+      
+      Column() {
+        Scroll(){
+          Column() {
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+            Text('xx')
+          }
+          .width('100%')
+          .alignItems(HorizontalAlign.Start)
+        }
+        .width('100%')
+      }
+      .width('100%')
+      .height('100%')
+      .zIndex(2)
+      .backgroundColor('#f2f5f6')
+    }
+    .justifyContent(FlexAlign.Start)
+    .height('100%')
+    .width('100%')
+  }
+}
+
+// vim: set ft=typescript fdm=marker et ff=unix tw=120 sw=2:
+
+endsnippet
 

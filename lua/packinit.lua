@@ -57,8 +57,8 @@ require('packer').startup({
         use { 'voldikss/vim-floaterm', config = "require('pack/vim-floaterm').setup()" }
         
         -- 输入法
-        require('pack/im-select').config()
-        use { 'keaising/im-select.nvim', config = "require('pack/im-select').setup()" }
+        -- require('pack/im-select').config()
+        -- use { 'keaising/im-select.nvim', config = "require('pack/im-select').setup()" }
 
         -- fzf
         require('pack/fzf').config()
@@ -137,6 +137,9 @@ require('packer').startup({
         }
 
         use { 'ojroques/vim-oscyank', config = "require('pack/vim-oscyank').setup()" }
+        -- 格式化排列
+        -- use { 'junegunn/vim-easy-align', config = "require('pack/vim-easy-align').setup()" }
+        use { 'Vonr/align.nvim', config = "require('pack/align-nvim').setup()", branch = "v2" }
 
 
         use { 'yaocccc/vim-comment' }                                                  -- 注释插件
