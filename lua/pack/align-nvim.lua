@@ -14,6 +14,7 @@ function M.setup()
       'aa',
       function()
           require'align'.align_to_char({
+              preview = true,
               length = 1,
           })
       end,
