@@ -208,6 +208,8 @@ G.map({
     { 'v', 't',           ':call v:lua.MagicToggleHump(v:false)<CR>',         { noremap = true, silent = true } },
 })
 
+
+
 -- 光标在$ 0 ^依次跳转
 function MagicMove()
     local first = 1

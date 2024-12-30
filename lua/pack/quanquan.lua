@@ -39,6 +39,7 @@ function M.config()
         { 'v', '/', ':<c-u>VToggleComment<cr>', {silent = true, noremap = true}},
         { 'v', '?', ':<c-u>CToggleComment<cr>', {silent = true, noremap = true}},
     })
+
 end
 
 function M.setup()

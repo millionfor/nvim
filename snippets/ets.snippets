@@ -1,0 +1,13 @@
+
+
+snippet ecs "Styles customStyles"
+	@Styles ${0:customStyles}(){
+		.width(200)
+		.height(60)
+		.backgroundColor(Color.Red)
+	}
+
+snippet eecs "@Extend customStyles"
+	@Extend(Text) function ${0:customStyles}(${0:size: number}, ${0:color: Color}){
+		.fontSize(size).fontColor(color)
+	}

@@ -46,11 +46,11 @@ require('packer').startup({
         use { 'neoclide/coc.nvim', config = "require('pack/coc').setup()", branch = 'release' }
 
         -- github copilot
-        -- require('pack/copilot').config()
-        -- use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
+        require('pack/copilot').config()
+        use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
         
-        require('pack/codeium').config()
-        use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
+        -- require('pack/codeium').config()
+        -- use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
 
         -- 浮动终端
         require('pack/vim-floaterm').config()
@@ -59,6 +59,10 @@ require('packer').startup({
         -- 输入法
         -- require('pack/im-select').config()
         -- use { 'keaising/im-select.nvim', config = "require('pack/im-select').setup()" }
+        
+        -- 输入法
+        require('pack/vim-im-select').config()
+        use { 'brglng/vim-im-select', config = "require('pack/vim-im-select').setup()" }
 
         -- fzf
         require('pack/fzf').config()
@@ -138,10 +142,8 @@ require('packer').startup({
 
         use { 'ojroques/vim-oscyank', config = "require('pack/vim-oscyank').setup()" }
         -- 格式化排列
-        -- use { 'junegunn/vim-easy-align', config = "require('pack/vim-easy-align').setup()" }
         use { 'Vonr/align.nvim', config = "require('pack/align-nvim').setup()", branch = "v2" }
-
-
+        
         use { 'yaocccc/vim-comment' }                                                  -- 注释插件
         use { 'yaocccc/vim-surround' }                                                 -- 操作成对的 ""  {}  [] 等的插件
         use { 'yaocccc/nvim-hl-mdcodeblock.lua', after = 'nvim-treesitter', config = "require('pack/markdown').setup_hlcodeblock()" }
