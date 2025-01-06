@@ -40,6 +40,10 @@
   "git.showCommitInFloating": true,
   "git.addGBlameToVirtualText": false,
   "git.addGBlameToBufferVar": true,
+  "eslint.packageManager": "yarn",
+  "eslint.nodePath": ".yarn/sdks",
+  "workspace.workspaceFolderCheckCwd": false,
+  "tsserver.tsdk": "./node_modules/typescript/lib",
   "java.clean.workspace": true,
   "java.configuration.runtimes": [
     {
@@ -63,4 +67,10 @@
   "volar.takeOverMode.enabled": true,
   "vetur.ignoreProjectWarning": true,
   "snippets.ultisnips.pythonPrompt": false,
+  "languageserver": {
+    "tsserver": {
+      "filetypes": ["typescript", "typescriptreact", "typescript.dto"],
+      "rootPatterns": ["package.json", "tsconfig.json"]
+    }
+  }
 }

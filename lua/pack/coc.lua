@@ -19,6 +19,7 @@ function M.config()
         'coc-translator',
         'coc-git',
         'coc-gist',
+        'coc-tsserver',
         '@yaegassy/coc-volar'
     }
     G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
