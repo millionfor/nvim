@@ -43,7 +43,7 @@
   "eslint.packageManager": "yarn",
   "eslint.nodePath": ".yarn/sdks",
   "workspace.workspaceFolderCheckCwd": false,
-  "tsserver.tsdk": "./node_modules/typescript/lib",
+  "tsserver.tsdk": "/usr/local/lib/node_modules/typescript/lib",
   "java.clean.workspace": true,
   "java.configuration.runtimes": [
     {

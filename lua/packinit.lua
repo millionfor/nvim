@@ -20,6 +20,10 @@ require('packer').startup({
 
         -- 启动时间分析
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
+        
+        -- 鼠标跳转
+        require('pack/smear-cursor').config()
+        use { 'sphamba/smear-cursor.nvim', config = "require('pack/smear-cursor').setup()" }
 
         -- wilder 弹出式命令行
         use { 'gelguy/wilder.nvim', event = 'CmdlineEnter', run = 'UpdateRemotePlugins', config = 'require("pack/wilder").setup()' }
@@ -37,9 +41,9 @@ require('packer').startup({
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()", event = 'CursorHold' }
         
         -- 数据库可视化UI
-        require('pack/vim-dadbod').config()
-        use { 'tpope/vim-dadbod', cmd = "DBUI" }
-        use { 'kristijanhusak/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
+        -- require('pack/vim-dadbod').config()
+        -- use { 'tpope/vim-dadbod', cmd = "DBUI" }
+        -- use { 'kristijanhusak/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
 
         -- coc-nvim
         require('pack/coc').config()
@@ -129,7 +133,6 @@ require('packer').startup({
 
         require('pack/onedark').config()
         use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()" }
-
         
         -- vscode debugger
         use { 'mxsdev/nvim-dap-vscode-js' }
