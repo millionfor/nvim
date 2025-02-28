@@ -22,8 +22,8 @@ require('packer').startup({
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
         
         -- 鼠标跳转
-        require('pack/smear-cursor').config()
-        use { 'sphamba/smear-cursor.nvim', config = "require('pack/smear-cursor').setup()" }
+        -- require('pack/smear-cursor').config()
+        -- use { 'sphamba/smear-cursor.nvim', config = "require('pack/smear-cursor').setup()" }
 
         -- wilder 弹出式命令行
         use { 'gelguy/wilder.nvim', event = 'CmdlineEnter', run = 'UpdateRemotePlugins', config = 'require("pack/wilder").setup()' }

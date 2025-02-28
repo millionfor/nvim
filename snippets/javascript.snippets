@@ -239,9 +239,21 @@ snippet for "for~"
 	}
 
 snippet wh "(condition) { ... }"
-	while (${1:/* condition */}) {
-		${0:${VISUAL}}
+	let i = 0
+
+	while (i < 10) {
+		try {
+			if (i === 5) {
+				throw new Error('发生错误') // 抛出错误
+			}
+			console.log(i)
+			i++
+		} catch (error) {
+			console.error('捕获到错误:', error.message)
+			return // 退出函数
+		}
 	}
+
 
 snippet do "do { ... } while (condition)"
 	do {
