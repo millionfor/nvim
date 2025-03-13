@@ -147,7 +147,7 @@ G.map({
     { 'n', 's<Right>',    '<c-w>l',           { noremap = true } },
     { 'n', 's<Up>',       '<c-w>k',           { noremap = true } },
     { 'n', 's<Down>',     '<c-w>j',           { noremap = true } },
-    { 'n', '<F2>',        '<c-w>w',           { noremap = true } },
+    { 'n', '<leader>f',        '<c-w>w',           { noremap = true } },
     -- { 'n', '<s-Space>',   '<c-w>w',           { noremap = true } },
     { 'n', 's=',          '<c-w>=',           { noremap = true } },
     { 'n', '<m-.>',       "winnr() <= winnr('$') - winnr() ? '<c-w>10>' : '<c-w>10<'", { noremap = true, expr = true } },
@@ -207,6 +207,7 @@ G.map({
     { 'v', 'T',           ':call v:lua.MagicToggleHump(v:true)<CR>',          { noremap = true, silent = true } },
     { 'v', 't',           ':call v:lua.MagicToggleHump(v:false)<CR>',         { noremap = true, silent = true } },
 
+    -- NvimTreeToggle
     { 'n', '<leader>e',   ':NvimTreeToggle $PWD<cr>',         { noremap = true, silent = true } },
 
 })

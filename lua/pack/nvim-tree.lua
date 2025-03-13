@@ -65,21 +65,20 @@ function M.setup()
     local nvim_tree = require("nvim-tree")
 
     -- 焦点位置来回切换
-    vim.keymap.set('n', '<leader>f', function()
-      if vim.fn.bufname():match 'NvimTree_' then
-        vim.cmd.wincmd 'p'
-      else
-        vim.cmd('NvimTreeFindFile')
+    -- vim.keymap.set('n', '<S-space>', function()
+    --   if vim.fn.bufname():match 'NvimTree_' then
+    --     vim.cmd.wincmd 'p'
+    --   else
+    --     vim.cmd('NvimTreeFindFile')
 
-      end
-    end, { desc = 'nvim-tree: toggle' })
+    --   end
+    -- end, { desc = 'nvim-tree: toggle' })
 
     local function on_attach(bufnr)
         local api = require("nvim-tree.api")
         local function opts(desc)
             return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
         end
-
         api.config.mappings.default_on_attach(bufnr)
         vim.keymap.set('n', 'P', api.tree.change_root_to_node, opts('CD'))
         vim.keymap.set('n', '<BS>', api.tree.change_root_to_parent, opts('Up'))
