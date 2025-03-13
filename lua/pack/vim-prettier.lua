@@ -13,7 +13,7 @@ function M.config()
 
 
   G.map({
-    { 'n', '<F3>', ":PrettierAsync<cr>", {silent = true, noremap = true} },
+    { 'n', 'pr', ":PrettierAsync<cr>", {silent = true, noremap = true} },
   })
 end
 

@@ -65,8 +65,8 @@ require('packer').startup({
         -- use { 'keaising/im-select.nvim', config = "require('pack/im-select').setup()" }
         
         -- 输入法
-        require('pack/vim-im-select').config()
-        use { 'brglng/vim-im-select', config = "require('pack/vim-im-select').setup()" }
+        -- require('pack/vim-im-select').config()
+        -- use { 'brglng/vim-im-select', config = "require('pack/vim-im-select').setup()" }
 
         -- fzf
         require('pack/fzf').config()

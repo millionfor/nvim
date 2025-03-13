@@ -69,7 +69,8 @@
   "snippets.ultisnips.pythonPrompt": false,
   "languageserver": {
     "tsserver": {
-      "filetypes": ["typescript", "typescriptreact", "typescript.dto"],
+      "command": "tsserver",
+      "filetypes": ["typescript", "typescriptreact", "typescript.dto", "javascript", "javascriptreact"],
       "rootPatterns": ["package.json", "tsconfig.json"]
     }
   }

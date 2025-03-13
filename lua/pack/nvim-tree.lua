@@ -40,9 +40,22 @@ function M.magicCd()
     end
 end
 
+function ToggleNvimTreeFocus()
+  local nvim_tree = require("nvim-tree.api").tree
+  local current_win = vim.api.nvim_get_current_win()
+  local nvim_tree_win = nvim_tree.get_win()
+
+  if nvim_tree_win and nvim_tree_win == current_win then
+    vim.api.nvim_set_current_win(vim.api.nvim_list_wins()[1])  -- 切换到第一个窗口
+  else
+    nvim_tree.focus()
+  end
+end
+
 function M.config()
-    G.g.nvim_tree_firsttime = 1
-    G.map({ { 'n', '<F1>', 'g:nvim_tree_firsttime != 1 ? ":NvimTreeToggle<cr>" : ":let g:nvim_tree_firsttime = 0<cr>:NvimTreeToggle $PWD<cr>"', {silent = true, noremap = true, expr = true}} })
+    -- G.g.nvim_tree_firsttime = 1
+    -- G.map({ { 'n', '<leader>e', 'g:nvim_tree_firsttime != 1 ? ":NvimTreeToggle<cr>" : ":let g:nvim_tree_firsttime = 0<cr>:NvimTreeToggle $PWD<cr>"', {silent = true, noremap = true, expr = true}} })
+    
     G.cmd("hi! NvimTreeCursorLine cterm=NONE ctermbg=238")
     G.cmd("hi! link NvimTreeFolderIcon NvimTreeFolderName")
     G.cmd("au FileType NvimTree nnoremap <buffer> <silent> C :lua require('pack.nvim-tree').magicCd()<cr>")
@@ -50,6 +63,16 @@ end
 
 function M.setup()
     local nvim_tree = require("nvim-tree")
+
+    -- 焦点位置来回切换
+    vim.keymap.set('n', '<leader>f', function()
+      if vim.fn.bufname():match 'NvimTree_' then
+        vim.cmd.wincmd 'p'
+      else
+        vim.cmd('NvimTreeFindFile')
+
+      end
+    end, { desc = 'nvim-tree: toggle' })
 
     local function on_attach(bufnr)
         local api = require("nvim-tree.api")
@@ -72,6 +95,9 @@ function M.setup()
         vim.keymap.set('n', 'A', api.fs.create, opts('Create'))
         vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
         vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
+
+
+
     end
 
     nvim_tree.setup({
@@ -155,3 +181,4 @@ function M.setup()
 end
 
 return M
+

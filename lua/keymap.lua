@@ -206,6 +206,9 @@ G.map({
     -- 驼峰转换
     { 'v', 'T',           ':call v:lua.MagicToggleHump(v:true)<CR>',          { noremap = true, silent = true } },
     { 'v', 't',           ':call v:lua.MagicToggleHump(v:false)<CR>',         { noremap = true, silent = true } },
+
+    { 'n', '<leader>e',   ':NvimTreeToggle $PWD<cr>',         { noremap = true, silent = true } },
+
 })
 
 
