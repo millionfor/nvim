@@ -146,10 +146,39 @@ require('packer').startup({
         use { 'ojroques/vim-oscyank', config = "require('pack/vim-oscyank').setup()" }
         -- 格式化排列
         use { 'Vonr/align.nvim', config = "require('pack/align-nvim').setup()", branch = "v2" }
-        
-        use { 'yaocccc/vim-comment' }                                                  -- 注释插件
-        use { 'yaocccc/vim-surround' }                                                 -- 操作成对的 ""  {}  [] 等的插件
+
+        -- 注释插件
+        use { 'yaocccc/vim-comment' }
+
+        -- 操作成对的 ""  {}  [] 等的插件
+        use { 'yaocccc/vim-surround' }
         use { 'yaocccc/nvim-hl-mdcodeblock.lua', after = 'nvim-treesitter', config = "require('pack/markdown').setup_hlcodeblock()" }
+        
+        -- Required plugins
+        use 'nvim-treesitter/nvim-treesitter'
+        use 'stevearc/dressing.nvim'
+        use 'nvim-lua/plenary.nvim'
+        use 'MunifTanjim/nui.nvim'
+        use 'MeanderingProgrammer/render-markdown.nvim'
+
+        -- Optional dependencies
+        use 'hrsh7th/nvim-cmp'
+        use 'nvim-tree/nvim-web-devicons' -- or use 'echasnovski/mini.icons'
+        use 'HakonHarnes/img-clip.nvim'
+        use 'zbirenbaum/copilot.lua'
+
+        -- Avante.nvim with build process
+        require('pack/avante').config()
+        use {
+          'yetone/avante.nvim',
+          branch = 'main',
+          run = 'make',
+          -- config = "require('pack/avante').setup()"
+          config = function()
+            require('avante').setup()
+          end
+        }
+
         -- quanquan
         require('pack/quanquan').config()
 

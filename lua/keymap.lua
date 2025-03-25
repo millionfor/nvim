@@ -147,7 +147,6 @@ G.map({
     { 'n', 's<Right>',    '<c-w>l',           { noremap = true } },
     { 'n', 's<Up>',       '<c-w>k',           { noremap = true } },
     { 'n', 's<Down>',     '<c-w>j',           { noremap = true } },
-    { 'n', '<leader>f',        '<c-w>w',           { noremap = true } },
     -- { 'n', '<s-Space>',   '<c-w>w',           { noremap = true } },
     { 'n', 's=',          '<c-w>=',           { noremap = true } },
     { 'n', '<m-.>',       "winnr() <= winnr('$') - winnr() ? '<c-w>10>' : '<c-w>10<'", { noremap = true, expr = true } },
@@ -168,7 +167,7 @@ G.map({
     { 'n', 'tt',          ':below 10sp | term<cr>a', { noremap = true, silent = true } },
 
     -- 选中全文 选中{ 复制全文
-    { 'n', '<leader>aa',       'ggVG',    { noremap = true } },
+    { 'n', '<leader>g',       'ggVG',    { noremap = true } },
     
     -- vim-dadbod 快捷键映射 
     -- { 'n', '<leader>W',       'W',    { noremap = true } },
@@ -209,6 +208,8 @@ G.map({
 
     -- NvimTreeToggle
     { 'n', '<leader>e',   ':NvimTreeToggle $PWD<cr>',         { noremap = true, silent = true } },
+    { 'n', '<leader>f',        '<c-w>w',           { noremap = true } },
+    -- { 'n', '<s-Space>',   '<c-w>w',           { noremap = true } },
 
 })
 

@@ -11,4 +11,8 @@ G.cmd([[
     au BufLeave,BufWinLeave * silent! mkview
 ]])
 
+G.cmd([[
+  autocmd InsertLeave * :silent !/opt/homebrew/bin/im-select com.apple.keylayout.ABC
+]])
+
 

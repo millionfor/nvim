@@ -13,7 +13,7 @@ function M.config()
     G.cmd([[
         func! RipgrepFzf(query, fullscreen)
           let command_fmt = 'rg --hidden --color=always --column --line-number --no-heading --smart-case'
-          let command_fmt .= ' --glob "!vendor" --glob "!node_modules"'
+          let command_fmt .= ' --glob "!vendor" --glob "!node_modules" --glob "!.git" --glob "!package-lock.json" --glob "!yarn.lock"'
           let command_fmt .= ' --colors "path:fg:green" --colors "path:style:bold"'
           let command_fmt .= ' --colors "match:fg:198"'
           let command_fmt .= ' -- %s || true'
