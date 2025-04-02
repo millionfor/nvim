@@ -63,6 +63,7 @@ end
 
 function M.setup()
     local nvim_tree = require("nvim-tree")
+    
 
     -- 焦点位置来回切换
     -- vim.keymap.set('n', '<S-space>', function()
@@ -95,7 +96,16 @@ function M.setup()
         vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
         vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
 
-
+        -- 打开当前目录
+        vim.keymap.set("n", "<leader>op", function()
+          local node = require("nvim-tree.api").tree.get_node_under_cursor()
+          if node then
+            local path = node.absolute_path
+            -- 转义单引号和空格
+            path = path:gsub("'", "'\\''")
+            vim.cmd("silent !/usr/bin/open '" .. path .. "'")
+          end
+        end, { desc = "Open in Finder" })
 
     end
 

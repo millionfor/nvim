@@ -168,7 +168,6 @@ require('packer').startup({
         use 'zbirenbaum/copilot.lua'
 
         -- Avante.nvim with build process
-        require('pack/avante').config()
         use {
           'yetone/avante.nvim',
           branch = 'main',
@@ -195,4 +194,5 @@ require('packer').startup({
 if packer_bootstrap then
     require('packer').sync()
 end
+
 

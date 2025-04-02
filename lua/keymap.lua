@@ -208,7 +208,7 @@ G.map({
 
     -- NvimTreeToggle
     { 'n', '<leader>e',   ':NvimTreeToggle $PWD<cr>',         { noremap = true, silent = true } },
-    { 'n', '<leader>f',        '<c-w>w',           { noremap = true } },
+    { 'n', '<leader>f',        '<c-w>w',           { noremap = true, silent = true } },
     -- { 'n', '<s-Space>',   '<c-w>w',           { noremap = true } },
 
 })

@@ -17,7 +17,7 @@ function M.config()
 
   G.map({
     { 'n', 'M', ":TranslateVisual<CR>", {silent = true} },
-    { 'v', 'mm', ":TranslateReplace<CR>", {silent = true} },
+    { 'v', 'MM', ":TranslateReplace<CR>", {silent = true} },
   })
 end
 
