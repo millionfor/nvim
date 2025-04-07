@@ -50,11 +50,11 @@ require('packer').startup({
         use { 'neoclide/coc.nvim', config = "require('pack/coc').setup()", branch = 'release' }
 
         -- github copilot
-        require('pack/copilot').config()
-        use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
+        -- require('pack/copilot').config()
+        -- use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
         
-        -- require('pack/codeium').config()
-        -- use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
+        require('pack/codeium').config()
+        use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
 
         -- 浮动终端
         require('pack/vim-floaterm').config()
@@ -162,20 +162,18 @@ require('packer').startup({
         use 'MeanderingProgrammer/render-markdown.nvim'
 
         -- Optional dependencies
-        use 'hrsh7th/nvim-cmp'
-        use 'nvim-tree/nvim-web-devicons' -- or use 'echasnovski/mini.icons'
-        use 'HakonHarnes/img-clip.nvim'
-        use 'zbirenbaum/copilot.lua'
+        -- use 'hrsh7th/nvim-cmp'
+        -- use 'nvim-tree/nvim-web-devicons' -- or use 'echasnovski/mini.icons'
+        -- use 'HakonHarnes/img-clip.nvim'
+        -- use 'zbirenbaum/copilot.lua'
 
         -- Avante.nvim with build process
+        require('pack/avante').config()
         use {
           'yetone/avante.nvim',
           branch = 'main',
           run = 'make',
-          -- config = "require('pack/avante').setup()"
-          config = function()
-            require('avante').setup()
-          end
+          config = "require('pack/avante').setup()"
         }
 
         -- quanquan

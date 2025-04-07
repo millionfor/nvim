@@ -73,5 +73,5 @@
       "filetypes": ["typescript", "typescriptreact", "typescript.dto", "javascript", "javascriptreact"],
       "rootPatterns": ["package.json", "tsconfig.json"]
     }
-  }
+  }, 
 }

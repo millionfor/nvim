@@ -4,20 +4,11 @@ local M = {}
 local avante = require('avante')
 
 function M.config()
-  -- avante.setup({
-  --   provider = "deepseek",
-  --   vendors = {
-  --     deepseek = {
-  --       __inherited_from = "openai",
-  --       api_key_name = "DEEPSEEK_API_KEY",
-  --       endpoint = "https://api.deepseek.com",
-  --       model = "deepseek-coder",
-  --     },
-  --   },
-  -- })
+  -- 预配置，在插件加载前执行
 end
 
 function M.setup()
+  avante.setup()
 end
 
 return M

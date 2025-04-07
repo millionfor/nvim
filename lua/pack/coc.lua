@@ -20,7 +20,8 @@ function M.config()
         'coc-git',
         'coc-gist',
         'coc-tsserver',
-        '@yaegassy/coc-volar'
+        '@yaegassy/coc-volar',
+        'coc-docthis'
     }
     G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
     G.cmd("hi! link CocPum Pmenu")
@@ -60,6 +61,7 @@ function M.config()
         { 'n', 'gl', ":CocList gist<cr>", {silent = true, noremap = true} },
         { 'n', 'gc', ":CocCommand gist.create<cr>", {silent = true, noremap = true} },
         { 'n', 'gu', ":CocCommand gist.update<cr>", {silent = true, noremap = true} },
+        { 'n', 'zs', ":CocCommand docthis.documentThis<cr>", {silent = true, noremap = true} },
     })
 end
 

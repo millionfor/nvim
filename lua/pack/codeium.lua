@@ -16,6 +16,7 @@ function M.config()
   -- })
 
     -- G.map({ {'i', '<Right>', 'codeium#Accept()', {script = true, silent = true, expr = true}} })
+    G.map({ {'i', '<Tab>', 'codeium#Accept()', {script = true, silent = true, expr = true}} })
 end
 
 function M.setup()
