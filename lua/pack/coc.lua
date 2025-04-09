@@ -61,7 +61,7 @@ function M.config()
         { 'n', 'gl', ":CocList gist<cr>", {silent = true, noremap = true} },
         { 'n', 'gc', ":CocCommand gist.create<cr>", {silent = true, noremap = true} },
         { 'n', 'gu', ":CocCommand gist.update<cr>", {silent = true, noremap = true} },
-        { 'n', 'zs', ":CocCommand docthis.documentThis<cr>", {silent = true, noremap = true} },
+        { 'n', '<leader>zs', ":CocCommand docthis.documentThis<cr>", {silent = true, noremap = true} },
     })
 end
 
