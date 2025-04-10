@@ -135,13 +135,13 @@ require('packer').startup({
         use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()" }
         
         -- vscode debugger
-        use { 'mxsdev/nvim-dap-vscode-js' }
-        use { 'theHamsta/nvim-dap-virtual-text' }
-        use {
-          "microsoft/vscode-js-debug",
-          opt = true,
-          run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
-        }
+        -- use { 'mxsdev/nvim-dap-vscode-js' }
+        -- use { 'theHamsta/nvim-dap-virtual-text' }
+        -- use {
+        --   "microsoft/vscode-js-debug",
+        --   opt = true,
+        --   run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
+        -- }
 
         use { 'ojroques/vim-oscyank', config = "require('pack/vim-oscyank').setup()" }
         -- 格式化排列
