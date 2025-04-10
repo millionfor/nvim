@@ -57,8 +57,6 @@ function _BTOP_TOGGLE()
   btop:toggle()
 end
 
-
-
 G.map({
   { 'n', 'L', '<cmd>lua _LAZYGIT_TOGGLE()<cr>', {silent = true, noremap = true}},
   { 'n', 'R', '<cmd>lua _RANGER_TOGGLE()<cr>', {silent = true, noremap = true}},

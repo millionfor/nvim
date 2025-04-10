@@ -1,0 +1,14 @@
+#!/bin/bash
+# vim: set ft=sh fdm=manual ts=2 sw=2 sts=2 tw=85 et:
+
+# =======================================================
+# Description:     
+# Filename:        {{FILE}}
+# Author           {{NAME}} <{{EMAIL}}>
+# LastModified     {{DAY}}, {{MONTH}} {{DATE}}, {{YEAR}} {{TIME}}
+# GistID           %Gist_ID%
+# GistURL          https://gist.github.com/millionfor/%Gist_ID%
+# =======================================================
+
+
+

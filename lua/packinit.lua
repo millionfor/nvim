@@ -22,8 +22,8 @@ require('packer').startup({
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
         
         -- 鼠标跳转
-        -- require('pack/smear-cursor').config()
-        -- use { 'sphamba/smear-cursor.nvim', config = "require('pack/smear-cursor').setup()" }
+        require('pack/smear-cursor').config()
+        use { 'sphamba/smear-cursor.nvim', config = "require('pack/smear-cursor').setup()" }
 
         -- wilder 弹出式命令行
         use { 'gelguy/wilder.nvim', event = 'CmdlineEnter', run = 'UpdateRemotePlugins', config = 'require("pack/wilder").setup()' }
@@ -179,10 +179,9 @@ require('packer').startup({
         -- quanquan
         require('pack/quanquan').config()
 
-        -- vim-template 模板插件
-        -- require('pack/vim-template').config()
-        -- use { 'aperezdc/vim-template', config = "require('pack/vim-template').setup()" }
-
+        -- vim-templates
+        require('pack/vim-templates').config()
+        use { 'tibabit/vim-templates', config = "require('pack/vim-templates').setup()" }
 
     end,
     config = {
