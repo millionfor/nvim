@@ -179,6 +179,11 @@ require('packer').startup({
         -- quanquan
         require('pack/quanquan').config()
 
+        -- vim-template 模板插件
+        -- require('pack/vim-template').config()
+        -- use { 'aperezdc/vim-template', config = "require('pack/vim-template').setup()" }
+
+
     end,
     config = {
         git = { clone_timeout = 120, depth = 1 },
