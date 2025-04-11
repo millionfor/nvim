@@ -86,27 +86,48 @@ function M.setup()
         end, { desc = "Open in Finder" })
 
 
-      local function to_kebab_case(file_name)
-        -- 1. 先将所有非字母数字字符替换为下划线
-        local underscored = string.gsub(file_name, "%W", "_")
+        -- 转换为 kebab-case (xxx-xx-xx)
+        local function to_kebab_case(file_name)
+          -- 1. 先将所有非字母数字字符替换为下划线
+          local underscored = string.gsub(file_name, "%W", "_")
 
-        -- 2. 将连续的下划线替换为单个下划线
-        underscored = string.gsub(underscored, "__+", "_")
+          -- 2. 将连续的下划线替换为单个下划线
+          underscored = string.gsub(underscored, "__+", "_")
 
-        -- 3. 将大写字母转换为小写，并在大写字母前插入下划线 (camelCase to snake_case)
-        local snake_case = string.gsub(underscored, "%u", function(c)
-          return "_" .. string.lower(c)
-        end)
+          -- 3. 将大写字母转换为小写，并在大写字母前插入下划线 (camelCase to snake_case)
+          local snake_case = string.gsub(underscored, "%u", function(c)
+            return "_" .. string.lower(c)
+          end)
 
-        -- 4. 将所有下划线替换为横杠
-        local kebab_case = string.gsub(snake_case, "_", "-")
+          -- 4. 将所有下划线替换为横杠
+          local kebab_case = string.gsub(snake_case, "_", "-")
 
-        -- 5. 移除字符串开头和结尾的横杠
-        kebab_case = string.gsub(kebab_case, "^%-", "")
-        kebab_case = string.gsub(kebab_case, "%-$", "")
+          -- 5. 移除字符串开头和结尾的横杠
+          kebab_case = string.gsub(kebab_case, "^%-", "")
+          kebab_case = string.gsub(kebab_case, "%-$", "")
 
-        return kebab_case
-      end
+          return kebab_case
+        end
+
+        -- 转换为 PascalCase (XxxXxxXxx)
+        local function to_pascal_case(file_name)
+          -- 将连字符和下划线替换为空格
+          file_name = string.gsub(file_name, "[-_]", " ")
+
+          -- 将字符串分割成单词
+          local words = {}
+          for word in string.gmatch(file_name, "%S+") do
+            table.insert(words, word)
+          end
+
+          -- 将每个单词首字母大写，然后连接在一起
+          local pascal_case = ""
+          for _, word in ipairs(words) do
+            pascal_case = pascal_case .. string.upper(string.sub(word, 1, 1)) .. string.sub(word, 2)
+          end
+
+          return pascal_case
+        end
 
 
         -- 定义模板路径（按需修改路径）
@@ -137,9 +158,14 @@ function M.setup()
                 -- 生成 SNAKE_CASE 变量
                 local file_name = vim.fn.fnamemodify(file_path, ":t:r")
                 local kebab_class = to_kebab_case(file_name)
+                local pascal_case = to_pascal_case(file_name)
 
                 -- 替换模板中的变量
                 local replaced_template = string.gsub(table.concat(template, "\n"), "{{SNAKE_CLASS}}", kebab_class)
+                replaced_template = string.gsub(replaced_template, "{{CAMEL_CLASS}}", pascal_case)
+                replaced_template = string.gsub(replaced_template, "{{FILE}}", file_name)
+                replaced_template = string.gsub(replaced_template, "{{NAME}}", "QuanQuan")
+                replaced_template = string.gsub(replaced_template, "{{EMAIL}}", "millionfor@apache.org")
 
                 vim.fn.writefile(vim.split(replaced_template, "\n"), file_path)
                 print("Template added: " .. template_file)
