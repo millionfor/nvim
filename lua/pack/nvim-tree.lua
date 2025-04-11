@@ -40,6 +40,7 @@ function M.magicCd()
     end
 end
 
+
 function M.config()
     -- G.g.nvim_tree_firsttime = 1
     -- G.map({ { 'n', '<leader>e', 'g:nvim_tree_firsttime != 1 ? ":NvimTreeToggle<cr>" : ":let g:nvim_tree_firsttime = 0<cr>:NvimTreeToggle $PWD<cr>"', {silent = true, noremap = true, expr = true}} })
@@ -85,6 +86,70 @@ function M.setup()
         end, { desc = "Open in Finder" })
 
 
+      local function to_kebab_case(file_name)
+        -- 1. 先将所有非字母数字字符替换为下划线
+        local underscored = string.gsub(file_name, "%W", "_")
+
+        -- 2. 将连续的下划线替换为单个下划线
+        underscored = string.gsub(underscored, "__+", "_")
+
+        -- 3. 将大写字母转换为小写，并在大写字母前插入下划线 (camelCase to snake_case)
+        local snake_case = string.gsub(underscored, "%u", function(c)
+          return "_" .. string.lower(c)
+        end)
+
+        -- 4. 将所有下划线替换为横杠
+        local kebab_case = string.gsub(snake_case, "_", "-")
+
+        -- 5. 移除字符串开头和结尾的横杠
+        kebab_case = string.gsub(kebab_case, "^%-", "")
+        kebab_case = string.gsub(kebab_case, "%-$", "")
+
+        return kebab_case
+      end
+
+
+        -- 定义模板路径（按需修改路径）
+        local template_dir = vim.fn.expand("~/.config/nvim/templates")
+
+        -- 监听文件创建事件
+        api.events.subscribe(api.events.Event.FileCreated, function(data)
+          local file_path = data.fname
+          local file_ext = vim.fn.fnamemodify(file_path, ":e")
+
+          -- 获取对应模板路径
+          local template_file = ({
+            vue = "vue.template",
+            sh = "sh.template",
+            ts = "ts.template",
+            js = "js.template",
+            -- 添加更多文件类型...
+          })[file_ext]
+
+          if template_file then
+            local template_path = template_dir .. "/" .. template_file
+
+            -- 仅当新文件为空时才插入模板
+            local content = vim.fn.readfile(file_path)
+            if #content == 0 then
+              local ok, template = pcall(vim.fn.readfile, template_path)
+              if ok then
+                -- 生成 SNAKE_CASE 变量
+                local file_name = vim.fn.fnamemodify(file_path, ":t:r")
+                local kebab_class = to_kebab_case(file_name)
+
+                -- 替换模板中的变量
+                local replaced_template = string.gsub(table.concat(template, "\n"), "{{SNAKE_CLASS}}", kebab_class)
+
+                vim.fn.writefile(vim.split(replaced_template, "\n"), file_path)
+                print("Template added: " .. template_file)
+              else
+                print("Template not found: " .. template_file)
+              end
+            end
+          end
+
+        end)
 
     end
 
@@ -166,7 +231,19 @@ function M.setup()
           exclude = {},
         },
     })
+
 end
+
+-- 创建文件后自动刷新
+-- vim.api.nvim_create_autocmd("User", {
+--   pattern = "NvimTreeRequired",
+--   callback = function(data)
+--     print('nvim tree requiredxxxxxxxx')
+--     ---
+--   end,
+-- })
+
+
 
 return M
 
