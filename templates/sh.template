@@ -5,6 +5,7 @@
 # Description:     
 # Filename:        {{FILE}}
 # Author           {{NAME}} <{{EMAIL}}>
+# CreatedTime      {{DAY}}, {{MONTH}} {{DATE}}, {{YEAR}} {{TIME}}
 # LastModified     {{DAY}}, {{MONTH}} {{DATE}}, {{YEAR}} {{TIME}}
 # GistID           %Gist_ID%
 # GistURL          https://gist.github.com/millionfor/%Gist_ID%

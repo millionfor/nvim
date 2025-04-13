@@ -129,6 +129,20 @@ function M.setup()
           return pascal_case
         end
 
+        -- 获取当前星期
+        local function get_chinese_weekday()
+            local day = os.date("%A")
+            local days = {
+                ["日"] = "日",
+                ["一"] = "星期一",
+                ["二"] = "星期二",
+                ["三"] = "星期三",
+                ["四"] = "星期四",
+                ["五"] = "星期五",
+                ["六"] = "星期六"
+            }
+            return days[day]
+        end
 
         -- 定义模板路径（按需修改路径）
         local template_dir = vim.fn.expand("~/.config/nvim/templates")
@@ -160,12 +174,18 @@ function M.setup()
                 local kebab_class = to_kebab_case(file_name)
                 local pascal_case = to_pascal_case(file_name)
 
+
                 -- 替换模板中的变量
                 local replaced_template = string.gsub(table.concat(template, "\n"), "{{SNAKE_CLASS}}", kebab_class)
                 replaced_template = string.gsub(replaced_template, "{{CAMEL_CLASS}}", pascal_case)
                 replaced_template = string.gsub(replaced_template, "{{FILE}}", file_name)
                 replaced_template = string.gsub(replaced_template, "{{NAME}}", "QuanQuan")
                 replaced_template = string.gsub(replaced_template, "{{EMAIL}}", "millionfor@apache.org")
+                replaced_template = string.gsub(replaced_template, "{{DAY}}",get_chinese_weekday())
+                replaced_template = string.gsub(replaced_template, "{{MONTH}}",os.date("%m"))
+                replaced_template = string.gsub(replaced_template, "{{DATE}}",os.date("%d"))
+                replaced_template = string.gsub(replaced_template, "{{YEAR}}",tonumber(os.date("%Y")))
+                replaced_template = string.gsub(replaced_template, "{{TIME}}",os.date("%H:%M:%S %Z"))
 
                 vim.fn.writefile(vim.split(replaced_template, "\n"), file_path)
                 print("Template added: " .. template_file)
@@ -259,17 +279,6 @@ function M.setup()
     })
 
 end
-
--- 创建文件后自动刷新
--- vim.api.nvim_create_autocmd("User", {
---   pattern = "NvimTreeRequired",
---   callback = function(data)
---     print('nvim tree requiredxxxxxxxx')
---     ---
---   end,
--- })
-
-
 
 return M
 
