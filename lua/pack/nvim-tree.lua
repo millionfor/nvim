@@ -133,13 +133,13 @@ function M.setup()
         local function get_chinese_weekday()
             local day = os.date("%A")
             local days = {
-                ["日"] = "日",
-                ["一"] = "星期一",
-                ["二"] = "星期二",
-                ["三"] = "星期三",
-                ["四"] = "星期四",
-                ["五"] = "星期五",
-                ["六"] = "星期六"
+                ["星期日"] = "日",
+                ["星期一"] = "一",
+                ["星期二"] = "二",
+                ["星期三"] = "三",
+                ["星期四"] = "四",
+                ["星期五"] = "五",
+                ["星期六"] = "六"
             }
             return days[day]
         end
@@ -279,6 +279,7 @@ function M.setup()
     })
 
 end
+
 
 return M
 

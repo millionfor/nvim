@@ -60,13 +60,6 @@ require('packer').startup({
         require('pack/vim-floaterm').config()
         use { 'voldikss/vim-floaterm', config = "require('pack/vim-floaterm').setup()" }
         
-        -- 输入法
-        -- require('pack/im-select').config()
-        -- use { 'keaising/im-select.nvim', config = "require('pack/im-select').setup()" }
-        
-        -- 输入法
-        -- require('pack/vim-im-select').config()
-        -- use { 'brglng/vim-im-select', config = "require('pack/vim-im-select').setup()" }
 
         -- fzf
         require('pack/fzf').config()
