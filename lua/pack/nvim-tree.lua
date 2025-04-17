@@ -73,7 +73,6 @@ function M.setup()
         vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
         vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
 
-
         -- 当前目录
         vim.keymap.set("n", "<leader>op", function()
           local node = require("nvim-tree.api").tree.get_node_under_cursor()

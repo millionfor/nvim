@@ -155,7 +155,9 @@ G.map({
     -- buffers
     { 'n', 'W',           ':bw<cr>',          { noremap = true, silent = true } },
     { 'n', 'ss',          ':bn<cr>',          { noremap = true, silent = true } },
-    { 'n', 'sd',          ':bd<cr>',          { noremap = true, silent = true } },
+    -- { 'n', 'sd',          ':bd<cr>',          { noremap = true, silent = true } },
+    { 'n', 'sf',          ':%bdelete|e#|bd#<cr>',          { noremap = true, silent = true } },
+
     { 'n', '<m-left>',    ':bp<cr>',          { noremap = true, silent = true } },
     { 'n', '<m-right>',   ':bn<cr>',          { noremap = true, silent = true } },
     { 'v', '<m-left>',    '<esc>:bp<cr>',     { noremap = true, silent = true } },
