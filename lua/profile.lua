@@ -20,7 +20,7 @@ G.cmd([[
 G.cmd([[
     set hlsearch
     set showmatch
-    noremap \ :nohlsearch<CR>
+    noremap \ :nohlsearch<CR>:call UncolorAllWords()<CR>
     set incsearch
     set inccommand=
     set ignorecase

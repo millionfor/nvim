@@ -50,14 +50,12 @@ vim.api.nvim_set_keymap('n', 'sd', '', {
   end
 })
 
-function KeepOnlyCurrentBuffer()
-    local current_buf = vim.api.nvim_get_current_buf()
-    for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-        if buf ~= current_buf and vim.api.nvim_buf_is_loaded(buf) then
-            vim.api.nvim_buf_delete(buf, { force = true })
-        end
+-- 只剩一个 buffer 时自动退出
+vim.api.nvim_create_autocmd("QuitPre", {
+  callback = function()
+    local wins = vim.api.nvim_list_wins()
+    if #wins > 1 then
+      vim.cmd("qa!")
     end
-end
-
--- 映射快捷键（例如 `<Leader>bo` 表示 "buffer only"）
-vim.keymap.set('n', '<Leader>bo', KeepOnlyCurrentBuffer, { desc = "Close all other buffers" })
+  end,
+})
