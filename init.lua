@@ -55,7 +55,10 @@ vim.api.nvim_create_autocmd("QuitPre", {
   callback = function()
     local wins = vim.api.nvim_list_wins()
     if #wins > 1 then
-      vim.cmd("qa!")
+      vim.cmd("wqa")  -- 保存所有文件并退出
     end
   end,
 })
+
+-- 驼峰转下划线
+vim.keymap.set('v', '<leader>c', ':s/\\v([a-z])([A-Z])/\\1-\\l\\2/g<CR>', { noremap = true })

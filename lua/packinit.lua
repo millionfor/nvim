@@ -102,7 +102,7 @@ require('packer').startup({
         
         -- 快速打印
         require('pack/vim-echo').config()
-        use { 'yaocccc/vim-echo', cmd = "VECHO",  config = "require('pack/vim-echo').setup()" }
+        use { 'millionfor/vim-echo-plus', cmd = "VECHO",  config = "require('pack/vim-echo').setup()" }
         
         -- 注解
         require('pack/vim-jsdoc').config()

@@ -7,7 +7,12 @@ function M.config()
       { 'v', 'C', ':<c-u>VECHO<cr>', {silent = true, noremap = true}},
   })
 
-  G.g.vim_echo_by_file = { js = 'console.log("logger-[[ECHO]]", [ECHO]);', vue = 'console.log("logger-[[ECHO]]", [ECHO]);', ts = 'console.log("logger-[[ECHO]]", [ECHO]);', ets = 'logger.info("logger-[[ECHO]] => ");' .. 'logger.info([ECHO]);' }
+  G.g.vim_echo_by_file = {
+    js = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
+    vue = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
+    ts = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
+    ets = 'logger.info("logger-[[FILE]:[LINE]]-[[ECHO]]");' .. 'logger.info([ECHO]);'
+  }
 
 end
 
