@@ -55,7 +55,7 @@ vim.api.nvim_create_autocmd("QuitPre", {
   callback = function()
     local wins = vim.api.nvim_list_wins()
     if #wins > 1 then
-      vim.cmd("wqa")  -- 保存所有文件并退出
+      vim.cmd("q!")  -- 保存所有文件并退出
     end
   end,
 })

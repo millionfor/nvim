@@ -1,4 +1,27 @@
 
+snippet usa "Usage Template"
+  /**
+   * 使用说明
+   * 
+   * Usage:
+   *   v-io-permission:[menueId] 入口页面获取权限数据
+   *   v-permission:[menueId].[subMenuId] 按钮权限
+   *   
+   * Authors:
+   *   QuanQuan <millionfor@apache.org>
+   */
+
+snippet pror "Promise.withResolvers()"
+	const { promise, resolve, reject } = Promise.withResolvers()
+
+	setTimeout(() => {
+		resolve('Success!');
+	}, 1000);
+
+	promise.then(value => {
+		console.log(value); // "Success!"
+	});
+
 snippet oent "Object.entries"
 	Object.entries(${0}).map(([key, value]) => ({ key, value }));
 
@@ -6,7 +29,7 @@ snippet zs "/** quanquan **/"
 	/**
 	 * @FileName        ${0:`substitute(expand("%:t"), "." . expand("%:e"), "", "")`}
 	 * @CreatedTime     `strftime("%a, %b %d, %Y %H:%M")`
-	 * @LastModified    `strftime("%a, %b %d, %Y %H:%M")`
+   * @LastModified    三, 05 14, 2025 17:53:47 CST
 	 * @Author          QuanQuan <millionfor@apache.org>
 	 * @Description     ${0}
 	 */
