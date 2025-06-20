@@ -7,18 +7,24 @@ require('autocmd')  -- 自动命令配置
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "*",
     callback = function()
+        -- 保存当前光标位置
+        local current_pos = vim.api.nvim_win_get_cursor(0)
         local current_time = os.date("%a, %m %d, %Y %H:%M:%S CST")
-        -- Try JavaScript-style comment pattern first
-        local line = vim.fn.search("^\\s*\\* @LastModified\\s*\\zs.*", "w")
+        
+        -- 尝试JavaScript风格的注释
+        local line = vim.fn.search("^\\s*\\* @LastModified\\s*\\zs.*", "wn")
         if line > 0 then
             vim.fn.setline(line, " * @LastModified    " .. current_time)
         else
-            -- Try shell-style comment pattern
-            line = vim.fn.search("^\\s*#\\s*LastModified\\s*\\zs.*", "w")
+            -- 尝试shell风格的注释
+            line = vim.fn.search("^\\s*#\\s*LastModified\\s*\\zs.*", "wn")
             if line > 0 then
                 vim.fn.setline(line, "# LastModified     " .. current_time)
             end
         end
+        
+        -- 恢复光标位置
+        vim.api.nvim_win_set_cursor(0, current_pos)
     end,
 })
 

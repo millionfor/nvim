@@ -24,6 +24,7 @@ function M.config()
         vue = '//',
         sql = '--',
         sol = '//',
+        rs = '//',
     }
     G.g.vim_chunk_comments = {
         js = {'/**', ' *', ' */'},

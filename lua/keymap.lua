@@ -172,6 +172,7 @@ G.map({
 
     -- 选中全文 选中{ 复制全文
     { 'n', '<leader>g',       'ggVG',    { noremap = true } },
+    { 'n', '<leader>gg',       'ggVG"+y',    { noremap = true } },
     
     -- vim-dadbod 快捷键映射 
     -- { 'n', '<leader>W',       'W',    { noremap = true } },
@@ -245,14 +246,26 @@ end
 function MagicToggleHump(upperCase)
     G.fn.execute('normal! gv"tx')
     local w = G.fn.getreg('t')
-    local toHump = w:find('_') ~= nil
+    local toHump = w:find('-') ~= nil  -- 检测是否是 kebab-case（含有 -）
+    
     if toHump then
-        w = w:gsub('_(%w)', function(c) return c:upper() end)
+        -- kebab-case → camelCase（如 my-var → myVar）
+        w = w:gsub('-(%w)', function(c) return c:upper() end)
     else
-        w = w:gsub('(%u)', function(c) return '_' .. c:lower() end)
+        -- camelCase → kebab-case（如 myVar → my-var）
+        w = w:gsub('(%u)', function(c) return '-' .. c:lower() end)
     end
-    if w:sub(1, 1) == '_' then w = w:sub(2) end
-    if upperCase then w = w:sub(1,1):upper() .. w:sub(2) end
+    
+    -- 如果转换后首字符是 -（如 -myVar → my-var），去掉开头的 -
+    if w:sub(1, 1) == '-' then
+        w = w:sub(2)
+    end
+    
+    -- 首字母大写（如 myVar → MyVar）
+    if upperCase then
+        w = w:sub(1, 1):upper() .. w:sub(2)
+    end
+    
     G.fn.setreg('t', w)
     G.fn.execute('normal! "tP')
 end

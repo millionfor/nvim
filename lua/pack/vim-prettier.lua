@@ -9,7 +9,7 @@ function M.config()
   G.g['prettier#autoformat_require_pragma'] = 0
 
   G.g['prettier#autoformat_config_files'] = '~/.prettierrc'
-  G.g['prettier#exec_cmd_path'] = '/usr/local/bin/prettier'
+  -- G.g['prettier#exec_cmd_path'] = '/usr/local/lib/node_modules/prettier'
 
 
   G.map({
