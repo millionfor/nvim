@@ -157,6 +157,7 @@ function M.setup()
             sh = "sh.template",
             ts = "ts.template",
             js = "js.template",
+            rs = "rs.template",
             -- 添加更多文件类型...
           })[file_ext]
 

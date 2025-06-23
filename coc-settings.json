@@ -74,4 +74,9 @@
       "rootPatterns": ["package.json", "tsconfig.json"]
     }
   }, 
+  "workspace.ignoredFolders": [
+    "$HOME",
+    "$HOME/.cargo/**",
+    "$HOME/.rustup/**"
+  ],
 }
