@@ -108,11 +108,6 @@ require('packer').startup({
         require('pack/vim-jsdoc').config()
         use { 'heavenshell/vim-jsdoc', run = 'make install',  config = "require('pack/vim-jsdoc').setup()" }
 
-        
-        -- 快速注释
-        -- require('pack/comment-nvim').config()
-        -- use { 'numToStr/Comment.nvim', config = "require('pack/comment-nvim').setup()" }
-
         -- 启动页
         require('pack/alpha-nvim').config()
         use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
@@ -136,7 +131,6 @@ require('packer').startup({
         --   run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
         -- }
 
-        use { 'ojroques/vim-oscyank', config = "require('pack/vim-oscyank').setup()" }
         -- 格式化排列
         use { 'Vonr/align.nvim', config = "require('pack/align-nvim').setup()", branch = "v2" }
 
@@ -171,6 +165,7 @@ require('packer').startup({
 
         -- quanquan
         require('pack/quanquan').config()
+        -- require('pack/toggleterm').config()
 
         -- vim-templates
         require('pack/vim-templates').config()

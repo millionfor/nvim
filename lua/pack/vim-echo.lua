@@ -10,6 +10,7 @@ function M.config()
   G.g.vim_echo_by_file = {
     rs = 'println!("[ECHO]: {}", [ECHO])',
     js = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
+    html = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
     vue = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
     ts = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
     ets = 'logger.info("logger-[[FILE]:[LINE]]-[[ECHO]]");' .. 'logger.info([ECHO]);'
