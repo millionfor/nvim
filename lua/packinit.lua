@@ -165,7 +165,6 @@ require('packer').startup({
 
         -- quanquan
         require('pack/quanquan').config()
-        -- require('pack/toggleterm').config()
 
         -- vim-templates
         require('pack/vim-templates').config()

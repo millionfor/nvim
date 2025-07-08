@@ -41,6 +41,11 @@ function M.config()
     -- c老索
     -- M.setFTToggleMap('<c-t>', 'TERM', '')
     -- M.setFTToggleMap('<c-r>', 'RANGER', 'ranger')
+    --  系统信息
+    M.setFTToggleMap('<c-p>', 'BTOP', 'btop')
+    -- lazygit git面板
+    M.setFTToggleMap('<c-t>', 'LAZYGIT', 'lazygit')
+    -- dbui
     M.setFTToggleMap('<c-b>', 'DBUI', 'nvim +CALLDB')
     G.map({
         { 'n', '<F5>', ':lua require("pack/vim-floaterm").runFile()<cr>', {silent = true, noremap = true}},

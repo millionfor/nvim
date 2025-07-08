@@ -168,7 +168,7 @@ G.map({
     { 'i', '<m-right>',   '<esc>:bn<cr>',     { noremap = true, silent = true } },
 
   -- tt 打开一个10行大小的终端
-    { 'n', 'tt',          ':below 10sp | term<cr>a', { noremap = true, silent = true } },
+    -- { 'n', 'tt',          ':below 10sp | term<cr>a', { noremap = true, silent = true } },
 
     -- 选中全文 选中{ 复制全文
     { 'n', '<leader>g',       'ggVG',    { noremap = true } },

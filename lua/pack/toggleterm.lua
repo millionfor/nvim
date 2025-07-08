@@ -6,6 +6,7 @@ require('toggleterm').setup {
 }
 
 local Terminal = require('toggleterm.terminal').Terminal
+
 local lazygit = Terminal:new({
   cmd = 'lazygit',
   hidden = true,
@@ -56,6 +57,7 @@ local btop = Terminal:new({
 function _BTOP_TOGGLE()
   btop:toggle()
 end
+
 
 G.map({
   { 'n', 'L', '<cmd>lua _LAZYGIT_TOGGLE()<cr>', {silent = true, noremap = true}},
