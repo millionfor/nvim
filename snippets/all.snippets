@@ -1,5 +1,4 @@
 
-
 snippet ww "ww"
 	`curl 'wttr.in/ShangHai?format=3'`
 endsnippet
@@ -13,151 +12,26 @@ snippet chv "update package.json version"
 chore: optimize and upgrade the current architecture (v`jq -r ".version" package.json`)
 endsnippet
 
-
-snippet hm "hmos"
-/**
- * @FileName        Index
- * @CreatedTime     三, 11 13, 2024 15:34
- * @LastModified    一, 07 07, 2025 11:34:37 CST
- * @Author          QuanQuan <millionfor@apache.org>
- * @Description     Index
- */
-
-import router from '@ohos.router'
-
-import _ from '@wolfx/lodash';
-
-import { Log } from '../../module/logger'
-import Loading from './../../module/loading'
-import { TitleBar } from './../../components/titleBar/TitleBar'
-
-@Entry
-@Component
-struct MedicationIndex {
-  @State log: Log = new Log('HydeeHcAtomicService');
-  @State loading: Loading = new Loading()
-
-  @State TitleBarModel: TitleBar.Model = new TitleBar.Model()
-    .setOnLeftClickListener(() => {
-      router.back()
-    })
-    .setTitleName("用药指导")
-
-  build() {
-    Column() {
-      Column() { 
-        TitleBar({ 
-          model: this.TitleBarModel
-        })
-      }
-      
-      Column() {
-        Scroll(){
-          Column() {
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-            Text('xx')
-          }
-          .width('100%')
-          .alignItems(HorizontalAlign.Start)
-        }
-        .width('100%')
-      }
-      .width('100%')
-      .height('100%')
-      .zIndex(2)
-      .backgroundColor('#f2f5f6')
-    }
-    .justifyContent(FlexAlign.Start)
-    .height('100%')
-    .width('100%')
-  }
-}
-
-// vim: set ft=typescript fdm=marker et ff=unix tw=180 sw=2:
-
+snippet chov "chore: upgrade [package-name] to [version]"
+chore: upgrade [package-name] to [version]
 endsnippet
+
+
+
+snippet vimvue "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->"
+<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->
+endsnippet
+
+snippet vimjs "javascript vim: set ft=javascript fdm=marker et ff=unix tw=180 sw=2:"
+	// vim: set ft=javascript fdm=marker et ff=unix tw=180 sw=2:
+endsnippet
+
+snippet vimts "typescript vim: set ft=typescript fdm=marker et ff=unix tw=180 sw=2:"
+	// vim: set ft=typescript fdm=marker et ff=unix tw=180 sw=2:
+endsnippet
+
+snippet vimrs "rust vim: set ft=rust et sw=4 ts=4 sts=4"
+// vim: set ft=rust et sw=4 ts=4 sts=4
+endsnippet
+
 
