@@ -112,7 +112,7 @@ G.cmd([[
     set cmdheight=1
     set updatetime=300
     set shortmess+=cI
-    set scrolloff=5
+    set scrolloff=0
     set noshowmode
     set nu
     set numberwidth=2

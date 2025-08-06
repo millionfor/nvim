@@ -68,3 +68,4 @@ vim.api.nvim_create_autocmd("QuitPre", {
 
 -- 驼峰转下划线
 vim.keymap.set('v', '<leader>c', ':s/\\v([a-z])([A-Z])/\\1-\\l\\2/g<CR>', { noremap = true })
+

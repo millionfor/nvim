@@ -200,18 +200,26 @@ function M.setup()
     end
 
     nvim_tree.setup({
-        sort_by = "case_sensitive",
         on_attach = on_attach,
+        sort_by = "case_sensitive",
+        actions = {
+            open_file = {
+                window_picker = { enable = false }
+            }
+        },
         view = {
-          centralize_selection = false,
-          cursorline = true,
-          debounce_delay = 15,
-          width = 40,
-          side = "left",
-          preserve_window_proportions = false,
-          number = false,
-          relativenumber = false,
-          signcolumn = "yes",
+            float = {
+                enable = true,
+                open_win_config = function()
+                    local columns = G.o.columns
+                    local lines = G.o.lines
+                    local width = math.max(math.floor(columns * 0.6), 50)
+                    local height = math.max(math.floor(lines * 0.8), 20)
+                    local left = math.ceil((columns - width) * 0.5)
+                    local top = math.ceil((lines - height) * 0.5 - 2)
+                    return { relative = "editor", border = "rounded", width = width, height = height, row = top, col = left }
+                end,
+            }
         },
         update_focused_file = {
             enable = true,
@@ -223,58 +231,16 @@ function M.setup()
             indent_markers = { enable = true },
             icons = {
                 git_placement = "after", webdev_colors = true,
-                glyphs = { git = { unstaged = "~", staged = "✓", unmerged = "", renamed = "+", untracked = "?", deleted = "", ignored = " " } }
+                glyphs = {
+                    git = { unstaged = "~", staged = "✓", unmerged = "", renamed = "+", untracked = "?", deleted = "", ignored = " " },
+                    folder = { empty = "", empty_open = "" }
+                }
             }
         },
+        filters = { dotfiles = true },
         diagnostics = {
             enable = true, show_on_dirs = true, debounce_delay = 50,
             icons = { hint = "", info = "", warning = "", error = "" }
-        },
-        actions = {
-          use_system_clipboard = true,
-          change_dir = {
-            enable = true,
-            global = false,
-            restrict_above_cwd = false,
-          },
-          open_file = {
-            quit_on_open = false,
-            resize_window = true,
-            window_picker = {
-              enable = true,
-              chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
-              exclude = {
-                filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame" },
-                buftype = { "nofile", "terminal", "help" },
-              },
-            },
-          },
-        },
-        trash = {
-          cmd = "trash",
-          require_confirm = true,
-        },
-        log = {
-          enable = false,
-          truncate = false,
-          types = {
-            all = false,
-            config = false,
-            copy_paste = false,
-            diagnostics = false,
-            git = false,
-            profile = false,
-          },
-        },
-        git = {
-          enable = true,
-          ignore = true,
-          timeout = 400,
-        },
-        filters = {
-          dotfiles = false,
-          custom = {},
-          exclude = {},
         },
     })
 
