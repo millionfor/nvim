@@ -20,14 +20,13 @@ require('packer').startup({
 
         -- 启动时间分析
         use { "dstein64/vim-startuptime", cmd = "StartupTime" }
-        
         -- 鼠标跳转
         require('pack/smear-cursor').config()
         use { 'sphamba/smear-cursor.nvim', config = "require('pack/smear-cursor').setup()" }
 
         -- wilder 弹出式命令行
         use { 'gelguy/wilder.nvim', event = 'CmdlineEnter', run = 'UpdateRemotePlugins', config = 'require("pack/wilder").setup()' }
-  
+
         -- vv 快速选中内容插件
         require('pack/vim-expand-region').config()
         use { 'terryma/vim-expand-region', config = "require('pack/vim-expand-region').setup()", event = 'CursorHold' }
@@ -39,7 +38,7 @@ require('packer').startup({
         -- 多光标插件
         require('pack/vim-visual-multi').config()
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()", event = 'CursorHold' }
-        
+
         -- 数据库可视化UI
         -- require('pack/vim-dadbod').config()
         -- use { 'tpope/vim-dadbod', cmd = "DBUI" }
@@ -50,16 +49,15 @@ require('packer').startup({
         use { 'neoclide/coc.nvim', config = "require('pack/coc').setup()", branch = 'release' }
 
         -- github copilot
-        -- require('pack/copilot').config()
-        -- use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
-        
-        require('pack/codeium').config()
-        use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
+        require('pack/copilot').config()
+        use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
+
+        -- require('pack/codeium').config()
+        -- use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
 
         -- 浮动终端
         require('pack/vim-floaterm').config()
         use { 'voldikss/vim-floaterm', config = "require('pack/vim-floaterm').setup()" }
-        
 
         -- fzf
         require('pack/fzf').config()
@@ -83,7 +81,7 @@ require('packer').startup({
         -- 状态栏 & 标题栏
         require('pack/nvim-lines').config()
         use { 'yaocccc/nvim-lines.lua', config = "require('pack/nvim-lines').setup()" }
-        
+
         -- prettier格式化
         require('pack/vim-prettier').config()
         use { 'prettier/vim-prettier', run = 'yarn install --frozen-lockfile --production', config = "require('pack/vim-prettier').setup()" }
@@ -91,19 +89,19 @@ require('packer').startup({
         -- 翻译
         require('pack/vim-translate').config()
         use { 'VincentCordobes/vim-translate', config = "require('pack/vim-translate').setup()" }
-        
+
         -- 断点调试
         -- require('pack/vimspector').config()
         -- use { 'puremourning/vimspector', config = "require('pack/vimspector').setup()" }
-        
+
         -- 高亮范围
         require('pack/nvim-hlchunk').config()
         use { 'yaocccc/nvim-hlchunk', config = "require('pack/nvim-hlchunk').setup()" }
-        
+
         -- 快速打印
         require('pack/vim-echo').config()
         use { 'millionfor/vim-echo-plus', cmd = "VECHO",  config = "require('pack/vim-echo').setup()" }
-        
+
         -- 注解
         require('pack/vim-jsdoc').config()
         use { 'heavenshell/vim-jsdoc', run = 'make install',  config = "require('pack/vim-jsdoc').setup()" }
@@ -115,13 +113,12 @@ require('packer').startup({
         -- nodejs debugger
         -- require('pack/nvim-dap-ui').config()
         -- use { "rcarriga/nvim-dap-ui", config = "require('pack/nvim-dap-ui').setup()", requires = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } }
-        
+
         -- signcolumn显示折叠信息
         use { 'yaocccc/nvim-foldsign', event = 'CursorHold', config = 'require("nvim-foldsign").setup()' }
 
         require('pack/onedark').config()
         use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()" }
-        
         -- vscode debugger
         -- use { 'mxsdev/nvim-dap-vscode-js' }
         -- use { 'theHamsta/nvim-dap-virtual-text' }
@@ -140,28 +137,39 @@ require('packer').startup({
         -- 操作成对的 ""  {}  [] 等的插件
         use { 'yaocccc/vim-surround' }
         use { 'yaocccc/nvim-hl-mdcodeblock.lua', after = 'nvim-treesitter', config = "require('pack/markdown').setup_hlcodeblock()" }
-        
-        -- Required plugins
-        use 'nvim-treesitter/nvim-treesitter'
-        use 'stevearc/dressing.nvim'
-        use 'nvim-lua/plenary.nvim'
-        use 'MunifTanjim/nui.nvim'
-        use 'MeanderingProgrammer/render-markdown.nvim'
 
-        -- Optional dependencies
+        -- use 'nvim-lua/plenary.nvim'
+        -- use 'MunifTanjim/nui.nvim'
+        -- use 'MeanderingProgrammer/render-markdown.nvim'
+
         -- use 'hrsh7th/nvim-cmp'
         -- use 'nvim-tree/nvim-web-devicons' -- or use 'echasnovski/mini.icons'
         -- use 'HakonHarnes/img-clip.nvim'
         -- use 'zbirenbaum/copilot.lua'
+        -- use 'stevearc/dressing.nvim' -- for enhanced input UI
+        -- use 'folke/snacks.nvim' -- for modern input UI
 
-        -- Avante.nvim with build process
-        require('pack/avante').config()
-        use {
-          'yetone/avante.nvim',
-          branch = 'main',
-          run = 'make',
-          config = "require('pack/avante').setup()"
-        }
+        -- -- Avante.nvim with build process
+        -- require('pack/avante').config()
+        -- use {
+        --   'yetone/avante.nvim',
+        --   branch = 'main',
+        --   run = 'make',
+        --   -- config = "require('pack/avante').setup()"
+        --   config = function()
+        --     require("avante").setup({
+        --       provider = "deepseek",
+        --       providers = {
+        --         deepseek = {
+        --           __inherited_from = "openai",
+        --           endpoint = "https://api.deepseek.com",
+        --           api_key_name = "sk-5637637f792d4a52b8721a46ec3ff951",
+        --           model = "deepseek/deepseek-r1",
+        --         },
+        --       },
+        --     })
+        --   end
+        -- }
 
         -- quanquan
         require('pack/quanquan').config()
