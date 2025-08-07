@@ -49,11 +49,18 @@ require('packer').startup({
         use { 'neoclide/coc.nvim', config = "require('pack/coc').setup()", branch = 'release' }
 
         -- github copilot
-        require('pack/copilot').config()
-        use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
+        -- require('pack/copilot').config()
+        -- use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
 
-        -- require('pack/codeium').config()
-        -- use { 'Exafunction/codeium.vim', config = "require('pack/codeium').setup()" }
+        require('pack/codeium').config()
+        use { 
+          "Exafunction/windsurf.nvim",
+          requires = {
+              "nvim-lua/plenary.nvim",
+              "hrsh7th/nvim-cmp",
+          },
+          config = "require('pack/codeium').setup()",
+        }
 
         -- 浮动终端
         require('pack/vim-floaterm').config()
@@ -170,6 +177,17 @@ require('packer').startup({
         --     })
         --   end
         -- }
+
+        require('pack/minuet-ai').config()
+        use {
+          'milanglacier/minuet-ai.nvim',
+          requires = {
+            'nvim-lua/plenary.nvim',
+            'hrsh7th/nvim-cmp',
+            'Saghen/blink.cmp'
+          },
+          config = "require('pack/minuet-ai').setup()"
+        }
 
         -- quanquan
         require('pack/quanquan').config()
