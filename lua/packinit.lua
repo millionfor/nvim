@@ -52,15 +52,15 @@ require('packer').startup({
         -- require('pack/copilot').config()
         -- use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
 
-        require('pack/codeium').config()
-        use { 
-          "Exafunction/windsurf.nvim",
-          requires = {
-              "nvim-lua/plenary.nvim",
-              "hrsh7th/nvim-cmp",
-          },
-          config = "require('pack/codeium').setup()",
-        }
+        -- require('pack/codeium').config()
+        -- use { 
+        --   "Exafunction/windsurf.nvim",
+        --   requires = {
+        --       "nvim-lua/plenary.nvim",
+        --       "hrsh7th/nvim-cmp",
+        --   },
+        --   config = "require('pack/codeium').setup()",
+        -- }
 
         -- 浮动终端
         require('pack/vim-floaterm').config()
@@ -178,6 +178,7 @@ require('packer').startup({
         --   end
         -- }
 
+        -- DeepSeek不好用 先注释
         require('pack/minuet-ai').config()
         use {
           'milanglacier/minuet-ai.nvim',
