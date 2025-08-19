@@ -213,7 +213,7 @@ function M.setup()
                 open_win_config = function()
                     local columns = G.o.columns
                     local lines = G.o.lines
-                    local width = math.max(math.floor(columns * 0.6), 50)
+                    local width = math.max(math.floor(columns * 0.25), 50)
                     local height = math.max(math.floor(lines * 0.8), 20)
                     local left = math.ceil((columns - width) * 0.5)
                     local top = math.ceil((lines - height) * 0.5 - 2)
@@ -237,7 +237,10 @@ function M.setup()
                 }
             }
         },
-        filters = { dotfiles = true },
+        filters = {
+          -- 过滤隐藏文件
+          dotfiles = false
+        },
         diagnostics = {
             enable = true, show_on_dirs = true, debounce_delay = 50,
             icons = { hint = "", info = "", warning = "", error = "" }

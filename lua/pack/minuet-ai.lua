@@ -7,7 +7,9 @@ local minuet = require('minuet')
 function M.config()
     minuet.setup({
       virtualtext = {
-          auto_trigger_ft = {},
+          auto_trigger_ft = {
+            -- '*'
+          },
           keymap = {
               -- accept whole completion
               accept = '<Tab>',
@@ -23,6 +25,11 @@ function M.config()
               dismiss = '<A-e>',
           },
       },
+
+      throttle = 1000,
+
+      debounce = 200,
+
       provider = 'claude',
 
       provider_options = {
@@ -75,7 +82,7 @@ function M.config()
       },
     })
 
-    vim.cmd("Minuet virtualtext enable")
+    -- vim.cmd("Minuet virtualtext enable")
 
 end
 

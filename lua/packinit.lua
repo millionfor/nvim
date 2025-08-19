@@ -48,20 +48,6 @@ require('packer').startup({
         require('pack/coc').config()
         use { 'neoclide/coc.nvim', config = "require('pack/coc').setup()", branch = 'release' }
 
-        -- github copilot
-        -- require('pack/copilot').config()
-        -- use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
-
-        -- require('pack/codeium').config()
-        -- use { 
-        --   "Exafunction/windsurf.nvim",
-        --   requires = {
-        --       "nvim-lua/plenary.nvim",
-        --       "hrsh7th/nvim-cmp",
-        --   },
-        --   config = "require('pack/codeium').setup()",
-        -- }
-
         -- 浮动终端
         require('pack/vim-floaterm').config()
         use { 'voldikss/vim-floaterm', config = "require('pack/vim-floaterm').setup()" }
@@ -143,7 +129,7 @@ require('packer').startup({
 
         -- 操作成对的 ""  {}  [] 等的插件
         use { 'yaocccc/vim-surround' }
-        use { 'yaocccc/nvim-hl-mdcodeblock.lua', after = 'nvim-treesitter', config = "require('pack/markdown').setup_hlcodeblock()" }
+        -- use { 'yaocccc/nvim-hl-mdcodeblock.lua', after = 'nvim-treesitter', config = "require('pack/markdown').setup_hlcodeblock()" }
 
         -- use 'nvim-lua/plenary.nvim'
         -- use 'MunifTanjim/nui.nvim'
@@ -179,15 +165,30 @@ require('packer').startup({
         -- }
 
         -- DeepSeek不好用 先注释
-        require('pack/minuet-ai').config()
+        -- require('pack/minuet-ai').config()
+        -- use {
+        --   'milanglacier/minuet-ai.nvim',
+        --   requires = {
+        --     'nvim-lua/plenary.nvim',
+        --     'hrsh7th/nvim-cmp',
+        --     'Saghen/blink.cmp'
+        --   },
+        --   config = "require('pack/minuet-ai').setup()"
+        -- }
+        
+        -- github copilot
+        -- require('pack/copilot').config()
+        -- use { 'github/copilot.vim', tag = 'v1.25.0', config = "require('pack/copilot').setup()" }
+
+        -- codeium
+        require('pack/codeium').config()
         use {
-          'milanglacier/minuet-ai.nvim',
+          "Exafunction/windsurf.nvim",
           requires = {
-            'nvim-lua/plenary.nvim',
-            'hrsh7th/nvim-cmp',
-            'Saghen/blink.cmp'
+              "nvim-lua/plenary.nvim",
+              "hrsh7th/nvim-cmp",
           },
-          config = "require('pack/minuet-ai').setup()"
+          config = "require('pack/codeium').setup()",
         }
 
         -- quanquan
