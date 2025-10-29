@@ -11,8 +11,4 @@ G.cmd([[
     au BufLeave,BufWinLeave * silent! mkview
 ]])
 
-G.cmd([[
-  autocmd FocusGained,BufEnter * :silent !macism com.apple.keylayout.ABC
-]])
-
 
