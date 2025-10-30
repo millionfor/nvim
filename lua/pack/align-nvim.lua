@@ -11,7 +11,7 @@ function M.setup()
   -- 与 1 个字符对齐
   vim.keymap.set(
       'x',
-      'al',
+      '<leader>a',
       function()
           require'align'.align_to_char({
               preview = true,
