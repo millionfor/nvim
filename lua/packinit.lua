@@ -103,10 +103,6 @@ require('packer').startup({
         require('pack/alpha-nvim').config()
         use { 'goolord/alpha-nvim', config = "require('pack/alpha-nvim').setup()", requires = { 'nvim-tree/nvim-web-devicons' }}
 
-        -- nodejs debugger
-        -- require('pack/nvim-dap-ui').config()
-        -- use { "rcarriga/nvim-dap-ui", config = "require('pack/nvim-dap-ui').setup()", requires = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } }
-
         -- signcolumn显示折叠信息
         use { 'yaocccc/nvim-foldsign', event = 'CursorHold', config = 'require("nvim-foldsign").setup()' }
 
@@ -114,14 +110,6 @@ require('packer').startup({
             'git@github.com:millionfor/onedark.nvim.git',
             config = "require('pack/onedark').setup()" 
         }
-        -- vscode debugger
-        -- use { 'mxsdev/nvim-dap-vscode-js' }
-        -- use { 'theHamsta/nvim-dap-virtual-text' }
-        -- use {
-        --   "microsoft/vscode-js-debug",
-        --   opt = true,
-        --   run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out" 
-        -- }
 
         -- 格式化排列
         use { 'Vonr/align.nvim', config = "require('pack/align-nvim').setup()", branch = "v2" }
