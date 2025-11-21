@@ -110,8 +110,10 @@ require('packer').startup({
         -- signcolumn显示折叠信息
         use { 'yaocccc/nvim-foldsign', event = 'CursorHold', config = 'require("nvim-foldsign").setup()' }
 
-        require('pack/onedark').config()
-        use { 'millionfor/onedark.nvim', config = "require('pack/onedark').setup()" }
+        use { 
+            'git@github.com:millionfor/onedark.nvim.git',
+            config = "require('pack/onedark').setup()" 
+        }
         -- vscode debugger
         -- use { 'mxsdev/nvim-dap-vscode-js' }
         -- use { 'theHamsta/nvim-dap-virtual-text' }
