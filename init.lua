@@ -69,3 +69,11 @@ vim.api.nvim_create_autocmd("QuitPre", {
 -- 驼峰转下划线
 vim.keymap.set('v', '<leader>c', ':s/\\v([a-z])([A-Z])/\\1-\\l\\2/g<CR>', { noremap = true })
 
+-- nvim-dap 配置（延迟加载，确保在正确的工作目录中初始化）
+vim.defer_fn(function()
+  local ok, dap_ui = pcall(require, 'pack.nvim-dap-ui')
+  if ok then
+    dap_ui.setup()
+  end
+end, 100)  -- 延迟 100ms 加载，确保 Neovim 完全启动
+

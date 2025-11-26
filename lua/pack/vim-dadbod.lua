@@ -10,12 +10,12 @@ end
 function M.config()
     -- <leader>W 保存缓冲区内容
     --
-    G.g.db_ui_save_location = '~/.cache'
+    G.g.db_ui_save_location = '/Users/millionfor/Library/CloudStorage/SynologyDrive-Quan/workspace/vim-dadbod-cache'
     G.g.db_ui_use_nerd_fonts = 1
     G.g.db_ui_force_echo_notifications = 1
     -- G.g.db_ui_auto_execute_table_helpers = 1
     G.g.db_ui_default_query = 'SELECT * from `{schema}`.`{table}` LIMIT 100;'
-		G.g.db_ui_tmp_query_location = '~/.cache/queries'
+		G.g.db_ui_tmp_query_location = '/Users/millionfor/Library/CloudStorage/SynologyDrive-Quan/workspace/vim-dadbod-cache/queries'
 
     G.g.db_ui_table_helpers = {
         -- <leader>W 保存缓冲区内容

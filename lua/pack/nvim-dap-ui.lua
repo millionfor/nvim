@@ -3,31 +3,51 @@ local G = require('G')
 local M = {}
 
 function M.config()
+end
 
-
+function M.setup()
 local dap = require("dap")
 local dap_utils = require("dap.utils")
-local dap_vscode_js = require("dap-vscode-js")
 
--- !DEPRECATED!
--- dap.adapters.chrome = {
---   type = "executable",
---   command = "node",
---   args = { os.getenv("HOME") .. "/.DAP/vscode-chrome-debug/out/src/chromeDebug.js" },
--- }
+-- 启用调试日志（帮助排查问题）
+dap.set_log_level('TRACE')
 
--- !DEPRECATED!
--- dap.adapters.node2 = {
---   type = "executable",
---   command = "node",
---   args = { os.getenv("HOME") .. "/.DAP/vscode-node-debug2/out/src/nodeDebug.js" },
--- }
+-- 配置 pwa-node adapter (使用 executable 类型，更简单可靠)
+dap.adapters["pwa-node"] = function(cb, config)
+  if config.preLaunchTask then
+    vim.fn.system(config.preLaunchTask)
+  end
 
-dap_vscode_js.setup({
-  node_path = "node",
-  debugger_path = os.getenv("HOME") .. "/.DAP/vscode-js-debug",
-  adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-})
+  -- vsDebugServer 使用随机端口启动，不要使用 config.port
+  cb({
+    type = "server",
+    host = "127.0.0.1",
+    port = "${port}",  -- 这是 vsDebugServer 的端口，会自动分配
+    executable = {
+      command = "node",
+      args = {
+        os.getenv("HOME") .. "/.DAP/vscode-js-debug/out/src/vsDebugServer.js",
+        "${port}"
+      },
+    }
+  })
+end
+
+-- 配置 pwa-chrome adapter
+dap.adapters["pwa-chrome"] = function(cb, config)
+  cb({
+    type = "server",
+    host = "127.0.0.1",
+    port = "${port}",  -- vsDebugServer 的端口，会自动分配
+    executable = {
+      command = "node",
+      args = {
+        os.getenv("HOME") .. "/.DAP/vscode-js-debug/out/src/vsDebugServer.js",
+        "${port}"
+      },
+    }
+  })
+end
 
 local exts = {
   "javascript",
@@ -41,11 +61,49 @@ local exts = {
 
 for i, ext in ipairs(exts) do
   dap.configurations[ext] = {
+    -- NestJS/Express 附加到运行中的服务器（最常用）
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach to NestJS/Node Server (Port 9229)",
+      -- 使用 cwd 而不是 ${workspaceFolder}，这样会使用当前工作目录
+      cwd = "${workspaceFolder}",
+      sourceMaps = true,
+      address = "localhost",
+      port = 9229,
+      restart = true,
+      skipFiles = { "<node_internals>/**", "node_modules/**" },
+      resolveSourceMapLocations = {
+        "${workspaceFolder}/**",
+        "!**/node_modules/**",
+      },
+      outFiles = {
+        "${workspaceFolder}/dist/**/*.js",
+        "!**/node_modules/**",
+      },
+    },
+    -- 自定义端口附加
+    {
+      type = "pwa-node",
+      request = "attach",
+      name = "Attach to Node Server (Custom Port)",
+      cwd = "${workspaceFolder}",
+      sourceMaps = true,
+      port = function()
+        return tonumber(vim.fn.input("Debug port: ", "9229"))
+      end,
+      restart = true,
+      skipFiles = { "<node_internals>/**", "node_modules/**" },
+      resolveSourceMapLocations = {
+        "${workspaceFolder}/**",
+        "!**/node_modules/**",
+      },
+    },
     {
       type = "pwa-node",
       request = "launch",
       name = "Launch Current File (pwa-node)",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       args = { "${file}" },
       sourceMaps = true,
       protocol = "inspector",
@@ -54,7 +112,7 @@ for i, ext in ipairs(exts) do
       type = "pwa-node",
       request = "launch",
       name = "Launch Current File (pwa-node with ts-node)",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       runtimeArgs = { "--loader", "ts-node/esm" },
       runtimeExecutable = "node",
       args = { "${file}" },
@@ -70,7 +128,7 @@ for i, ext in ipairs(exts) do
       type = "pwa-node",
       request = "launch",
       name = "Launch Current File (pwa-node with deno)",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       runtimeArgs = { "run", "--inspect-brk", "--allow-all", "${file}" },
       runtimeExecutable = "deno",
       attachSimplePort = 9229,
@@ -79,7 +137,7 @@ for i, ext in ipairs(exts) do
       type = "pwa-node",
       request = "launch",
       name = "Launch Test Current File (pwa-node with jest)",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       runtimeArgs = { "${workspaceFolder}/node_modules/.bin/jest" },
       runtimeExecutable = "node",
       args = { "${file}", "--coverage", "false" },
@@ -93,7 +151,7 @@ for i, ext in ipairs(exts) do
       type = "pwa-node",
       request = "launch",
       name = "Launch Test Current File (pwa-node with vitest)",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       program = "${workspaceFolder}/node_modules/vitest/vitest.mjs",
       args = { "--inspect-brk", "--threads", "false", "run", "${file}" },
       autoAttachChildProcesses = true,
@@ -105,7 +163,7 @@ for i, ext in ipairs(exts) do
       type = "pwa-node",
       request = "launch",
       name = "Launch Test Current File (pwa-node with deno)",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       runtimeArgs = { "test", "--inspect-brk", "--allow-all", "${file}" },
       runtimeExecutable = "deno",
       smartStep = true,
@@ -117,7 +175,7 @@ for i, ext in ipairs(exts) do
       request = "attach",
       name = "Attach Program (pwa-chrome, select port)",
       program = "${file}",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       sourceMaps = true,
       port = function()
         return G.fn.input("Select port: ", 9222)
@@ -134,7 +192,7 @@ for i, ext in ipairs(exts) do
       type = "node2",
       request = "attach",
       name = "Attach Program (Node2 with ts-node)",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       sourceMaps = true,
       skipFiles = { "<node_internals>/**" },
       port = 9229,
@@ -143,7 +201,7 @@ for i, ext in ipairs(exts) do
       type = "pwa-node",
       request = "attach",
       name = "Attach Program (pwa-node, select pid)",
-      cwd = G.fn.getcwd(),
+      cwd = "${workspaceFolder}",
       processId = dap_utils.pick_process,
       skipFiles = { "<node_internals>/**" },
     },
@@ -257,6 +315,11 @@ end
   vim.keymap.set('n', '<leader>B', function()
     require 'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))
   end)
+  -- 查看 DAP 日志（排查问题用）
+  vim.keymap.set('n', '<leader>dl', function()
+    local log_path = vim.fn.stdpath('cache') .. '/dap.log'
+    vim.cmd('edit ' .. log_path)
+  end, { desc = 'Open DAP log file' })
 
 
 
@@ -361,11 +424,6 @@ end
       virt_text_win_col = nil                -- position the virtual text at a fixed window column (starting from the first text column) ,
                                              -- e.g. 80 to position at column 80, see `:h nvim_buf_set_extmark()`
   }
-
-end
-
-function M.setup()
-
 end
 
 return M

@@ -40,9 +40,9 @@ require('packer').startup({
         use { 'mg979/vim-visual-multi', config = "require('pack/vim-visual-multi').setup()", event = 'CursorHold' }
 
         -- 数据库可视化UI
-        -- require('pack/vim-dadbod').config()
-        -- use { 'tpope/vim-dadbod', cmd = "DBUI" }
-        -- use { 'kristijanhusak/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
+        require('pack/vim-dadbod').config()
+        use { 'tpope/vim-dadbod', cmd = "DBUI" }
+        use { 'kristijanhusak/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
 
         -- coc-nvim
         require('pack/coc').config()
@@ -86,6 +86,13 @@ require('packer').startup({
         -- 断点调试
         -- require('pack/vimspector').config()
         -- use { 'puremourning/vimspector', config = "require('pack/vimspector').setup()" }
+
+        -- nvim-dap 调试插件
+        use { 'mfussenegger/nvim-dap' }
+        use { 'rcarriga/nvim-dap-ui', requires = { 'mfussenegger/nvim-dap', 'nvim-neotest/nvim-nio' } }
+        use { 'theHamsta/nvim-dap-virtual-text', requires = { 'mfussenegger/nvim-dap' } }
+        -- 移除 config，改为手动加载以避免工作目录问题
+        use { 'mxsdev/nvim-dap-vscode-js', requires = { 'mfussenegger/nvim-dap' } }
 
         -- 高亮范围
         require('pack/nvim-hlchunk').config()
