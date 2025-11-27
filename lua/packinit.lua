@@ -43,6 +43,11 @@ require('packer').startup({
         require('pack/vim-dadbod').config()
         use { 'tpope/vim-dadbod', cmd = "DBUI" }
         use { 'kristijanhusak/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
+        require('pack/vim-dadbod-completion').config()
+        use { 'kristijanhusak/vim-dadbod-completion', after = 'vim-dadbod-ui', config = "require('pack/vim-dadbod-completion').setup()" }
+        -- require('pack/vim-dadbod').config()
+        -- use { 'tpope/vim-dadbod', cmd = "DBUI" }
+        -- use { 'millionfor/vim-dadbod-ui', config = "require('pack/vim-dadbod').setup()", after = 'vim-dadbod' }
 
         -- coc-nvim
         require('pack/coc').config()
