@@ -41,18 +41,51 @@ vim.api.nvim_create_autocmd("InsertLeave", {
     end,
 })
 
--- 关闭当前 buffer 同时切换到上一个
+-- 关闭当前 buffer 同时切换到右边的 buffer，如果右边没有则切换到最后一个
 vim.api.nvim_set_keymap('n', 'sd', '', {
   noremap = true,
   silent = true,
   callback = function()
-    local buf_count = #vim.api.nvim_list_bufs()
-    if buf_count > 1 then
-      vim.cmd('bd')
-      vim.cmd('bp')
-    else
-      vim.cmd('bd')
+    local current_buf = vim.api.nvim_get_current_buf()
+    local bufs = vim.api.nvim_list_bufs()
+    local valid_bufs = {}
+    
+    -- 过滤出有效的 buffer（已加载且可切换的）
+    for _, buf in ipairs(bufs) do
+      if vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_get_option(buf, 'buflisted') then
+        table.insert(valid_bufs, buf)
+      end
     end
+    
+    if #valid_bufs <= 1 then
+      -- 只有一个或没有 buffer，直接关闭
+      vim.cmd('bd')
+      return
+    end
+    
+    -- 找到当前 buffer 在列表中的位置
+    local current_idx = nil
+    for i, buf in ipairs(valid_bufs) do
+      if buf == current_buf then
+        current_idx = i
+        break
+      end
+    end
+    
+    if current_idx then
+      -- 如果右边有 buffer，切换到右边的
+      if current_idx < #valid_bufs then
+        vim.api.nvim_set_current_buf(valid_bufs[current_idx + 1])
+      else
+        -- 右边没有（当前是最后一个），切换到倒数第二个（即列表中的最后一个有效 buffer）
+        if #valid_bufs > 1 then
+          vim.api.nvim_set_current_buf(valid_bufs[#valid_bufs - 1])
+        end
+      end
+    end
+    
+    -- 关闭原来的 buffer
+    vim.cmd('bd ' .. current_buf)
   end
 })
 
