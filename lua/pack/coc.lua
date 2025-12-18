@@ -108,41 +108,44 @@ function M.config()
       call append(insert_at, rendered)
     endfunction
 
-    function! s:GistFindByFilename(token, filename) abort
-      let url = 'https://api.github.com/gists?per_page=100'
-      let cmd = 'curl -sS -H ' . shellescape('Authorization: token ' . a:token) . ' ' . shellescape(url)
-      let out = system(cmd)
-      if v:shell_error != 0
-        return {}
-      endif
-      let arr = json_decode(out)
-      if type(arr) != type([])
-        return {}
-      endif
-      " GitHub 返回按 updated_at 倒序；命中第一个即可
-      for gist in arr
-        if has_key(gist, 'files')
-          for [fname, _] in items(gist.files)
-            if fname ==# a:filename
-              return {'id': gist.id, 'filename': fname}
-            endif
-          endfor
-        endif
-      endfor
-      return {}
+    function! s:GistHasPlaceholder() abort
+      " 文件内任意位置出现 %Gist_ID% => 按你定义：这是“新建”标记
+      return search('%Gist_ID%', 'nw') > 0
     endfunction
 
-    function! s:GistIdFromHeader() abort
-      for lnum in range(1, min([40, line('$')]))
+    function! s:GistIdFromHeader32() abort
+      " 按你定义：`GistID:` + 32 位 hex 才算“更新”标记
+      for lnum in range(1, min([120, line('$')]))
         let l = getline(lnum)
-        if l =~# 'GistID:\s*'
-          let id = matchstr(l, 'GistID:\s*\zs[0-9a-f]\+')
+        if l =~# 'GistID'
+          let id = matchstr(l, 'GistID\D*\zs[0-9A-Fa-f]\{32}\ze')
           if !empty(id)
-            return id
+            return tolower(id)
           endif
         endif
       endfor
       return ''
+    endfunction
+
+    function! GistDebug() abort
+      let token = s:GistToken()
+      let filename = fnamemodify(expand('%:p'), ':t')
+      let id = s:GistIdFromHeader32()
+      echo 'filename=' . filename
+      echo 'token=' . (empty(token) ? '<empty>' : '<set>')
+      echo 'has_placeholder(%Gist_ID%)=' . (s:GistHasPlaceholder() ? 'yes' : 'no')
+      echo 'gist_id(from header 32hex)=' . (empty(id) ? '<empty>' : id)
+      if empty(token) || empty(id)
+        return
+      endif
+      let cmd = 'curl -sS -X GET'
+      let cmd .= ' -H ' . shellescape('Authorization: token ' . token)
+      let cmd .= ' ' . shellescape('https://api.github.com/gists/' . id)
+      let cmd .= ' -w ' . shellescape("\n%{http_code}")
+      let raw = system(cmd)
+      let parts = split(raw, "\n")
+      let http = str2nr(remove(parts, -1))
+      echo 'GET /gists/' . id . ' => HTTP ' . http
     endfunction
 
     function! GistUpdateByFilename() abort
@@ -165,14 +168,15 @@ function M.config()
 
       let content = join(getline(1, '$'), "\n")
 
-      " strict update: 必须找到已存在的 gist（优先 GistID，其次按文件名查找）
-      let id = s:GistIdFromHeader()
-      if empty(id)
-        let found = s:GistFindByFilename(token, filename)
-        if !empty(found)
-          let id = found.id
-        endif
+      " 规则：文件内有 %Gist_ID% => 这是“新建”标记，gu 不负责新建
+      if s:GistHasPlaceholder()
+        echo 'This file contains %Gist_ID% placeholder => treat as CREATE.'
+        echo 'Use gc to create first, then gu will update by the inserted GistID.'
+        return
       endif
+
+      " strict update: 必须有 32 位 GistID
+      let id = s:GistIdFromHeader32()
       if empty(id)
         echo 'No existing gist found for "' . filename . '" (no GistID and no remote match).'
         echo 'Use gc to create/upsert first.'
@@ -235,16 +239,12 @@ function M.config()
 
       let content = join(getline(1, '$'), "\n")
 
-      " 1) 优先用文件头里的 GistID（最可靠）
-      let id = s:GistIdFromHeader()
-
-      " 2) 没有则按文件名查找现有 gist
-      if empty(id)
-        let found = s:GistFindByFilename(token, filename)
-        if !empty(found)
-          let id = found.id
-        endif
-      endif
+      " 你的规则：
+      " - 如果文件内有 %Gist_ID% => 强制 CREATE（新建），并在创建后替换占位符
+      " - 如果文件头有 GistID + 32位hex => UPDATE
+      " - 否则：没有标记，默认 CREATE（但是否插入注释由模板决定；没模板就不插入）
+      let force_create = s:GistHasPlaceholder()
+      let id = force_create ? '' : s:GistIdFromHeader32()
 
       if empty(id)
         " create
@@ -260,7 +260,7 @@ function M.config()
         let http = str2nr(remove(parts, -1))
         let resp = join(parts, "\n")
       else
-        " update (覆盖同名文件内容)；如果 404（常见于无权限/不存在），自动降级为 create
+        " update (覆盖同名文件内容)
         let payload = {'files': {filename: {'content': content}}}
         let cmd = 'curl -sS -X PATCH'
         let cmd .= ' -H ' . shellescape('Authorization: token ' . token)
@@ -272,22 +272,6 @@ function M.config()
         let parts = split(raw, "\n")
         let http = str2nr(remove(parts, -1))
         let resp = join(parts, "\n")
-
-        if http == 404
-          " treat as not-exists / no-access -> create new gist
-          let id = ''
-          let payload = {'description': '', 'public': v:false, 'files': {filename: {'content': content}}}
-          let cmd = 'curl -sS -X POST'
-          let cmd .= ' -H ' . shellescape('Authorization: token ' . token)
-          let cmd .= ' -H ' . shellescape('Content-Type: application/json')
-          let cmd .= ' -d ' . shellescape(json_encode(payload))
-          let cmd .= ' ' . shellescape('https://api.github.com/gists')
-          let cmd .= ' -w ' . shellescape("\n%{http_code}")
-          let raw = system(cmd)
-          let parts = split(raw, "\n")
-          let http = str2nr(remove(parts, -1))
-          let resp = join(parts, "\n")
-        endif
       endif
 
       if v:shell_error != 0
@@ -312,7 +296,7 @@ function M.config()
       let b:coc_gist_id = new_id
       let b:coc_gist_filename = filename
       call s:GistEnsureHeader(new_id)
-      echo 'Gist upsert OK: ' . new_id
+      echo (empty(id) ? 'Gist create OK: ' : 'Gist update OK: ') . new_id
     endfunction
     ]])
     G.map({
