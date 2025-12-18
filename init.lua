@@ -110,3 +110,18 @@ vim.defer_fn(function()
   end
 end, 100)  -- 延迟 100ms 加载，确保 Neovim 完全启动
 
+
+vim.g.gist_comment_templates = {
+  lua = {
+    "-- GistID: %Gist_ID%",
+    "-- GistURL: https://gist.github.com/%Gist_ID%",
+    "",
+  },
+  typescript = {
+    "/**",
+    " * GistID: %Gist_ID%",
+    " * GistURL: https://gist.github.com/%Gist_ID%",
+    " */",
+    "",
+  },
+}

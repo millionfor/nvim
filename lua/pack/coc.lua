@@ -56,30 +56,56 @@ function M.config()
       return p
     endfunction
 
-    function! s:GistEnsureHeader(id) abort
-      let prefix = s:GistLineCommentPrefix()
-      let idline = prefix . ' GistID: ' . a:id
-      let urlline = prefix . ' GistURL: https://gist.github.com/' . a:id
+    function! s:GistRenderHeaderTemplate(id) abort
+      " 用户可在 vim.g.gist_comment_templates 自定义不同 filetype 的注释模板：
+      " - key: &filetype（为空则按 sh）
+      " - value: List[string]，其中可包含 %Gist_ID% 动态变量
+      "
+      " 重要：这里不再提供任何默认模板；没有配置就返回空，表示“不插入任何注释”
+      let ft = &filetype
+      if empty(ft)
+        let ft = 'sh'
+      endif
+      let templates = get(g:, 'gist_comment_templates', {})
+      let tpl = get(templates, ft, v:null)
+      if type(tpl) != type([])
+        return []
+      endif
 
-      " 优先在前 40 行内更新已有的 GistID/GistURL
-      for lnum in range(1, min([40, line('$')]))
-        if getline(lnum) =~# 'GistID:'
-          call setline(lnum, idline)
-          if lnum + 1 <= line('$') && getline(lnum + 1) =~# 'GistURL:'
-            call setline(lnum + 1, urlline)
-          else
-            call append(lnum, urlline)
-          endif
-          return
+      let out = []
+      for l in tpl
+        call add(out, substitute(l, '%Gist_ID%', a:id, 'g'))
+      endfor
+      return out
+    endfunction
+
+    function! s:GistEnsureHeader(id) abort
+      " 规则 A：只要文件任何位置存在 %Gist_ID% 占位符，则只替换占位符，不新增任何注释块
+      let max_scan = line('$')
+      let replaced = 0
+      for lnum in range(1, max_scan)
+        let l = getline(lnum)
+        if l =~# '%Gist_ID%'
+          call setline(lnum, substitute(l, '%Gist_ID%', a:id, 'g'))
+          let replaced = 1
         endif
       endfor
+      if replaced
+        return
+      endif
 
-      " 没有则插入：若有 shebang，插在第 1 行之后
+      " 规则 B：若没有占位符，则仅在用户配置了对应 filetype 的模板时才插入；没有模板则什么都不做
+      let rendered = s:GistRenderHeaderTemplate(a:id)
+      if empty(rendered)
+        return
+      endif
+
+      " 插入：若有 shebang，插在第 1 行之后，否则插在文件头
       let insert_at = 0
       if getline(1) =~# '^#!'
         let insert_at = 1
       endif
-      call append(insert_at, [idline, urlline, ''])
+      call append(insert_at, rendered)
     endfunction
 
     function! s:GistFindByFilename(token, filename) abort
@@ -117,6 +143,76 @@ function M.config()
         endif
       endfor
       return ''
+    endfunction
+
+    function! GistUpdateByFilename() abort
+      let token = s:GistToken()
+      if empty(token)
+        echo 'Gist update requires $GITHUB_TOKEN (or $GH_TOKEN).'
+        return
+      endif
+
+      let fullpath = expand('%:p')
+      if empty(fullpath)
+        echo 'No file to gist.'
+        return
+      endif
+
+      let filename = fnamemodify(fullpath, ':t')
+      if empty(filename)
+        let filename = 'untitled'
+      endif
+
+      let content = join(getline(1, '$'), "\n")
+
+      " strict update: 必须找到已存在的 gist（优先 GistID，其次按文件名查找）
+      let id = s:GistIdFromHeader()
+      if empty(id)
+        let found = s:GistFindByFilename(token, filename)
+        if !empty(found)
+          let id = found.id
+        endif
+      endif
+      if empty(id)
+        echo 'No existing gist found for "' . filename . '" (no GistID and no remote match).'
+        echo 'Use gc to create/upsert first.'
+        return
+      endif
+
+      let payload = {'files': {filename: {'content': content}}}
+      let cmd = 'curl -sS -X PATCH'
+      let cmd .= ' -H ' . shellescape('Authorization: token ' . token)
+      let cmd .= ' -H ' . shellescape('Content-Type: application/json')
+      let cmd .= ' -d ' . shellescape(json_encode(payload))
+      let cmd .= ' ' . shellescape('https://api.github.com/gists/' . id)
+      let cmd .= ' -w ' . shellescape("\n%{http_code}")
+      let raw = system(cmd)
+      let parts = split(raw, "\n")
+      let http = str2nr(remove(parts, -1))
+      let resp = join(parts, "\n")
+
+      if v:shell_error != 0
+        echo 'Gist update request failed.'
+        return
+      endif
+
+      if http < 200 || http > 299
+        echo 'Gist update failed HTTP ' . http . ': ' . resp
+        echo 'Not creating new gist (gu is update-only). Check token scopes: classic PAT needs "gist".'
+        return
+      endif
+
+      let obj = json_decode(resp)
+      if type(obj) != type({}) || !has_key(obj, 'id')
+        echo 'Gist API error: ' . resp
+        return
+      endif
+
+      let new_id = obj.id
+      let b:coc_gist_id = new_id
+      let b:coc_gist_filename = filename
+      call s:GistEnsureHeader(new_id)
+      echo 'Gist update OK: ' . new_id
     endfunction
 
     function! GistUpsertByFilename() abort
@@ -158,20 +254,51 @@ function M.config()
         let cmd .= ' -H ' . shellescape('Content-Type: application/json')
         let cmd .= ' -d ' . shellescape(json_encode(payload))
         let cmd .= ' ' . shellescape('https://api.github.com/gists')
-        let resp = system(cmd)
+        let cmd .= ' -w ' . shellescape("\n%{http_code}")
+        let raw = system(cmd)
+        let parts = split(raw, "\n")
+        let http = str2nr(remove(parts, -1))
+        let resp = join(parts, "\n")
       else
-        " update (覆盖同名文件内容)
+        " update (覆盖同名文件内容)；如果 404（常见于无权限/不存在），自动降级为 create
         let payload = {'files': {filename: {'content': content}}}
         let cmd = 'curl -sS -X PATCH'
         let cmd .= ' -H ' . shellescape('Authorization: token ' . token)
         let cmd .= ' -H ' . shellescape('Content-Type: application/json')
         let cmd .= ' -d ' . shellescape(json_encode(payload))
         let cmd .= ' ' . shellescape('https://api.github.com/gists/' . id)
-        let resp = system(cmd)
+        let cmd .= ' -w ' . shellescape("\n%{http_code}")
+        let raw = system(cmd)
+        let parts = split(raw, "\n")
+        let http = str2nr(remove(parts, -1))
+        let resp = join(parts, "\n")
+
+        if http == 404
+          " treat as not-exists / no-access -> create new gist
+          let id = ''
+          let payload = {'description': '', 'public': v:false, 'files': {filename: {'content': content}}}
+          let cmd = 'curl -sS -X POST'
+          let cmd .= ' -H ' . shellescape('Authorization: token ' . token)
+          let cmd .= ' -H ' . shellescape('Content-Type: application/json')
+          let cmd .= ' -d ' . shellescape(json_encode(payload))
+          let cmd .= ' ' . shellescape('https://api.github.com/gists')
+          let cmd .= ' -w ' . shellescape("\n%{http_code}")
+          let raw = system(cmd)
+          let parts = split(raw, "\n")
+          let http = str2nr(remove(parts, -1))
+          let resp = join(parts, "\n")
+        endif
       endif
 
       if v:shell_error != 0
         echo 'Gist request failed.'
+        return
+      endif
+
+      " 常见原因：token 没有 gist 权限，GitHub 会返回 404/403
+      if http < 200 || http > 299
+        echo 'Gist API HTTP ' . http . ': ' . resp
+        echo 'Check token scopes: classic PAT needs "gist"; fine-grained PAT needs Gists read/write.'
         return
       endif
 
@@ -222,7 +349,7 @@ function M.config()
         { 'n', '=', 'CocHasProvider("formatRange") ? "<Plug>(coc-format-selected)" : "="', {silent = true, noremap = true, expr = true}},
         { 'n', 'gl', ":CocList gist<cr>", {silent = true, noremap = true} },
         { 'n', 'gc', ":call GistUpsertByFilename()<cr>", {silent = true, noremap = true} },
-        { 'n', 'gu', ":call GistUpsertByFilename()<cr>", {silent = true, noremap = true} },
+        { 'n', 'gu', ":call GistUpdateByFilename()<cr>", {silent = true, noremap = true} },
         { 'n', '<leader>zs', ":CocCommand docthis.documentThis<cr>", {silent = true, noremap = true} },
     })
 end
