@@ -78,5 +78,5 @@
     "$HOME",
     "$HOME/.cargo/**",
     "$HOME/.rustup/**"
-  ],
+  ]
 }

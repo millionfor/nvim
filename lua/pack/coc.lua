@@ -26,6 +26,168 @@ function M.config()
     G.cmd("command! -nargs=? Fold :call CocAction('fold', <f-args>)")
     G.cmd("hi! link CocPum Pmenu")
     G.cmd("hi! link CocMenuSel PmenuSel")
+    -- Gist upsert：按“文件名”判断是否已存在 gist，存在则 update 覆盖，否则 create
+    -- 依赖环境变量 token：优先 $GITHUB_TOKEN，其次 $GH_TOKEN
+    G.cmd([[
+    function! s:GistToken() abort
+      let token = getenv('GITHUB_TOKEN')
+      if empty(token)
+        let token = getenv('GH_TOKEN')
+      endif
+      return token
+    endfunction
+
+    function! s:GistLineCommentPrefix() abort
+      let ft = &filetype
+      if empty(ft)
+        let ft = 'sh'
+      endif
+      let tbl = get(g:, 'vim_line_comments', {})
+      let p = get(tbl, ft, '')
+      if empty(p)
+        if ft =~# '^\%(lua\|vim\|sql\)$'
+          let p = '--'
+        elseif ft =~# '^\%(javascript\|typescript\|java\|c\|cpp\|go\|rust\|h\|hpp\)$'
+          let p = '//'
+        else
+          let p = '#'
+        endif
+      endif
+      return p
+    endfunction
+
+    function! s:GistEnsureHeader(id) abort
+      let prefix = s:GistLineCommentPrefix()
+      let idline = prefix . ' GistID: ' . a:id
+      let urlline = prefix . ' GistURL: https://gist.github.com/' . a:id
+
+      " 优先在前 40 行内更新已有的 GistID/GistURL
+      for lnum in range(1, min([40, line('$')]))
+        if getline(lnum) =~# 'GistID:'
+          call setline(lnum, idline)
+          if lnum + 1 <= line('$') && getline(lnum + 1) =~# 'GistURL:'
+            call setline(lnum + 1, urlline)
+          else
+            call append(lnum, urlline)
+          endif
+          return
+        endif
+      endfor
+
+      " 没有则插入：若有 shebang，插在第 1 行之后
+      let insert_at = 0
+      if getline(1) =~# '^#!'
+        let insert_at = 1
+      endif
+      call append(insert_at, [idline, urlline, ''])
+    endfunction
+
+    function! s:GistFindByFilename(token, filename) abort
+      let url = 'https://api.github.com/gists?per_page=100'
+      let cmd = 'curl -sS -H ' . shellescape('Authorization: token ' . a:token) . ' ' . shellescape(url)
+      let out = system(cmd)
+      if v:shell_error != 0
+        return {}
+      endif
+      let arr = json_decode(out)
+      if type(arr) != type([])
+        return {}
+      endif
+      " GitHub 返回按 updated_at 倒序；命中第一个即可
+      for gist in arr
+        if has_key(gist, 'files')
+          for [fname, _] in items(gist.files)
+            if fname ==# a:filename
+              return {'id': gist.id, 'filename': fname}
+            endif
+          endfor
+        endif
+      endfor
+      return {}
+    endfunction
+
+    function! s:GistIdFromHeader() abort
+      for lnum in range(1, min([40, line('$')]))
+        let l = getline(lnum)
+        if l =~# 'GistID:\s*'
+          let id = matchstr(l, 'GistID:\s*\zs[0-9a-f]\+')
+          if !empty(id)
+            return id
+          endif
+        endif
+      endfor
+      return ''
+    endfunction
+
+    function! GistUpsertByFilename() abort
+      let token = s:GistToken()
+      if empty(token)
+        echo 'Gist upsert requires $GITHUB_TOKEN (or $GH_TOKEN).'
+        return
+      endif
+
+      let fullpath = expand('%:p')
+      if empty(fullpath)
+        echo 'No file to gist.'
+        return
+      endif
+
+      let filename = fnamemodify(fullpath, ':t')
+      if empty(filename)
+        let filename = 'untitled'
+      endif
+
+      let content = join(getline(1, '$'), "\n")
+
+      " 1) 优先用文件头里的 GistID（最可靠）
+      let id = s:GistIdFromHeader()
+
+      " 2) 没有则按文件名查找现有 gist
+      if empty(id)
+        let found = s:GistFindByFilename(token, filename)
+        if !empty(found)
+          let id = found.id
+        endif
+      endif
+
+      if empty(id)
+        " create
+        let payload = {'description': '', 'public': v:false, 'files': {filename: {'content': content}}}
+        let cmd = 'curl -sS -X POST'
+        let cmd .= ' -H ' . shellescape('Authorization: token ' . token)
+        let cmd .= ' -H ' . shellescape('Content-Type: application/json')
+        let cmd .= ' -d ' . shellescape(json_encode(payload))
+        let cmd .= ' ' . shellescape('https://api.github.com/gists')
+        let resp = system(cmd)
+      else
+        " update (覆盖同名文件内容)
+        let payload = {'files': {filename: {'content': content}}}
+        let cmd = 'curl -sS -X PATCH'
+        let cmd .= ' -H ' . shellescape('Authorization: token ' . token)
+        let cmd .= ' -H ' . shellescape('Content-Type: application/json')
+        let cmd .= ' -d ' . shellescape(json_encode(payload))
+        let cmd .= ' ' . shellescape('https://api.github.com/gists/' . id)
+        let resp = system(cmd)
+      endif
+
+      if v:shell_error != 0
+        echo 'Gist request failed.'
+        return
+      endif
+
+      let obj = json_decode(resp)
+      if type(obj) != type({}) || !has_key(obj, 'id')
+        echo 'Gist API error: ' . resp
+        return
+      endif
+
+      let new_id = obj.id
+      let b:coc_gist_id = new_id
+      let b:coc_gist_filename = filename
+      call s:GistEnsureHeader(new_id)
+      echo 'Gist upsert OK: ' . new_id
+    endfunction
+    ]])
     G.map({
         { 'n', '<F2>', '<Plug>(coc-rename)', {silent = true} },
         { 'n', 'gd', '<Plug>(coc-definition)', {silent = true} },
@@ -59,8 +221,8 @@ function M.config()
         { 'x', '=', 'CocHasProvider("formatRange") ? "<Plug>(coc-format-selected)" : "="', {silent = true, noremap = true, expr = true}},
         { 'n', '=', 'CocHasProvider("formatRange") ? "<Plug>(coc-format-selected)" : "="', {silent = true, noremap = true, expr = true}},
         { 'n', 'gl', ":CocList gist<cr>", {silent = true, noremap = true} },
-        { 'n', 'gc', ":CocCommand gist.create<cr>", {silent = true, noremap = true} },
-        { 'n', 'gu', ":CocCommand gist.update<cr>", {silent = true, noremap = true} },
+        { 'n', 'gc', ":call GistUpsertByFilename()<cr>", {silent = true, noremap = true} },
+        { 'n', 'gu', ":call GistUpsertByFilename()<cr>", {silent = true, noremap = true} },
         { 'n', '<leader>zs', ":CocCommand docthis.documentThis<cr>", {silent = true, noremap = true} },
     })
 end
