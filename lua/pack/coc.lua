@@ -91,13 +91,13 @@ function M.config()
         endif
       endfor
       if replaced
-        return
+        return 1
       endif
 
       " 规则 B：若没有占位符，则仅在用户配置了对应 filetype 的模板时才插入；没有模板则什么都不做
       let rendered = s:GistRenderHeaderTemplate(a:id)
       if empty(rendered)
-        return
+        return 0
       endif
 
       " 插入：若有 shebang，插在第 1 行之后，否则插在文件头
@@ -106,6 +106,40 @@ function M.config()
         let insert_at = 1
       endif
       call append(insert_at, rendered)
+      return 1
+    endfunction
+
+    function! s:GistPatch(token, id, filename, content) abort
+      let payload = {'files': {a:filename: {'content': a:content}}}
+      let cmd = 'curl -sS -X PATCH'
+      let cmd .= ' -H ' . shellescape('Authorization: token ' . a:token)
+      let cmd .= ' -H ' . shellescape('Content-Type: application/json')
+      let cmd .= ' -d ' . shellescape(json_encode(payload))
+      let cmd .= ' ' . shellescape('https://api.github.com/gists/' . a:id)
+      let cmd .= ' -w ' . shellescape("\n%{http_code}")
+      let raw = system(cmd)
+      let parts = split(raw, "\n")
+      let http = str2nr(remove(parts, -1))
+      let resp = join(parts, "\n")
+      return [http, resp]
+    endfunction
+
+    function! s:GistSaveAndSync(token, id, filename) abort
+      " 先保存文件到本地（确保磁盘内容和 buffer 一致）
+      if &modified
+        silent! write
+      endif
+
+      " 再把最终内容同步到远程 gist（把刚替换的 GistID/模板也推上去）
+      let content = join(getline(1, '$'), "\n")
+      let res = s:GistPatch(a:token, a:id, a:filename, content)
+      let http = res[0]
+      let resp = res[1]
+      if http < 200 || http > 299
+        echo 'Gist sync failed HTTP ' . http . ': ' . resp
+        return 0
+      endif
+      return 1
     endfunction
 
     function! s:GistHasPlaceholder() abort
@@ -215,7 +249,10 @@ function M.config()
       let new_id = obj.id
       let b:coc_gist_id = new_id
       let b:coc_gist_filename = filename
-      call s:GistEnsureHeader(new_id)
+      let changed = s:GistEnsureHeader(new_id)
+      if changed
+        call s:GistSaveAndSync(token, new_id, filename)
+      endif
       echo 'Gist update OK: ' . new_id
     endfunction
 
@@ -295,7 +332,10 @@ function M.config()
       let new_id = obj.id
       let b:coc_gist_id = new_id
       let b:coc_gist_filename = filename
-      call s:GistEnsureHeader(new_id)
+      let changed = s:GistEnsureHeader(new_id)
+      if changed
+        call s:GistSaveAndSync(token, new_id, filename)
+      endif
       echo (empty(id) ? 'Gist create OK: ' : 'Gist update OK: ') . new_id
     endfunction
     ]])
