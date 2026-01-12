@@ -53,6 +53,9 @@ require('packer').startup({
         require('pack/coc').config()
         use { 'neoclide/coc.nvim', config = "require('pack/coc').setup()", branch = 'release' }
 
+        -- GitLab snippets: upload current file to enterprise GitLab via API (mapping: cu)
+        require('pack/gitlab-snippet').config()
+
         -- 浮动终端
         require('pack/vim-floaterm').config()
         use { 'voldikss/vim-floaterm', config = "require('pack/vim-floaterm').setup()" }
