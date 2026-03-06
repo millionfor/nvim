@@ -22,5 +22,10 @@
       "DELETE FROM ${1:tableName}",
       "WHERE id in (${2::ids});"
     ]
+  },
+  "select ~": {
+    "prefix": "find",
+    "body": "SELECT ${3:*} FROM ${1:tableName} WHERE ${2:where} ORDER BY id DESC LIMIT 100;",
+    "description": "select ~"
   }
 }

@@ -1,0 +1,293 @@
+{
+  "text-overflow: ellipsis": {
+    "prefix": "3toe",
+    "body": [
+      "cursor: pointer;",
+      "line-height: 20px;",
+      "margin-left: 8px;",
+      "overflow: hidden;",
+      "text-overflow: ellipsis;",
+      "word-break: break-all;",
+      "display: -webkit-box;",
+      "-webkit-box-orient: vertical;",
+      "-webkit-line-clamp: 2;"
+    ],
+    "description": "text-overflow: ellipsis"
+  },
+  "display: flex": {
+    "prefix": "dflex",
+    "body": [
+      "  @include e(charging) {",
+      "    display: flex;",
+      "    flex-direction: row;",
+      "    @include m(tips) {",
+      "      flex-grow: 1;",
+      "    }",
+      "    @include m(send) {",
+      "      flex-grow: 1;",
+      "    }",
+      "  }"
+    ],
+    "description": "display: flex"
+  },
+  "/* Modified by QuanQuan<millionfor@apache.org> 2021-10-10 */": {
+    "prefix": "mcss",
+    "body": "/* Modified by QuanQuan<millionfor@apache.org> $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND @Description \"fix: ${0}\" */",
+    "description": "/* Modified by QuanQuan<millionfor@apache.org> 2021-10-10 */"
+  },
+  "3wteo": {
+    "prefix": "3wteo",
+    "body": "transition:all 0.2s ease-out;${0}"
+  },
+  "3ts": {
+    "prefix": "3ts",
+    "body": "text-shadow: red 0 1px 0;${0}"
+  },
+  "3o": {
+    "prefix": "3o",
+    "body": "opacity:1;${0}"
+  },
+  "3br": {
+    "prefix": "3br",
+    "body": "border-radius: ${0};"
+  },
+  "3bs": {
+    "prefix": "3bs",
+    "body": "box-shadow:inset 20px 20px 10px 10px #ff4400;${0}"
+  },
+  "3tx": {
+    "prefix": "3tx",
+    "body": "transform: translateX(${1}px);${0}"
+  },
+  "3ty": {
+    "prefix": "3ty",
+    "body": "transform: translateY(${1}px);${0}"
+  },
+  "3tt": {
+    "prefix": "3tt",
+    "body": "transform: translateY(${2}px, ${1}px);${0}"
+  },
+  "3tsc": {
+    "prefix": "3tsc",
+    "body": "transform: scale(.8,.8);${0}"
+  },
+  "3nc": {
+    "prefix": "3nc",
+    "body": [
+      "&:nth-child(2) {",
+      "\t${0}",
+      "}"
+    ]
+  },
+  "3fc": {
+    "prefix": "3fc",
+    "body": [
+      "&:first-child {",
+      "\t${0}",
+      "}"
+    ]
+  },
+  "3lc": {
+    "prefix": "3lc",
+    "body": [
+      "&:last-child {",
+      "\t${0}",
+      "}"
+    ]
+  },
+  "lsn": {
+    "prefix": "lsn",
+    "body": "list-style: none;${0}"
+  },
+  "lh": {
+    "prefix": "lh",
+    "body": "line-height: ${0}px;\t"
+  },
+  "h": {
+    "prefix": "h",
+    "body": "height: ${0}px;\t"
+  },
+  "w": {
+    "prefix": "w",
+    "body": "width: ${0}px;\t"
+  },
+  "c": {
+    "prefix": "c",
+    "body": "color: #${0};\t"
+  },
+  "pad": {
+    "prefix": "pad",
+    "body": "padding: ${0};\t"
+  },
+  "pl": {
+    "prefix": "pl",
+    "body": "padding-left: ${0}px;"
+  },
+  "pr": {
+    "prefix": "pr",
+    "body": "padding-right: ${0}px;"
+  },
+  "pt": {
+    "prefix": "pt",
+    "body": "padding-top: ${0}px;"
+  },
+  "pb": {
+    "prefix": "pb",
+    "body": "padding-bottom: ${0}px;\t"
+  },
+  "ma": {
+    "prefix": "ma",
+    "body": "margin: ${0};\t"
+  },
+  "ml": {
+    "prefix": "ml",
+    "body": "margin-left: ${0}px;"
+  },
+  "mr": {
+    "prefix": "mr",
+    "body": "margin-right: ${0}px;"
+  },
+  "mt": {
+    "prefix": "mt",
+    "body": "margin-top: ${0}px;"
+  },
+  "mb": {
+    "prefix": "mb",
+    "body": "margin-bottom: ${0}px;\t"
+  },
+  "fsn": {
+    "prefix": "fsn",
+    "body": "font-style: normal;${0}\t"
+  },
+  "dn": {
+    "prefix": "dn",
+    "body": "display: none;${0}\t"
+  },
+  "tdn": {
+    "prefix": "tdn",
+    "body": "text-decoration: none;${0}\t"
+  },
+  "dib": {
+    "prefix": "dib",
+    "body": "display: inline-block;${0}\t"
+  },
+  "bot": {
+    "prefix": "bot",
+    "body": "border-top: 1px solid #${0};"
+  },
+  "bol": {
+    "prefix": "bol",
+    "body": "border-left: 1px solid #${0};"
+  },
+  "bor": {
+    "prefix": "bor",
+    "body": "border-right: 1px solid #${0};"
+  },
+  "bob": {
+    "prefix": "bob",
+    "body": "border-bottom: 1px solid #${0};"
+  },
+  "tar": {
+    "prefix": "tar",
+    "body": "text-align: right;${0}"
+  },
+  "tal": {
+    "prefix": "tal",
+    "body": "text-align: left;${0}"
+  },
+  "tac": {
+    "prefix": "tac",
+    "body": "text-align: center;${0}"
+  },
+  "db": {
+    "prefix": "db",
+    "body": "display:block;${0}"
+  },
+  "fz20": {
+    "prefix": "fz20",
+    "body": "font-size: 20px;${0}"
+  },
+  "fz19": {
+    "prefix": "fz19",
+    "body": "font-size: 19px;${0}"
+  },
+  "fz18": {
+    "prefix": "fz18",
+    "body": "font-size: 18px;${0}"
+  },
+  "fz17": {
+    "prefix": "fz17",
+    "body": "font-size: 17px;${0}"
+  },
+  "fz16": {
+    "prefix": "fz16",
+    "body": "font-size: 16px;${0}"
+  },
+  "fz15": {
+    "prefix": "fz15",
+    "body": "font-size: 15px;${0}"
+  },
+  "fz14": {
+    "prefix": "fz14",
+    "body": "font-size: 14px;${0}"
+  },
+  "fz13": {
+    "prefix": "fz13",
+    "body": "font-size: 13px;${0}"
+  },
+  "fz12": {
+    "prefix": "fz12",
+    "body": "font-size: 12px;${0}"
+  },
+  "fz": {
+    "prefix": "fz",
+    "body": "font-size: ${0:12}px;${1}"
+  },
+  "fwn": {
+    "prefix": "fwn",
+    "body": "font-weight: normal;${0}"
+  },
+  "fwb": {
+    "prefix": "fwb",
+    "body": "font-weight: bold;${0}"
+  },
+  "vam": {
+    "prefix": "vam",
+    "body": "vertical-align: middle;${0}"
+  },
+  "bgu": {
+    "prefix": "bgu",
+    "body": "background:url('${0}') no-repeat;"
+  },
+  "bg": {
+    "prefix": "bg",
+    "body": "background: ${0};"
+  },
+  "pf": {
+    "prefix": "pf",
+    "body": "position: fixed;${0}"
+  },
+  "pore": {
+    "prefix": "pore",
+    "body": "position: relative;${0}"
+  },
+  "oh": {
+    "prefix": "oh",
+    "body": "overflow: hidden;${0}"
+  },
+  "pa": {
+    "prefix": "pa",
+    "body": "position: absolute;${0}"
+  },
+  "cup": {
+    "prefix": "cup",
+    "body": "cursor: pointer;${0}"
+  },
+  "imp": {
+    "prefix": "imp",
+    "body": [
+      "!important${0}",
+      "${1}"
+    ]
+  }
+}

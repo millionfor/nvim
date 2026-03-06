@@ -97,5 +97,20 @@
       "\t${1}Ids = append(${1}Ids, ${1}.Id)",
       "}"
     ]
+  },
+  "new go": {
+    "prefix": "head",
+    "body": [
+      "package main",
+      "",
+      "import (",
+      "\t\"fmt\"",
+      ")",
+      "",
+      "func main() {",
+      "\t${1}",
+      "}"
+    ],
+    "description": "new go"
   }
 }

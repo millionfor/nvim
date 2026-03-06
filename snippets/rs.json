@@ -1,0 +1,15 @@
+{
+  "fn": {
+    "prefix": "fn",
+    "body": [
+      "    fn ${1:function_name}($2) -> ${3:ReturnType} {",
+      "        $0",
+      "    }"
+    ]
+  },
+  "rust vim: set ft=rust fdm=marker et ff=unix tw=180 sw=2:": {
+    "prefix": "vimrs",
+    "body": "// vim: set ft=rust fdm=marker et ff=unix tw=180 sw=2:",
+    "description": "rust vim: set ft=rust fdm=marker et ff=unix tw=180 sw=2:"
+  }
+}

@@ -6,5 +6,128 @@
       "\t${3}",
       "endf"
     ]
+  },
+  "fix: update package version": {
+    "prefix": "fixv",
+    "body": "  fix: update package version (v${0})",
+    "description": "fix: update package version"
+  },
+  "#!": {
+    "prefix": "#!",
+    "body": "#!/bin/zsh"
+  },
+  "if": {
+    "prefix": "if",
+    "body": [
+      "if ${1:condition}; then",
+      "\t${0:${VISUAL}}",
+      "fi"
+    ]
+  },
+  "ife": {
+    "prefix": "ife",
+    "body": [
+      "if ${1:condition}; then",
+      "\t${2:${VISUAL}}",
+      "else",
+      "\t${0:# statements}",
+      "fi"
+    ]
+  },
+  "eif": {
+    "prefix": "eif",
+    "body": [
+      "elif ${1:condition}; then",
+      "\t${0:${VISUAL}}"
+    ]
+  },
+  "for": {
+    "prefix": "for",
+    "body": [
+      "for (( ${2:i} = 0; $2 < ${1:count}; $2++ )); do",
+      "\t${0:${VISUAL}}",
+      "done"
+    ]
+  },
+  "fori": {
+    "prefix": "fori",
+    "body": [
+      "for ${1:needle} in ${2:haystack}; do",
+      "\t${0:${VISUAL}}",
+      "done"
+    ]
+  },
+  "fore": {
+    "prefix": "fore",
+    "body": [
+      "for ${1:item} in ${2:list}; do",
+      "\t${0:${VISUAL}}",
+      "done"
+    ]
+  },
+  "wh": {
+    "prefix": "wh",
+    "body": [
+      "while ${1:condition}; do",
+      "\t${0:${VISUAL}}",
+      "done"
+    ]
+  },
+  "until": {
+    "prefix": "until",
+    "body": [
+      "until ${1:condition}; do",
+      "\t${0:${VISUAL}}",
+      "done"
+    ]
+  },
+  "repeat": {
+    "prefix": "repeat",
+    "body": [
+      "repeat ${1:integer}; do",
+      "\t${0:${VISUAL}}",
+      "done"
+    ]
+  },
+  "case": {
+    "prefix": "case",
+    "body": [
+      "case ${1:word} in",
+      "\t${2:pattern})",
+      "\t\t${0};;",
+      "esac"
+    ]
+  },
+  "select": {
+    "prefix": "select",
+    "body": [
+      "select ${1:answer} in ${2:choices}; do",
+      "\t${0:${VISUAL}}",
+      "done"
+    ]
+  },
+  "(": {
+    "prefix": "(",
+    "body": "( ${0:#statements} )"
+  },
+  "{": {
+    "prefix": "{",
+    "body": "{ ${0:#statements} }"
+  },
+  "[": {
+    "prefix": "[",
+    "body": "[[ ${0:test} ]]"
+  },
+  "always": {
+    "prefix": "always",
+    "body": "{ ${1:try} } always { ${0:always} }"
+  },
+  "ffun": {
+    "prefix": "ffun",
+    "body": [
+      "function ${1:function_name}() {",
+      "\t${0:# function_body}",
+      "}"
+    ]
   }
 }

@@ -18,5 +18,39 @@
     "prefix": "de",
     "body": "/* $0 */",
     "description": "descriptor"
+  },
+  "ww": {
+    "prefix": "ww",
+    "body": "`curl 'wttr.in/ShangHai?format=3'`"
+  },
+  "update package.json version": {
+    "prefix": "upv",
+    "body": "fix: update package.json version (v`jq -r \".version\" package.json`)",
+    "description": "update package.json version"
+  },
+  "chore: upgrade [package-name] to [version]": {
+    "prefix": "chv",
+    "body": "chore: upgrade [package-name] to [version]",
+    "description": "chore: upgrade [package-name] to [version]"
+  },
+  "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->": {
+    "prefix": "vimvue",
+    "body": "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->",
+    "description": "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->"
+  },
+  "javascript vim: set ft=javascript fdm=marker et ff=unix tw=180 sw=2:": {
+    "prefix": "vimjs",
+    "body": "// vim: set ft=javascript fdm=marker et ff=unix tw=180 sw=2:",
+    "description": "javascript vim: set ft=javascript fdm=marker et ff=unix tw=180 sw=2:"
+  },
+  "typescript vim: set ft=typescript fdm=marker et ff=unix tw=180 sw=2:": {
+    "prefix": "vimts",
+    "body": "// vim: set ft=typescript fdm=marker et ff=unix tw=180 sw=2:",
+    "description": "typescript vim: set ft=typescript fdm=marker et ff=unix tw=180 sw=2:"
+  },
+  "rust vim: set ft=rust et sw=4 ts=4 sts=4": {
+    "prefix": "vimrs",
+    "body": "// vim: set ft=rust et sw=4 ts=4 sts=4",
+    "description": "rust vim: set ft=rust et sw=4 ts=4 sts=4"
   }
 }

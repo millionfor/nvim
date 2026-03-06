@@ -1,0 +1,22 @@
+{
+  "Styles customStyles": {
+    "prefix": "ecs",
+    "body": [
+      "@Styles ${0:customStyles}(){",
+      "\t.width(200)",
+      "\t.height(60)",
+      "\t.backgroundColor(Color.Red)",
+      "}"
+    ],
+    "description": "Styles customStyles"
+  },
+  "@Extend customStyles": {
+    "prefix": "eecs",
+    "body": [
+      "@Extend(Text) function ${2:customStyles}(${1:size: number}, ${0:color: Color}){",
+      "\t.fontSize(size).fontColor(color)",
+      "}"
+    ],
+    "description": "@Extend customStyles"
+  }
+}

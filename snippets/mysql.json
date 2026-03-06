@@ -1,0 +1,132 @@
+{
+  "查询列表": {
+    "prefix": "query",
+    "body": [
+      "SELECT * from ${1:qsm}.${2:qsm_} LIMIT ${3:100};",
+      "",
+      "# 添加数据"
+    ],
+    "description": "查询列表"
+  },
+  "添加数据": {
+    "prefix": "add-添加数据",
+    "body": [
+      "INSERT INTO ${1:qsm} (${2:value1}, ${3:value2}, ${4:value3}) VALUES (${2:value1}, ${3:value2}, ${4:value3});",
+      "",
+      "# 按条件查询单条数据"
+    ],
+    "description": "添加数据"
+  },
+  "查询按条件": {
+    "prefix": "query-查询按条件",
+    "body": [
+      "SELECT * FROM ${1:qsm}.${2:qsm_} WHERE ${3:id=1} ORDER BY ${4:id} DESC LIMIT 100;",
+      "",
+      "# 更新某条数据"
+    ],
+    "description": "查询按条件"
+  },
+  "更新某条数据并查询列表": {
+    "prefix": "update-更新表中某条数据",
+    "body": [
+      "UPDATE ${1:qsm}.${2:qsm_} SET ${3:desc} = '${4:desc}' WHERE ${5:id} = ${6:1};",
+      "SELECT * from ${1:qsm}.${2:qsm_} LIMIT 100;",
+      "",
+      "# 创建表"
+    ],
+    "description": "更新某条数据并查询列表"
+  },
+  "创建表": {
+    "prefix": "created-创建表",
+    "body": [
+      "CREATE TABLE ${1:qsm}.${2:qsm_tablename} (",
+      "\tid INT(11) NOT NULL AUTO_INCREMENT,",
+      "\tname VARCHAR(50) NOT NULL,",
+      "\tage INT(11) NOT NULL,",
+      "\temail VARCHAR(50) DEFAULT NULL,",
+      "\tcreated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,",
+      "\tupdated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,",
+      "\tPRIMARY KEY (id)",
+      ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;",
+      "",
+      "# 删除表"
+    ],
+    "description": "创建表"
+  },
+  "删除表": {
+    "prefix": "delete-删除表",
+    "body": [
+      "DROP TABLE ${1:qsm}.${2:qsm_tablename};",
+      "",
+      "# 删除表中某个字段"
+    ],
+    "description": "删除表"
+  },
+  "删除表中某个字段": {
+    "prefix": "delete-删除表字段",
+    "body": [
+      "ALTER TABLE 表名 DROP COLUMN 字段名;",
+      "",
+      "# 删除表中某条数据"
+    ],
+    "description": "删除表中某个字段"
+  },
+  "删除表中某条数据": {
+    "prefix": "delete-删除表中某条数据",
+    "body": [
+      "DELETE FROM ${1:qsm}.${2:qsm_tablename} WHERE id = 1;",
+      "",
+      "# 更改某个表某个字段属性"
+    ],
+    "description": "删除表中某条数据"
+  },
+  "更新某个表某个字段属性": {
+    "prefix": "delete-更新表中字段属性",
+    "body": [
+      "ALTER TABLE ${1:qsm} MODIFY ${2:name} VARCHAR(255);",
+      "",
+      "# 更改表名"
+    ],
+    "description": "更新某个表某个字段属性"
+  },
+  "更新表名": {
+    "prefix": "update-更新表名",
+    "body": [
+      "RENAME TABLE ${1:qsm_old_table} TO ${2:qsm_new_table};",
+      "",
+      "# 添加表字段"
+    ],
+    "description": "更新表名"
+  },
+  "添加表字段": {
+    "prefix": "add-添加表字段",
+    "body": [
+      "ALTER TABLE ${1:qsm}.${2:qsm_}",
+      "ADD email VARCHAR(255);",
+      "",
+      "",
+      "# 更新字段注释"
+    ],
+    "description": "添加表字段"
+  },
+  "更新字段注释": {
+    "prefix": "update-更新字段注释",
+    "body": "ALTER TABLE ${1:qsm}.${2:qsm_} MODIFY COLUMN ${3:字段名} VARCHAR(50) COMMENT '更新后的注释内容';",
+    "description": "更新字段注释"
+  },
+  "update ~": {
+    "prefix": "update",
+    "body": "UPDATE ${1:tableName} SET ${2:updation} WHERE (id = ${3::id});",
+    "description": "update ~"
+  },
+  "insert ~": {
+    "prefix": "insert",
+    "body": [
+      "INSERT INTO ${1:tableName} ",
+      "(${1:fields})",
+      "VALUES ",
+      "(${2:value});"
+    ],
+    "description": "insert ~"
+  }
+}

@@ -1,0 +1,243 @@
+{
+  "cps": {
+    "prefix": "cps",
+    "body": "components"
+  },
+  "slot": {
+    "prefix": "slot",
+    "body": "<slot></slot>"
+  },
+  "@click=": {
+    "prefix": "vcl",
+    "body": "@click=\"on${1}\"",
+    "description": "@click="
+  },
+  "vfor": {
+    "prefix": "vfor",
+    "body": [
+      "<div v-for=\"(item, $index) in ${1:items}\" :key=\"$index\">",
+      "    ${0}",
+      "</div>"
+    ]
+  },
+  "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->": {
+    "prefix": "vimvue",
+    "body": "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->",
+    "description": "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->"
+  },
+  "String > model: { prop: 'value', event: '$on-xxx'}": {
+    "prefix": "vmods",
+    "body": [
+      "model: {",
+      "  prop: 'value',",
+      "  event: '$on-${0}'",
+      "},",
+      "props: {",
+      "  value: { type: String, default: '' }",
+      "},"
+    ],
+    "description": "String > model: { prop: 'value', event: '$on-xxx'}"
+  },
+  "Array > model: { prop: 'value', event: '$on-xxx'}": {
+    "prefix": "vmoda",
+    "body": [
+      "model: {",
+      "  prop: 'value',",
+      "  event: '$on-${0}'",
+      "},",
+      "props: {",
+      "  value: { type: Array, default: () => [] }",
+      "},"
+    ],
+    "description": "Array > model: { prop: 'value', event: '$on-xxx'}"
+  },
+  "Object > model: { prop: 'value', event: '$on-xxx'}": {
+    "prefix": "vmodo",
+    "body": [
+      "model: {",
+      "  prop: 'value',",
+      "  event: '$on-${0}'",
+      "},",
+      "props: {",
+      "  value: { type: Object, default: () => {} }",
+      "},"
+    ],
+    "description": "Object > model: { prop: 'value', event: '$on-xxx'}"
+  },
+  "Boolean > model: { prop: 'value', event: '$on-xxx'}": {
+    "prefix": "vmodb",
+    "body": [
+      "model: {",
+      "  prop: 'value',",
+      "  event: '$on-${0}'",
+      "},",
+      "props: {",
+      "  value: { type: Boolean, default: false }",
+      "},"
+    ],
+    "description": "Boolean > model: { prop: 'value', event: '$on-xxx'}"
+  },
+  "<template> hhhh </template>": {
+    "prefix": "vtp",
+    "body": [
+      "<template>",
+      "\t${0}",
+      "</template>"
+    ],
+    "description": "<template> hhhh </template>"
+  },
+  "<template slot-scope=": {
+    "prefix": "vtss",
+    "body": [
+      "<template slot-scope=\"scope\">",
+      "\t${0}",
+      "</template>"
+    ],
+    "description": "<template slot-scope="
+  },
+  "slot-scope=": {
+    "prefix": "vss",
+    "body": "slot-scope=\"scope\"\t",
+    "description": "slot-scope="
+  },
+  "computed: { },": {
+    "prefix": "vcd",
+    "body": "computed: { ${0} },",
+    "description": "computed: { },"
+  },
+  "deep: true, immediate: true, handler(){  }": {
+    "prefix": "imm",
+    "body": [
+      "'${1}': {",
+      "  deep: true,",
+      "  immediate: true,",
+      "  handler(v) {",
+      "    console.log(v)${0}",
+      "  }",
+      "}"
+    ],
+    "description": "deep: true, immediate: true, handler(){  }"
+  },
+  "components: { },": {
+    "prefix": "vcp",
+    "body": "components: { ${0} },",
+    "description": "components: { },"
+  },
+  "vue3 typescript setup": {
+    "prefix": "vue3",
+    "body": [
+      "<template>",
+      "  <div :class=\"classes\">",
+      "    $TM_FILENAME_BASE",
+      "  </div>",
+      "</template>",
+      "",
+      "<script setup lang=\"ts\">",
+      "  import { computed } from 'vue';",
+      "",
+      "  const prefixCls = 'vi-$TM_FILENAME_BASE'",
+      "  const classes = computed(() => { return [\\`${ prefixCls }\\`] })",
+      "",
+      "</script>",
+      "<style lang=\"scss\" >",
+      "  $-prefix-cls: 'vi-$TM_FILENAME_BASE';",
+      "  .#{$-prefix-cls} {",
+      "  }",
+      "</style>",
+      "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->"
+    ],
+    "description": "vue3 typescript setup"
+  },
+  "v2 simple template'": {
+    "prefix": "vue2",
+    "body": [
+      "<template>",
+      "  <div :class=\"classes\">",
+      "    $TM_FILENAME_BASE",
+      "  </div>",
+      "</template>",
+      "",
+      "<script>",
+      "",
+      "const prefixCls = 'vi-$TM_FILENAME_BASE'",
+      "",
+      "export default {",
+      "  name: 'vi-$TM_FILENAME_BASE',",
+      "  data() {",
+      "    return {}",
+      "  },",
+      "  props: {},",
+      "  methods: {},",
+      "  watch: {},",
+      "  created() {},",
+      "  mounted() {},",
+      "  computed: {",
+      "    classes() {",
+      "      return [",
+      "        \\`${ prefixCls }\\`",
+      "      ]",
+      "    }",
+      "  },",
+      "  components: {}",
+      "}",
+      "</script>",
+      "",
+      "<style lang=\"scss\" rel=\"stylesheet/scss\">",
+      "  $-prefix-cls: 'vi-$TM_FILENAME_BASE';",
+      "  .#{$-prefix-cls} {",
+      "  }",
+      "</style>",
+      "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->"
+    ],
+    "description": "v2 simple template'"
+  },
+  "vue2 template'": {
+    "prefix": "vue22",
+    "body": [
+      "<template>",
+      "  <div :class=\"classes\">",
+      "    $TM_FILENAME_BASE",
+      "  </div>",
+      "</template>",
+      "",
+      "<script>",
+      "",
+      "const prefixCls = 'vi-$TM_FILENAME_BASE'",
+      "",
+      "export default {",
+      "  name: 'vi-$TM_FILENAME_BASE',",
+      "  data() {",
+      "    return {}",
+      "  },",
+      "  props: {},",
+      "  methods: {},",
+      "  watch: {},",
+      "  beforeCreate() {},",
+      "  created() {},",
+      "  beforeMount() {},",
+      "  mounted() {},",
+      "  beforeUpdate() {},",
+      "  updated() {},",
+      "  beforeDestroy() {},",
+      "  destroyed() {},",
+      "  computed: {",
+      "    classes() {",
+      "      return [",
+      "        \\`${ prefixCls }\\`",
+      "      ]",
+      "    }",
+      "  },",
+      "  components: {}",
+      "}",
+      "</script>",
+      "",
+      "<style lang=\"scss\" rel=\"stylesheet/scss\">",
+      "  $-prefix-cls: 'vi-$TM_FILENAME_BASE';",
+      "  .#{$-prefix-cls} {",
+      "  }",
+      "</style>",
+      "<!-- vim: set ft=vue ff=unix et sw=2 ts=2 sts=2 tw=180: -->"
+    ],
+    "description": "vue2 template'"
+  }
+}

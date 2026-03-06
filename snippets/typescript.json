@@ -1,0 +1,188 @@
+{
+  "/** quanquan **/": {
+    "prefix": "//",
+    "body": [
+      "/**",
+      " * @FileName        ${1:$TM_FILENAME_BASE}",
+      " * @CreatedTime     $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+      " * @LastModified    一, 07 14, 2025 10:33:28 CST",
+      " * @Author          QuanQuan <millionfor@apache.org>",
+      " * @Description     ${0}",
+      " */",
+      "// vim: set ft=typescript fdm=marker et ff=unix tw=180 sw=2:"
+    ],
+    "description": "/** quanquan **/"
+  },
+  "interface xxx extends xxx {  }": {
+    "prefix": "iiei",
+    "body": [
+      "interface IProps${2} extends I${1} {",
+      "  ${0}",
+      "}"
+    ],
+    "description": "interface xxx extends xxx {  }"
+  },
+  "export interface IProps": {
+    "prefix": "eii",
+    "body": [
+      "export interface IProps${0} {",
+      "  ${1}",
+      "}"
+    ],
+    "description": "export interface IProps"
+  },
+  "interface IProps": {
+    "prefix": "ii",
+    "body": [
+      "interface IProps${0} {",
+      "  ${1}",
+      "}"
+    ],
+    "description": "interface IProps"
+  },
+  "// @ts-ignore": {
+    "prefix": "tslint",
+    "body": "// @ts-ignore${0}",
+    "description": "// @ts-ignore"
+  },
+  "ts const": {
+    "prefix": "tconst",
+    "body": [
+      "const ${1}: ${2:any} = ${3};",
+      "${0}"
+    ],
+    "description": "ts const"
+  },
+  "ts let": {
+    "prefix": "tlet",
+    "body": [
+      "let ${1}: ${2:any} = ${3};",
+      "${0}"
+    ],
+    "description": "ts let"
+  },
+  "ts var": {
+    "prefix": "tvar",
+    "body": [
+      "var ${1}: ${2:any} = ${3};",
+      "${0}"
+    ],
+    "description": "ts var"
+  },
+  "ts create field": {
+    "prefix": "+",
+    "body": "${1}: ${0:any}",
+    "description": "ts create field"
+  },
+  "ts create private field using #": {
+    "prefix": "#+",
+    "body": "#${1}: ${0:any}",
+    "description": "ts create private field using #"
+  },
+  "ts create public field": {
+    "prefix": "tpfi",
+    "body": "public ${1}: ${0:any}",
+    "description": "ts create public field"
+  },
+  "ts create private field": {
+    "prefix": "tprfi",
+    "body": "private ${1}: ${0:any}",
+    "description": "ts create private field"
+  },
+  "ts create protected field": {
+    "prefix": "tprofi",
+    "body": "protected ${1}: ${0:any}",
+    "description": "ts create protected field"
+  },
+  "interface": {
+    "prefix": "int",
+    "body": [
+      "interface ${1} {",
+      "\t${2}: ${3:any};",
+      "\t${0}",
+      "}"
+    ],
+    "description": "interface"
+  },
+  "interface extends": {
+    "prefix": "intx",
+    "body": [
+      "interface ${1} extends ${2} {",
+      "\t${3}: ${4:any};",
+      "\t${0}",
+      "}"
+    ],
+    "description": "interface extends"
+  },
+  "ts function": {
+    "prefix": "tfun",
+    "body": [
+      "function ${1}(${2}): ${3:any} {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "ts function"
+  },
+  "ts public method": {
+    "prefix": "tpmet",
+    "body": [
+      "public ${1}(${2}): ${3:any} {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "ts public method"
+  },
+  "ts public static method": {
+    "prefix": "tpsmet",
+    "body": [
+      "public static ${1}(${2}): ${3:any} {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "ts public static method"
+  },
+  "ts private method": {
+    "prefix": "tprmet",
+    "body": [
+      "private ${1}(${2}): ${3:any} {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "ts private method"
+  },
+  "ts protected method": {
+    "prefix": "tpromet",
+    "body": [
+      "protected ${1}(${2}): ${3:any} {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "ts protected method"
+  },
+  "ts class": {
+    "prefix": "tcla",
+    "body": [
+      "class ${1} {",
+      "\t${2}",
+      "\tconstructor(public ${3}: ${4: any}) {",
+      "\t\t${5}",
+      "\t}",
+      "\t${0}",
+      "}"
+    ],
+    "description": "ts class"
+  },
+  "ts class extends": {
+    "prefix": "tclax",
+    "body": [
+      "class ${1} extends ${2} {",
+      "\t${3}",
+      "\tconstructor(public ${4}: ${5: any}) {",
+      "\t\t${6}",
+      "\t}",
+      "\t${0}",
+      "}"
+    ],
+    "description": "ts class extends"
+  }
+}

@@ -116,5 +116,337 @@
   "function": {
     "prefix": "fun",
     "body": "function"
+  },
+  "// prettier-ignore": {
+    "prefix": "pi",
+    "body": "// prettier-ignore",
+    "description": "// prettier-ignore"
+  },
+  "Usage Template": {
+    "prefix": "usa",
+    "body": [
+      "  /**",
+      "   * 使用说明",
+      "   * ",
+      "   * Usage:",
+      "   *   v-io-permission:[menueId] 入口页面获取权限数据",
+      "   *   v-permission:[menueId].[subMenuId] 按钮权限",
+      "   *   ",
+      "   * Authors:",
+      "   *   QuanQuan <millionfor@apache.org>",
+      "   */"
+    ],
+    "description": "Usage Template"
+  },
+  "Promise.withResolvers()": {
+    "prefix": "pror",
+    "body": [
+      "const { promise, resolve, reject } = Promise.withResolvers()",
+      "",
+      "setTimeout(() => {",
+      "\tresolve('Success!');",
+      "}, 1000);",
+      "",
+      "promise.then(value => {",
+      "\tconsole.log(value); // \"Success!\"",
+      "});"
+    ],
+    "description": "Promise.withResolvers()"
+  },
+  "Object.entries": {
+    "prefix": "oent",
+    "body": "Object.entries(${0}).map(([key, value]) => ({ key, value }));",
+    "description": "Object.entries"
+  },
+  "/** quanquan **/": {
+    "prefix": "zs",
+    "body": [
+      "/**",
+      " * @FileName        ${1:$TM_FILENAME_BASE}",
+      " * @CreatedTime     $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+      " * @LastModified    五, 01 09, 2026 14:53:21 CST",
+      " * @Author          QuanQuan <millionfor@apache.org>",
+      " * @Description     ${0}",
+      " */"
+    ],
+    "description": "/** quanquan **/"
+  },
+  "#!/usr/bin/env": {
+    "prefix": "node",
+    "body": [
+      "${0:#}!/usr/bin/env node",
+      "",
+      "/**",
+      " * ${1: test}",
+      " *",
+      " * Created Time    $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+      " * Last Modified   $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND",
+      " *",
+      " * Authors:",
+      " *   QuanQuan <millionfor@apache.org>",
+      " */"
+    ],
+    "description": "#!/usr/bin/env"
+  },
+  "throw new Error": {
+    "prefix": "err",
+    "body": "throw new Error('Error => ${0}');",
+    "description": "throw new Error"
+  },
+  "// TODO (2020/04/05): test": {
+    "prefix": "mtodojs",
+    "body": "// TODO ($CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND): ${0}",
+    "description": "// TODO (2020/04/05): test"
+  },
+  "/* Modified by QuanQuan<millionfor@apache.org> 2021-10-10 */": {
+    "prefix": "mjs",
+    "body": "/* Modified by QuanQuan<millionfor@apache.org> $CURRENT_YEAR-$CURRENT_MONTH-$CURRENT_DATE $CURRENT_HOUR:$CURRENT_MINUTE:$CURRENT_SECOND @Description \"fix: ${0}\" */",
+    "description": "/* Modified by QuanQuan<millionfor@apache.org> 2021-10-10 */"
+  },
+  "async": {
+    "prefix": "ay",
+    "body": "async${0}\t",
+    "description": "async"
+  },
+  "debugger": {
+    "prefix": "deb",
+    "body": "debugger",
+    "description": "debugger"
+  },
+  "class InnerCtor": {
+    "prefix": "ext",
+    "body": [
+      "class InnerCtor {",
+      "\t${0}",
+      "}",
+      "",
+      "export default new InnerCtor()",
+      "// vim: set ft=javascript fdm=marker et ff=unix tw=180 sw=2:"
+    ],
+    "description": "class InnerCtor"
+  },
+  "class InnerCtor extends xxx": {
+    "prefix": "exet",
+    "body": [
+      "class InnerCtor extends ${0} {",
+      "\t${1}",
+      "}",
+      "",
+      "export default new InnerCtor()",
+      "// vim: set ft=javascript fdm=marker et ff=unix tw=180 sw=2:"
+    ],
+    "description": "class InnerCtor extends xxx"
+  },
+  "export default": {
+    "prefix": "expd",
+    "body": [
+      "export default ({a})=> {",
+      "\t${0}",
+      "",
+      "}"
+    ],
+    "description": "export default"
+  },
+  "export class": {
+    "prefix": "expc",
+    "body": [
+      "export class Fn${0} {",
+      "\tconstructor ({a}) {",
+      "\t\tthis.name = a",
+      "\t}",
+      "\ttest(){",
+      "\t\tconsole.log(this.name)",
+      "\t}",
+      "}"
+    ],
+    "description": "export class"
+  },
+  "$-prefix-cls: ''": {
+    "prefix": "pcss",
+    "body": "$-prefix-cls: \"v-$TM_FILENAME_BASE\";",
+    "description": "$-prefix-cls: ''"
+  },
+  "const prefixCls = '${0}'": {
+    "prefix": "pcs",
+    "body": "const prefixCls = '${0}'",
+    "description": "const prefixCls = '${0}'"
+  },
+  "switch case": {
+    "prefix": "swc",
+    "body": [
+      "switch(${0}) {",
+      "  case 1:",
+      "    console.log(1) ${1}",
+      "    break;",
+      "  case 2:",
+      "    console.log(2)",
+      "    break;",
+      "  default:",
+      "    console.log(3)",
+      "}"
+    ],
+    "description": "switch case"
+  },
+  "await new Promise(resolve => _.delay(resolve, 5000));": {
+    "prefix": "pd",
+    "body": "await new Promise(resolve => _.delay(resolve, ${0:3000}));",
+    "description": "await new Promise(resolve => _.delay(resolve, 5000));"
+  },
+  "return new Promise((resolve, reject) => {${0})": {
+    "prefix": "rnp",
+    "body": [
+      "return new Promise((resolve, reject) => {",
+      "\t${0}",
+      "})"
+    ],
+    "description": "return new Promise((resolve, reject) => {${0})"
+  },
+  "class InnerCtor {  }": {
+    "prefix": "inner",
+    "body": [
+      "const Inner = () => new InnerCtor()",
+      "",
+      "class InnerCtor {",
+      "  constructor () {",
+      "    ${0}",
+      "  }",
+      "",
+      "}",
+      "",
+      "export default Inner()",
+      "// vim: set ft=javascript fdm=marker et ff=unix tw=180 sw=2:"
+    ],
+    "description": "class InnerCtor {  }"
+  },
+  "if(){ } else { }": {
+    "prefix": "ife",
+    "body": [
+      "if (${0}) {",
+      "  \t${1}",
+      "} else {",
+      "  ${2}",
+      "}"
+    ],
+    "description": "if(){ } else { }"
+  },
+  "console.log(${0})": {
+    "prefix": "cll",
+    "body": "console.log(${0})",
+    "description": "console.log(${0})"
+  },
+  "alert(${0})": {
+    "prefix": "al",
+    "body": "alert(${0})",
+    "description": "alert(${0})"
+  },
+  "@param {Array} xxx xxx": {
+    "prefix": "parr",
+    "body": "@param {Array} ${1} ${0}",
+    "description": "@param {Array} xxx xxx"
+  },
+  "@param {Object} xxx xxx": {
+    "prefix": "pobj",
+    "body": "@param {Object} ${1} ${0}",
+    "description": "@param {Object} xxx xxx"
+  },
+  "@param {Number} xxx xxx": {
+    "prefix": "pnum",
+    "body": "@param {Number} ${1} ${0}",
+    "description": "@param {Number} xxx xxx"
+  },
+  "@param {String} xxx xxx": {
+    "prefix": "pstr",
+    "body": "@param {String} ${1} ${0}",
+    "description": "@param {String} xxx xxx"
+  },
+  "/* @param {string} */": {
+    "prefix": "pfunc",
+    "body": [
+      "/**",
+      " * ${1}",
+      " *",
+      " * @param {Array} ${0}",
+      " * @returns { Promise<String> } ${2}",
+      " */"
+    ],
+    "description": "/* @param {string} */"
+  },
+  "/* @param {Array} */": {
+    "prefix": "parrp",
+    "body": [
+      "/**",
+      " * ${1}",
+      " *",
+      " * @param {Array} ${0}",
+      " */"
+    ],
+    "description": "/* @param {Array} */"
+  },
+  "/* @param {Object} */": {
+    "prefix": "pobjp",
+    "body": [
+      "/**",
+      " * ${1}",
+      " *",
+      " * @param {Object} ${0}",
+      " */"
+    ],
+    "description": "/* @param {Object} */"
+  },
+  "/* @param {Number} */": {
+    "prefix": "pnump",
+    "body": [
+      "/**",
+      " * ${1}",
+      " *",
+      " * @param {Number} ${0}",
+      " */"
+    ],
+    "description": "/* @param {Number} */"
+  },
+  "/* @param {String} */": {
+    "prefix": "pstrp",
+    "body": [
+      "/**",
+      " * ${1}",
+      " *",
+      " * @param {String} ${0}",
+      " */"
+    ],
+    "description": "/* @param {String} */"
+  },
+  "/* eslint-disable */": {
+    "prefix": "eslints",
+    "body": "/* eslint-disable */",
+    "description": "/* eslint-disable */"
+  },
+  "// eslint-disable-line": {
+    "prefix": "eslint",
+    "body": "// eslint-disable-line",
+    "description": "// eslint-disable-line"
+  },
+  "// eslint-disable-next-line": {
+    "prefix": "eslintn",
+    "body": "// eslint-disable-next-line",
+    "description": "// eslint-disable-next-line"
+  },
+  "import test": {
+    "prefix": "test",
+    "body": [
+      "import { assert } from './test'",
+      "console.log(",
+      "\ttests.every(test => assert(f1(test.$1), test.result))",
+      ")"
+    ],
+    "description": "import test"
+  },
+  "do { ... } while (condition)": {
+    "prefix": "do",
+    "body": [
+      "do {",
+      "\t${0:${VISUAL}}",
+      "} while (${1:/* condition */})"
+    ],
+    "description": "do { ... } while (condition)"
   }
 }
