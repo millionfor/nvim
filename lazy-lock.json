@@ -29,6 +29,7 @@
   "vim-floaterm": { "branch": "master", "commit": "0ab5eb8135dc884bc543a819ac7033c15e72a76b" },
   "vim-startuptime": { "branch": "master", "commit": "c12649b2458e34ec6dde8f1bdfe830661a613a6b" },
   "vim-surround": { "branch": "master", "commit": "7b44da77c0e84695003f2895c9e115fadac4a8e2" },
+  "vim-translate": { "branch": "master", "commit": "08ede92cacca7026d50327b5afcc276d3320f0fa" },
   "vim-visual-multi": { "branch": "master", "commit": "a6975e7c1ee157615bbc80fc25e4392f71c344d4" },
   "vimcdoc": { "branch": "master", "commit": "2ea0ed9ada61e8f2a3cf6b2999898363217953bb" }
 }
