@@ -1,3 +1,4 @@
+vim.g.mapleader = ","
 require('options')  -- 基础配置
 require('lazyinit') -- 插件配置 (lazy.nvim)
 require('keymap')   -- 按键配置

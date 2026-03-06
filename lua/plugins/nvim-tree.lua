@@ -45,7 +45,7 @@ function M.toggle()
 end
 
 function M.init()
-    vim.keymap.set('n', 'e', M.toggle, { silent = true, noremap = true })
+    vim.keymap.set('n', '<leader>e', M.toggle, { silent = true, noremap = true })
     vim.cmd("hi! NvimTreeCursorLine cterm=NONE ctermbg=238 guibg=#444444")
     vim.cmd("hi! link NvimTreeFolderIcon NvimTreeFolderName")
 end

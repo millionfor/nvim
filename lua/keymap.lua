@@ -67,7 +67,7 @@ end
 
 vim.keymap.set('n', 's', '<nop>', opts('禁用s键，避免误触'))
 vim.keymap.set({ 'n', 'v' }, ';', ':', opts('将;键映射为:，方便输入命令', { silent = false }))
-vim.keymap.set('n', ',', '@q', opts(',执行宏q'))
+-- vim.keymap.set('n', ',', '@q', opts(',执行宏q'))
 vim.keymap.set('n', '\\', ':nohlsearch<CR>', opts('按\\取消高亮搜索'))
 vim.keymap.set('n', '+', '<c-a>', opts('+ = ctrl-a'))
 vim.keymap.set('n', '_', '<c-x>', opts('- = ctrl-x'))
