@@ -1,6 +1,40 @@
 local M = {}
 M.isfirst = true
 
+local inner_cwd = ""
+local outer_cwd = ""
+function M.magicCd()
+    local api = require("nvim-tree.api")
+    local core = require("nvim-tree.core")
+
+    local file_path = vim.fn.expand('#:p:h')
+    local tree_cwd = core.get_cwd()
+
+    if inner_cwd == "" then
+        inner_cwd = tree_cwd
+    end
+
+    if tree_cwd == inner_cwd and string.find(file_path, '^' .. inner_cwd) == nil then
+        inner_cwd = tree_cwd
+        outer_cwd = file_path
+        return api.tree.change_root(file_path)
+    end
+
+    if tree_cwd == inner_cwd and string.find(file_path, '^' .. inner_cwd) ~= nil then
+        if outer_cwd ~= "" then
+            return api.tree.change_root(outer_cwd)
+        end
+    end
+
+    if tree_cwd ~= inner_cwd and string.find(file_path, '^' .. outer_cwd) ~= nil then
+        return api.tree.change_root(inner_cwd)
+    end
+
+    if tree_cwd ~= inner_cwd and string.find(file_path, '^' .. inner_cwd) ~= nil then
+        return api.tree.change_root(inner_cwd)
+    end
+end
+
 function M.toggle()
     local options = { }
     if M.isfirst then
@@ -16,10 +50,60 @@ function M.init()
     vim.cmd("hi! link NvimTreeFolderIcon NvimTreeFolderName")
 end
 
-function M.cofig()
+-- 转换为 kebab-case (xxx-xx-xx)
+local function to_kebab_case(file_name)
+    local underscored = string.gsub(file_name, "%W", "_")
+    underscored = string.gsub(underscored, "__+", "_")
+    local snake_case = string.gsub(underscored, "%u", function(c)
+        return "_" .. string.lower(c)
+    end)
+    local kebab_case = string.gsub(snake_case, "_", "-")
+    kebab_case = string.gsub(kebab_case, "^%-", "")
+    kebab_case = string.gsub(kebab_case, "%-$", "")
+    return kebab_case
+end
+
+-- 转换为 PascalCase (XxxXxxXxx)
+local function to_pascal_case(file_name)
+    file_name = string.gsub(file_name, "[-_]", " ")
+    local words = {}
+    for word in string.gmatch(file_name, "%S+") do
+        table.insert(words, word)
+    end
+    local pascal_case = ""
+    for _, word in ipairs(words) do
+        pascal_case = pascal_case .. string.upper(string.sub(word, 1, 1)) .. string.sub(word, 2)
+    end
+    return pascal_case
+end
+
+-- 获取当前星期
+local function get_chinese_weekday()
+    local day = os.date("%A")
+    local days = {
+        ["Sunday"] = "日",
+        ["Monday"] = "一",
+        ["Tuesday"] = "二",
+        ["Wednesday"] = "三",
+        ["Thursday"] = "四",
+        ["Friday"] = "五",
+        ["Saturday"] = "六",
+        ["星期日"] = "日",
+        ["星期一"] = "一",
+        ["星期二"] = "二",
+        ["星期三"] = "三",
+        ["星期四"] = "四",
+        ["星期五"] = "五",
+        ["星期六"] = "六"
+    }
+    return days[day] or day
+end
+
+function M.config()
     local nvim_tree = require("nvim-tree")
+    local api = require("nvim-tree.api")
+    
     local function on_attach(bufnr)
-        local api = require("nvim-tree.api")
         local function opts(desc)
             return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
         end
@@ -39,6 +123,18 @@ function M.cofig()
         vim.keymap.set('n', 'A', api.fs.create, opts('Create'))
         vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
         vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
+        vim.keymap.set('n', 'C', M.magicCd, opts('Magic CD'))
+
+        -- 当前目录
+        vim.keymap.set("n", "<leader>op", function()
+            local node = api.tree.get_node_under_cursor()
+            if node then
+                local path = node.absolute_path
+                -- 转义单引号和空格
+                path = path:gsub("'", "'\\''")
+                vim.cmd("silent !/usr/bin/open '" .. path .. "'")
+            end
+        end, opts("Open in Finder"))
     end
 
     nvim_tree.setup({
@@ -59,8 +155,7 @@ function M.cofig()
                     local height = math.max(math.floor(lines * 0.5), 20)
                     local left = math.ceil((columns - width) * 0.5)
                     local top = math.ceil((lines - height) * 0.5 - 2)
-                    return { relative = "editor", border = "rounded", width = width, height = height, row = top, col =
-                    left }
+                    return { relative = "editor", border = "rounded", width = width, height = height, row = top, col = left }
                 end,
             }
         },
@@ -89,9 +184,65 @@ function M.cofig()
             icons = { hint = "", info = "", warning = "", error = "" }
         },
     })
+
+    -- 监听文件创建事件
+    local template_dir = vim.fn.expand("~/.config/nvim/templates")
+    api.events.subscribe(api.events.Event.FileCreated, function(data)
+        local file_path = data.fname
+        local file_ext = vim.fn.fnamemodify(file_path, ":e")
+
+        -- 获取对应模板路径
+        local template_file = ({
+            vue = "vue.template",
+            sh = "sh.template",
+            ts = "ts.template",
+            js = "js.template",
+            rs = "rs.template",
+            -- 添加更多文件类型...
+        })[file_ext]
+
+        if template_file then
+            local template_path = template_dir .. "/" .. template_file
+
+            -- 仅当新文件为空时才插入模板
+            local content = vim.fn.readfile(file_path)
+            if #content == 0 then
+                local ok, template = pcall(vim.fn.readfile, template_path)
+                if ok then
+                    -- 生成 SNAKE_CASE 变量
+                    local file_name = vim.fn.fnamemodify(file_path, ":t:r")
+                    local kebab_class = to_kebab_case(file_name)
+                    local pascal_case = to_pascal_case(file_name)
+
+                    -- 替换模板中的变量
+                    local replaced_template = string.gsub(table.concat(template, "\n"), "{{SNAKE_CLASS}}", kebab_class)
+                    replaced_template = string.gsub(replaced_template, "{{CAMEL_CLASS}}", pascal_case)
+                    replaced_template = string.gsub(replaced_template, "{{FILE}}", file_name)
+                    replaced_template = string.gsub(replaced_template, "{{NAME}}", "QuanQuan")
+                    replaced_template = string.gsub(replaced_template, "{{EMAIL}}", "millionfor@apache.org")
+                    replaced_template = string.gsub(replaced_template, "{{DAY}}", get_chinese_weekday())
+                    replaced_template = string.gsub(replaced_template, "{{MONTH}}", os.date("%m"))
+                    replaced_template = string.gsub(replaced_template, "{{DATE}}", os.date("%d"))
+                    replaced_template = string.gsub(replaced_template, "{{YEAR}}", tonumber(os.date("%Y")))
+                    replaced_template = string.gsub(replaced_template, "{{TIME}}", os.date("%H:%M:%S %Z"))
+
+                    vim.fn.writefile(vim.split(replaced_template, "\n"), file_path)
+                    print("Template added: " .. template_file)
+                else
+                    print("Template not found: " .. template_file)
+                end
+            end
+        end
+    end)
 end
 
 return {
     { "kyazdani42/nvim-web-devicons" },
-    { "kyazdani42/nvim-tree.lua",    cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, dependencies = { "kyazdani42/nvim-web-devicons" }, init = M.init, config = M.cofig }
+    { 
+        "kyazdani42/nvim-tree.lua",    
+        cmd = { 'NvimTreeToggle', 'NvimTreeFindFileToggle' }, 
+        dependencies = { "kyazdani42/nvim-web-devicons" }, 
+        init = M.init, 
+        config = M.config 
+    }
 }

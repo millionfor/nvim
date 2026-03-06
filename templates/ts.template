@@ -1,0 +1,15 @@
+/**
+ * @FileName        {{FILE}}
+ * @CreatedTime     {{DAY}}, {{MONTH}} {{DATE}}, {{YEAR}} {{TIME}}
+ * @LastModified    {{DAY}}, {{MONTH}} {{DATE}}, {{YEAR}} {{TIME}}
+ * @Author          {{NAME}} <{{EMAIL}}>
+ * @Description     {{FILER}}
+ */
+
+class {{CAMEL_CLASS}}Ctor {
+  
+}
+
+export default {{CAMEL_CLASS}}Ctor
+
+// vim: set ft=typescript fdm=marker et ff=unix tw=180 sw=2:

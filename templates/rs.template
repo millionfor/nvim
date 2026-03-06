@@ -1,0 +1,9 @@
+//! {{FILE}}
+//! @CreatedTime     {{DAY}}, {{MONTH}} {{DATE}}, {{YEAR}} {{TIME}}
+//! @LastModified    {{DAY}}, {{MONTH}} {{DATE}}, {{YEAR}} {{TIME}}
+//! @Author          {{NAME}} <{{EMAIL}}>
+//! @Description     {{FILER}}
+
+
+// vim: set ft=rs fdm=marker et ff=unix tw=180 sw=2:
+
