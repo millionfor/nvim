@@ -1,0 +1,26 @@
+local M = {}
+
+function M.config()
+    require("copilot").setup({
+        suggestion = {
+            enabled = true,
+            auto_trigger = true,
+            hide_during_completion = true,
+            debounce = 15,
+            trigger_on_accept = true,
+            keymap = { accept = false, next = "<C-down>", prev = "<c-up>", accept_word = false, accept_line = false, dismiss = false, toggle_auto_trigger = false },
+        },
+    })
+    vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#6e6e6e", italic = false })
+
+    local accept = function()
+        if require("copilot.suggestion").is_visible() then
+            require("copilot.suggestion").accept()
+        else
+            vim.api.nvim_feedkeys(vim.keycode("<Right>"), "n", true)
+        end
+    end
+    vim.keymap.set('i', '<right>', accept, { silent = true, expr = true })
+end
+
+return { "zbirenbaum/copilot.lua", event = "InsertEnter", config = M.config }

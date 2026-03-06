@@ -1,15 +1,11 @@
 .netrwhist
 .idea/
 .vscode/
-file_logs/
+cache/
 plugged/
 logs/
 log/
-cache/
 *.log
 **/dump.rdb
 **/.DS_Store
-node_modules
-
 plugin/packer_compiled.lua
-
