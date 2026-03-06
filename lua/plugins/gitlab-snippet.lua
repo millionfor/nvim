@@ -482,30 +482,28 @@ end
 
 function M.config()
   vim.api.nvim_create_user_command("GitlabSnippetCreate", function()
-    require("gitlab-snippet").upload_current_buffer_interactive({ mode = "create" })
+    M.upload_current_buffer_interactive({ mode = "create" })
   end, {})
 
   vim.api.nvim_create_user_command("GitlabSnippetUpdate", function()
-    require("gitlab-snippet").update_current_buffer_quick()
+    M.update_current_buffer_quick()
   end, {})
 
   vim.api.nvim_create_user_command("GitlabSnippetUpload", function()
-    require("gitlab-snippet").upload_current_buffer_interactive()
+    M.upload_current_buffer_interactive()
   end, {})
 
   vim.keymap.set("n", "wc", function()
-    require("gitlab-snippet").upload_current_buffer_interactive({ mode = "create" })
+    M.upload_current_buffer_interactive({ mode = "create" })
   end, { noremap = true, silent = true, desc = "GitLab Snippet Create" })
 
   vim.keymap.set("n", "wu", function()
-    require("gitlab-snippet").update_current_buffer_quick()
+    M.update_current_buffer_quick()
   end, { noremap = true, silent = true, desc = "GitLab Snippet Update" })
 end
 
-function M.setup()
-  -- no-op
-end
+M.config()
 
-return M
+return {}
 
 
