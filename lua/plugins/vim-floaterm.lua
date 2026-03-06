@@ -55,8 +55,12 @@ function M.config()
     vim.g.floaterm_opener = 'edit'
     vim.cmd("au BufEnter * if &buftype == 'terminal' | :call timer_start(50, { -> execute('startinsert!') }, { 'repeat': 3 }) | endif")
     vim.cmd("hi FloatermBorder ctermfg=fg ctermbg=none")
-
+    vim.cmd("au FileType floaterm tnoremap <buffer> <Esc> <C-\\><C-n>:FloatermHide<CR>")
     M.setFTToggleMap('<c-t>', 'TERM', '')
+    M.setFTToggleMap('L', 'LAZYGIT', 'lazygit')
+    M.setFTToggleMap('R', 'RANGER', 'ranger')
+    M.setFTToggleMap('B', 'BTOP', 'btop')
+    M.setFTToggleMap('T', 'TERM2', '') -- Generic float terminal
     vim.keymap.set('n', '<F5>', ':lua require("plugins/vim-floaterm").M.runFile()<cr>', { silent = true, noremap = true })
     vim.keymap.set('i', '<F5>', '<esc>:lua require("plugins/vim-floaterm").M.runFile()<cr>', { silent = true, noremap = true })
     vim.keymap.set('t', '<F5>', "&ft == \"floaterm\" ? printf('<c-\\><c-n>:FloatermHide<cr>%s', floaterm#terminal#get_bufnr('RUN') == bufnr('%') ? '' : '<F5>') : '<F5>'", { silent = true, expr = true })
