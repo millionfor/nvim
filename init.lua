@@ -2,3 +2,4 @@ require('options')  -- 基础配置
 require('lazyinit') -- 插件配置 (lazy.nvim)
 require('keymap')   -- 按键配置
 require('lspinit')  -- LSP 配置
+require('gitlab-snippet').config() -- Gitlab Snippets配置
