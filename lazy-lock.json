@@ -27,6 +27,7 @@
   "vim-expand-region": { "branch": "master", "commit": "966513543de0ddc2d673b5528a056269e7917276" },
   "vim-fcitx2en": { "branch": "master", "commit": "79fe7dc52de11574a7915a11338a21996719bd7f" },
   "vim-floaterm": { "branch": "master", "commit": "0ab5eb8135dc884bc543a819ac7033c15e72a76b" },
+  "vim-prettier": { "branch": "master", "commit": "7dbdbb12c50a9f4ba72390cce2846248e4368fd0" },
   "vim-startuptime": { "branch": "master", "commit": "c12649b2458e34ec6dde8f1bdfe830661a613a6b" },
   "vim-surround": { "branch": "master", "commit": "7b44da77c0e84695003f2895c9e115fadac4a8e2" },
   "vim-templates": { "branch": "master", "commit": "c4ce1903fc458688bc421f0cb4572af8a8977cdb" },
