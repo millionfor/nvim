@@ -85,9 +85,16 @@ function M.init_comment()
 end
 
 function M.init_echo()
-    local tmp = 'console.log([ECHO])'
     vim.keymap.set('v', 'C', ':<c-u>VECHO<cr>', { silent = true, noremap = true })
-    vim.g.vim_echo_by_file = { js = tmp, ts = tmp, vue = tmp }
+
+    vim.g.vim_echo_by_file = {
+      rs = 'println!("[ECHO]: {}", [ECHO])',
+      js = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
+      html = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
+      vue = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
+      ts = 'console.log("logger-[[FILE]:[LINE]]-[[ECHO]]", [ECHO]);',
+      ets = 'logger.info("logger-[[FILE]:[LINE]]-[[ECHO]]");' .. 'logger.info([ECHO]);'
+    }
 end
 
 function M.init_mp()
