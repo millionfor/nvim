@@ -95,6 +95,8 @@ vim.keymap.set('v', 'P', 'Pgvy', opts('执行但不影响剪切板'))
 
 vim.keymap.set('n', 'S', magic_save, opts('保存文件'))
 vim.keymap.set('v', 'S', magic_save, opts('保存文件'))
+vim.keymap.set('n', 'SS', function() magic_save() vim.cmd('q') end, opts('保存并退出'))
+vim.keymap.set('v', 'SS', function() magic_save() vim.cmd('q') end, opts('保存并退出'))
 vim.keymap.set('n', 'Q', ':q!<cr>', opts('强制退出'))
 vim.keymap.set('n', 'R', ':e %<cr>', opts('重新加载当前文件'))
 
