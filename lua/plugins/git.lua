@@ -72,7 +72,8 @@ function M.config()
                 end
             end)
 
-            map('n', 'C', gitsigns.preview_hunk)
+            map('n', 'B', gitsigns.preview_hunk)
+            map('n', 'C', function() gitsigns.blame_line{full=true} end)
             map('n', '\\g', gitsigns.diffthis)
         end
     }
