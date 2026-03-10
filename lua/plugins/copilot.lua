@@ -17,10 +17,11 @@ function M.config()
         if require("copilot.suggestion").is_visible() then
             require("copilot.suggestion").accept()
         else
-            vim.api.nvim_feedkeys(vim.keycode("<Right>"), "n", true)
+            local key = vim.api.nvim_replace_termcodes("<Right>", true, false, true)
+            vim.api.nvim_feedkeys(key, "n", false)
         end
     end
-    vim.keymap.set('i', '<right>', accept, { silent = true, expr = true })
+    vim.keymap.set('i', '<Right>', accept, { silent = true })
 end
 
 return { "zbirenbaum/copilot.lua", event = "InsertEnter", config = M.config }
