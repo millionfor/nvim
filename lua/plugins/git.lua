@@ -73,7 +73,19 @@ function M.config()
             end)
 
             map('n', 'B', gitsigns.preview_hunk)
-            map('n', 'C', function() gitsigns.blame_line{full=true} end)
+            map('n', 'C', function()
+                gitsigns.blame_line({ full = true }, function()
+                    vim.schedule(function()
+                        for _, win in ipairs(vim.api.nvim_list_wins()) do
+                            if vim.api.nvim_win_is_valid(win) and vim.w[win].gitsigns_preview == 'blame' then
+                                vim.api.nvim_set_current_win(win)
+                                vim.keymap.set('n', '<Esc>', '<cmd>q<CR>', { buffer = vim.api.nvim_win_get_buf(win), silent = true })
+                                break
+                            end
+                        end
+                    end)
+                end)
+            end)
             map('n', '\\g', gitsigns.diffthis)
         end
     }
