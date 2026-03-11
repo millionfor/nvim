@@ -90,14 +90,19 @@ vim.api.nvim_set_keymap('n', 'sd', '', {
   end
 })
 
--- 只剩一个 buffer 时自动退出
-vim.api.nvim_create_autocmd("QuitPre", {
-  callback = function()
-    local wins = vim.api.nvim_list_wins()
-    if #wins > 1 then
-      vim.cmd("q!")  -- 保存所有文件并退出
+-- 拦截 :q! 命令，在执行后立即触发 :qa!，实现强制退出所有窗口且不保存
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+    callback = function()
+        if vim.fn.getcmdtype() == ":" then
+            local cmd = vim.fn.getcmdline()
+            if cmd:match("^q!%s*$") then
+                -- 必须延迟执行，等待原本的 q! 离开命令行再彻底退出
+                vim.schedule(function()
+                    vim.cmd("qa!")
+                end)
+            end
+        end
     end
-  end,
 })
 
 -- 驼峰转下划线

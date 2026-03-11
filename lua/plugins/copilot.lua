@@ -24,4 +24,4 @@ function M.config()
     vim.keymap.set('i', '<Right>', accept, { silent = true })
 end
 
-return { "zbirenbaum/copilot.lua", event = "InsertEnter", config = M.config }
+return { "zbirenbaum/copilot.lua", enabled = false, event = "InsertEnter", config = M.config }
