@@ -8,6 +8,7 @@ end
 
 M.blink_opts = {
     enabled = function() return vim.bo.filetype ~= 'sagarename' end,
+    snippets = { preset = 'luasnip' },
     keymap = {
         preset = 'default',
         ['<Up>'] = { 'select_prev', 'fallback' },
@@ -122,8 +123,17 @@ return {
     { "mason-org/mason.nvim", lazy = false, opts = { ui = { border = "rounded" } } },
     { 'nvimdev/lspsaga.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons', 'saghen/blink.cmp' }, lazy = false, config = M.saga_config },
     {
+        "L3MON4D3/LuaSnip",
+        version = "v2.*",
+        build = "make install_jsregexp",
+        config = function()
+            require("luasnip.loaders.from_vscode").lazy_load({ paths = { vim.fn.stdpath("config") .. "/snippets" } })
+            require("luasnip.loaders.from_lua").load({ paths = { vim.fn.stdpath("config") .. "/lua/snippets" } })
+        end
+    },
+    {
         'saghen/blink.cmp',
-        dependencies = { "xieyonn/blink-cmp-dat-word", "mikavilpas/blink-ripgrep.nvim", "yaocccc/blink-cmp-fixedkeyword" },
+        dependencies = { "L3MON4D3/LuaSnip", "xieyonn/blink-cmp-dat-word", "mikavilpas/blink-ripgrep.nvim", "yaocccc/blink-cmp-fixedkeyword" },
         version = '1.*',
         lazy = false,
         init = M.init_blink,
