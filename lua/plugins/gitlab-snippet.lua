@@ -480,6 +480,30 @@ function M.update_current_buffer_quick()
   })
 end
 
+local function define_gradient_highlights()
+  local colors = {
+    "#87d7ff", "#87afff", "#af87ff", "#d787ff",
+    "#ff87ff", "#ff87d7", "#ff87af", "#87d7ff"
+  }
+  for i, color in ipairs(colors) do
+    vim.api.nvim_set_hl(0, "SnipGradient" .. i, { fg = color })
+  end
+end
+
+local function get_gradient_border()
+  define_gradient_highlights()
+  return {
+    { "╭", "SnipGradient1" },
+    { "─", "SnipGradient2" },
+    { "╮", "SnipGradient3" },
+    { "│", "SnipGradient4" },
+    { "╯", "SnipGradient5" },
+    { "─", "SnipGradient6" },
+    { "╰", "SnipGradient7" },
+    { "│", "SnipGradient8" },
+  }
+end
+
 function M.list_snippets()
   local ok, fzf = pcall(require, "fzf-lua")
   if not ok then
@@ -524,7 +548,7 @@ function M.list_snippets()
             width = 0.8,
             row = 0.5,
             col = 0.5,
-            border = "rounded",
+            border = get_gradient_border(),
             title = " GitLab Snippets ",
             title_pos = "center",
         },
