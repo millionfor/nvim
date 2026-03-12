@@ -248,47 +248,92 @@ function M.update_gist()
 end
 
 function M.list_gists()
+  local ok, fzf = pcall(require, "fzf-lua")
+  if not ok then
+      -- Fallback to terminal-style list if fzf-lua is not available
+      notify("fzf-lua not found. Please install it for better UI.", vim.log.levels.WARN)
+      return
+  end
+
   notify("Fetching gists...")
   local http_code, obj, resp = github_request("GET", "https://api.github.com/gists", nil)
 
   if http_code >= 200 and http_code < 300 and type(obj) == "table" then
-    local items = {}
-    for _, gist in ipairs(obj) do
+    local lines = {}
+    local max_width = vim.api.nvim_get_option("columns")
+    
+    for i, gist in ipairs(obj) do
+        local id = gist.id:sub(1, 7)
         local desc = gist.description ~= "" and gist.description or "(no description)"
-        local files = {}
-        for fname, _ in pairs(gist.files) do
-            table.insert(files, fname)
-        end
-        table.insert(items, {
-            label = string.format("[%s] %s (%s)", gist.id:sub(1,7), desc, table.concat(files, ", ")),
-            id = gist.id,
-            url = gist.html_url
-        })
+        local filenames = {}
+        for fname, _ in pairs(gist.files) do table.insert(filenames, fname) end
+        local filename = filenames[1] or "untitled"
+        
+        -- Format time: 2024-03-12T01:23:45Z -> 03-12 01:23
+        local time = gist.updated_at:gsub(".*%-(%d%d%-%d%dT%d%d:%d%d).*", "%1"):gsub("T", " ")
+        
+        -- Column formatting
+        local line = string.format("%-3d │ %-7s │ %-20s │ %-40s │ %12s", i, id, filename, desc, time)
+        table.insert(lines, line)
     end
 
-    if #items == 0 then
+    if #lines == 0 then
         notify("No gists found.")
         return
     end
 
-    vim.ui.select(items, {
-        prompt = "Select Gist:",
-        format_item = function(item) return item.label end
-    }, function(choice)
-        if choice then
-            vim.ui.select({"Copy URL", "Open in Browser", "Insert ID"}, {prompt = "Action:"}, function(action)
-                if action == "Copy URL" then
-                    vim.fn.setreg("+", choice.url)
-                    notify("URL copied to clipboard")
-                elseif action == "Open in Browser" then
-                    vim.fn.jobstart({"open", choice.url})
-                elseif action == "Insert ID" then
-                    local p = comment_prefix()
-                    vim.api.nvim_put({string.format("%s GistID: %s", p, choice.id)}, "l", true, true)
+    fzf.fzf_exec(lines, {
+        prompt = "Gists> ",
+        winopts = {
+            height = 0.6,
+            width = 0.8,
+            row = 0.5,
+            col = 0.5,
+            border = "rounded",
+            title = " GitHub Gists ",
+            title_pos = "center",
+        },
+        actions = {
+            ["default"] = function(selected)
+                if not selected or #selected == 0 then return end
+                local idx_str = selected[1]:match("^(%d+)")
+                if not idx_str then return end
+                local idx = tonumber(idx_str)
+                local gist_summary = obj[idx]
+                if not gist_summary then return end
+
+                notify("Fetching Gist content...")
+                local http_code, g_obj, resp = github_request("GET", "https://api.github.com/gists/" .. gist_summary.id)
+                
+                if http_code >= 200 and http_code < 300 and g_obj and g_obj.files then
+                    local filenames = {}
+                    for fname, _ in pairs(g_obj.files) do table.insert(filenames, fname) end
+                    local fname = filenames[1]
+                    if not fname then return end
+
+                    local fileinfo = g_obj.files[fname]
+                    local content_lines = split_lines(fileinfo.content)
+                    
+                    -- Check if GistID already in content
+                    local has_id = false
+                    for _, l in ipairs(content_lines) do
+                        if l:find("GistID") then has_id = true break end
+                    end
+
+                    if not has_id then
+                        local p = comment_prefix()
+                        table.insert(content_lines, 1, string.format("%s GistID: %s", p, g_obj.id))
+                        table.insert(content_lines, 2, "")
+                    end
+
+                    buf_set_lines(content_lines)
+                    notify("Gist " .. g_obj.id:sub(1, 7) .. " loaded into buffer.")
+                else
+                    notify("Failed to fetch Gist content: " .. (resp or "Unknown error"), vim.log.levels.ERROR)
                 end
-            end)
-        end
-    end)
+            end
+        }
+    })
   else
     notify("Failed to fetch gists: " .. (resp or "Unknown error"), vim.log.levels.ERROR)
   end

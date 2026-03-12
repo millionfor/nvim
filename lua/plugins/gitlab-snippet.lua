@@ -480,6 +480,101 @@ function M.update_current_buffer_quick()
   })
 end
 
+function M.list_snippets()
+  local ok, fzf = pcall(require, "fzf-lua")
+  if not ok then
+      notify("fzf-lua not found. Please install it for better UI.", vim.log.levels.WARN)
+      return
+  end
+
+  local cfg = get_cfg()
+  if not cfg.base_url or not cfg.token then
+      notify("GitLab missing config. Set base_url and token.", vim.log.levels.ERROR)
+      return
+  end
+
+  notify("Fetching GitLab snippets...")
+  -- Fetch personal snippets
+  local endpoint = trim_trailing_slash(cfg.base_url) .. "/api/v4/snippets"
+  local http_code, obj, resp = gitlab_request(cfg, "GET", endpoint, nil)
+
+  if http_code >= 200 and http_code < 300 and type(obj) == "table" then
+    local lines = {}
+    for i, snip in ipairs(obj) do
+        local id = tostring(snip.id)
+        local title = snip.title or "(no title)"
+        local fname = snip.file_name or "untitled"
+        
+        -- Format time: 2024-03-12T01:23:45.000Z -> 03-12 01:23
+        local time = snip.updated_at:gsub(".*%-(%d%d%-%d%dT%d%d:%d%d).*", "%1"):gsub("T", " ")
+        
+        local line = string.format("%-3d │ %-7s │ %-20s │ %-40s │ %12s", i, id, fname, title, time)
+        table.insert(lines, line)
+    end
+
+    if #lines == 0 then
+        notify("No GitLab snippets found.")
+        return
+    end
+
+    fzf.fzf_exec(lines, {
+        prompt = "GitLab Snippets> ",
+        winopts = {
+            height = 0.6,
+            width = 0.8,
+            row = 0.5,
+            col = 0.5,
+            border = "rounded",
+            title = " GitLab Snippets ",
+            title_pos = "center",
+        },
+        actions = {
+            ["default"] = function(selected)
+                if not selected or #selected == 0 then return end
+                local idx_str = selected[1]:match("^(%d+)")
+                if not idx_str then return end
+                local idx = tonumber(idx_str)
+                local snip_summary = obj[idx]
+                if not snip_summary then return end
+
+                notify("Fetching Snippet content...")
+                local s_endpoint = trim_trailing_slash(cfg.base_url) .. "/api/v4/snippets/" .. tostring(snip_summary.id) .. "/raw"
+                -- Raw endpoint returns raw text, but gitlab_request expects json by default
+                -- Let's use a simple curl for raw content
+                local curl_cmd = {
+                    "curl", "-sS", "-H", "PRIVATE-TOKEN: " .. cfg.token, s_endpoint
+                }
+                local raw_content = vim.fn.system(curl_cmd)
+                
+                if vim.v.shell_error == 0 then
+                    local content_lines = split_lines(raw_content)
+                    
+                    -- Check if GistID/SnippetID already in content
+                    local has_id = false
+                    for _, l in ipairs(content_lines) do
+                        if l:find("GistID") or l:find("SnippetID") then has_id = true break end
+                    end
+
+                    if not has_id then
+                        local p = comment_prefix()
+                        table.insert(content_lines, 1, string.format("%s GistID: %s", p, snip_summary.id))
+                        table.insert(content_lines, 2, string.format("%s SnippetURL: %s", p, snip_summary.web_url))
+                        table.insert(content_lines, 3, "")
+                    end
+
+                    buf_set_lines(content_lines)
+                    notify("Snippet " .. snip_summary.id .. " loaded into buffer.")
+                else
+                    notify("Failed to fetch Snippet content.", vim.log.levels.ERROR)
+                end
+            end
+        }
+    })
+  else
+    notify("Failed to fetch GitLab snippets: " .. (resp or "Unknown error"), vim.log.levels.ERROR)
+  end
+end
+
 function M.config()
   vim.api.nvim_create_user_command("GitlabSnippetCreate", function()
     M.upload_current_buffer_interactive({ mode = "create" })
@@ -492,6 +587,10 @@ function M.config()
   vim.api.nvim_create_user_command("GitlabSnippetUpload", function()
     M.upload_current_buffer_interactive()
   end, {})
+  
+  vim.api.nvim_create_user_command("GitlabSnippetList", function()
+    M.list_snippets()
+  end, {})
 
   vim.keymap.set("n", "wc", function()
     M.upload_current_buffer_interactive({ mode = "create" })
@@ -500,6 +599,10 @@ function M.config()
   vim.keymap.set("n", "wu", function()
     M.update_current_buffer_quick()
   end, { noremap = true, silent = true, desc = "GitLab Snippet Update" })
+  
+  vim.keymap.set("n", "wl", function()
+    M.list_snippets()
+  end, { noremap = true, silent = true, desc = "GitLab Snippet List" })
 end
 
 M.config()
