@@ -13,15 +13,7 @@ M.blink_opts = {
         preset = 'default',
         ['<Up>'] = { 'select_prev', 'fallback' },
         ['<Down>'] = { 'select_next', 'fallback' },
-        ['<Tab>'] = {
-            function(cmp)
-                if cmp.is_visible() then return cmp.select_next() end
-                local col = vim.fn.col('.') - 1
-                local needshow = not cmp.is_visible() and col > 0 and vim.fn.getline('.'):sub(col, col):match('%S')
-                if needshow then return cmp.show() end
-            end,
-            'fallback'
-        },
+
         ['<CR>'] = { 'accept', 'fallback' },
         ['<C-y>'] = { 'select_and_accept', 'fallback' },
         ['<C-e>'] = { 'cancel', 'fallback' },
@@ -41,7 +33,7 @@ M.blink_opts = {
     signature = { enabled = true, window = { border = 'rounded' } },
     cmdline = {
         keymap = {
-            ['<Tab>'] = { 'show_and_insert_or_accept_single', 'select_next' },
+
             ['<Up>'] = { 'select_prev', 'fallback' },
             ['<Down>'] = { 'select_next', 'fallback' },
             ['<Left>'] = { },

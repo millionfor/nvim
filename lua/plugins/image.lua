@@ -47,13 +47,15 @@ return {
       local width = vim.o.columns
       local height = vim.o.lines
 
-      -- Scale: 1/8 of window size
+      -- Scale: 1/6 of window size (per user modification)
       local img_width = math.floor(width / 6)
       local img_height = math.floor(height / 6)
 
-      -- Position: Bottom right (offsets: bottom=3, right=4)
-      local x = width - img_width - 3
-      local y = height - img_height - 1
+      -- Position: Calculate x and y to align with right and bottom edges
+      -- x = total columns - image columns - right_offset
+      -- y = total lines - image lines - bottom_offset
+      local x = width - img_width - 1 -- user set right offset to 0
+      local y = height - img_height - 3 -- user set bottom offset to 3
 
       local ok, res = pcall(function()
         watermark = image.from_file(processed_logo_path, {
