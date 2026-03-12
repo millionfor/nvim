@@ -150,7 +150,7 @@ function M.config()
         vim.keymap.set('n', 'C', M.magicCd, opts('Magic CD'))
 
         -- 当前目录
-        vim.keymap.set("n", "<leader>op", function()
+        vim.keymap.set("n", "op", function()
             local node = api.tree.get_node_under_cursor()
             if node then
                 local path = node.absolute_path
