@@ -1,27 +1,34 @@
 local M = {}
 
-function M.intall(lang)
-    local treesitter = require('nvim-treesitter')
-    if vim.list_contains(treesitter.get_available(), lang) then
-        if not vim.list_contains(treesitter.get_installed(), lang) then
-            treesitter.install { lang }
-        end
-    end
+function M.install(lang)
+    local parsers = require('nvim-treesitter.parsers')
+    if not parsers[lang] then return end -- Silence warnings for unsupported filetypes
+
+    local config = require('nvim-treesitter.config')
+    local installed = config.get_installed()
+    if vim.list_contains(installed, lang) then return end
+    
+    vim.cmd('TSInstall ' .. lang)
 end
 
 function M.start()
-    local treesitter = require('nvim-treesitter')
-    local filetype = vim.api.nvim_eval('&ft')
-    local lang = vim.treesitter.language.get_lang(filetype)
-    if vim.list_contains(treesitter.get_installed(), lang) then
+    local filetype = vim.bo.filetype
+    local lang = vim.treesitter.language.get_lang(filetype) or filetype
+    local parsers = require('nvim-treesitter.parsers')
+    if not parsers[lang] then return end
+
+    local config = require('nvim-treesitter.config')
+    if vim.list_contains(config.get_installed(), lang) then
         vim.treesitter.start()
     end
 end
 
 function M.parser_bootstrap()
-    local filetype = vim.api.nvim_eval('&ft')
-    local lang = vim.treesitter.language.get_lang(filetype)
-    M.intall(lang)
+    local filetype = vim.bo.filetype
+    if not filetype or filetype == "" then return end
+    
+    local lang = vim.treesitter.language.get_lang(filetype) or filetype
+    M.install(lang)
     M.start()
 end
 
@@ -85,9 +92,9 @@ function M.init()
 end
 
 function M.config()
-    require('nvim-treesitter').setup()
-    local langs = { 'typescript', 'javascript', 'vue', 'go', 'lua', 'markdown', 'markdown_inline' }
-    for idx in pairs(langs) do M.intall(langs[idx]) end
+    require('nvim-treesitter').setup({})
+    local langs = { 'typescript', 'javascript', 'vue', 'go', 'lua', 'markdown', 'markdown_inline', 'bash' }
+    for _, lang in ipairs(langs) do M.install(lang) end
     vim.cmd([[ au FileType * lua require('plugins/tree-sitter').M.parser_bootstrap() ]])
     vim.cmd([[ au BufRead,BufNewFile * lua require('plugins/tree-sitter').M.start() ]])
     M.parser_bootstrap()

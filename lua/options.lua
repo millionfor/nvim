@@ -1,3 +1,4 @@
+vim.env.PATH = "/opt/homebrew/bin:" .. vim.env.PATH
 vim.cmd('hi Normal ctermfg=7 guifg=#c0c0c0 ctermbg=NONE cterm=NONE')
 vim.cmd.colorscheme('solarized8_high')
 vim.g.python3_host_prog = os.getenv('PYTHON') -- export PYTHON=$(which python3)
