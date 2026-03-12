@@ -4,6 +4,7 @@ local function opts(msg, extra)
 end
 
 local function magic_save() -- 1 当目录不存在时 先创建目录, 2 当前文件是acwrite时, 用sudo保存
+    if vim.o.buftype ~= "" and vim.o.buftype ~= "acwrite" then return end
     if vim.fn.empty(vim.fn.glob(vim.fn.expand('%:p:h'))) then vim.fn.system('mkdir -p ' .. vim.fn.expand('%:p:h')) end
     if vim.o.buftype == 'acwrite' then
         vim.fn.execute('w !sudo tee > /dev/null %')
