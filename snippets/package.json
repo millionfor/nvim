@@ -25,7 +25,8 @@
       },
       {
         "language": [
-          "html"
+          "html",
+          "vue"
         ],
         "path": "./html.json"
       },
