@@ -185,6 +185,12 @@ for _, c in ipairs({ '(', '[', '{', ')', ']', '}', '"', "'", '`' }) do
     vim.keymap.set('i', c, function() return magic_insertpair(c) end, { expr = true, noremap = true })
 end
 vim.keymap.set('i', '<BS>', magic_delpair, { expr = true, noremap = true })
+-- 选中范围文字
+vim.keymap.set('n', "<leader>'", "vi'", opts("选中 '' 内的文字"))
+vim.keymap.set('n', "<leader>[[", "vi{", opts("选中 {} 内的数据"))
+vim.keymap.set('n', "<leader>[", "vi[", opts("选中 [] 内的数据"))
+vim.keymap.set('n', "<leader><leader>", "vit", opts("选中当前层标签"))
+vim.keymap.set('x', "<leader>", "it", opts("扩大选中范围"))
 
 -- 对外提供，供命令行直接调用设置bar不显示
 function G_toggleBar(status)

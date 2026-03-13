@@ -92,7 +92,16 @@ function M.init()
 end
 
 function M.config()
-    require('nvim-treesitter').setup({})
+    require('nvim-treesitter').setup({
+        incremental_selection = {
+            enable = true,
+            keymaps = {
+                init_selection = "<leader><leader>",
+                node_incremental = "<leader>",
+                node_decremental = "<bs>",
+            },
+        },
+    })
     local langs = { 'typescript', 'javascript', 'vue', 'go', 'lua', 'markdown', 'markdown_inline', 'bash' }
     for _, lang in ipairs(langs) do M.install(lang) end
     vim.cmd([[ au FileType * lua require('plugins/tree-sitter').M.parser_bootstrap() ]])
