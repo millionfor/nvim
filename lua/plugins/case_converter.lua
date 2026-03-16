@@ -86,7 +86,8 @@ local format_options = {
 -- Detect word range under cursor in normal mode
 local function get_word_range()
     local line = vim.api.nvim_get_current_line()
-    local col = vim.api.nvim_win_get_cursor(0)[2] + 1
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local col = cursor[2] + 1
     
     local start_col = col
     while start_col > 1 and line:sub(start_col - 1, start_col - 1):match("[%w_.-]") do
@@ -101,29 +102,74 @@ local function get_word_range()
     return start_col, end_col - 1
 end
 
+-- Custom floating menu implementation
+local function open_picker(text, words, on_select)
+    local items = {}
+    for _, fmt in ipairs(format_options) do
+        table.insert(items, string.format(" %-20s -> %s ", fmt, formatters[fmt]({ 'user', 'name' })))
+    end
+
+    local width = 45
+    local height = #items
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, items)
+
+    local win = vim.api.nvim_open_win(buf, true, {
+        relative = "cursor",
+        row = 1,
+        col = 0,
+        width = width,
+        height = height,
+        style = "minimal",
+        border = "rounded",
+        title = " Case Converter ",
+        title_pos = "center",
+    })
+
+    vim.api.nvim_win_set_option(win, "cursorline", true)
+    
+    local function close()
+        if vim.api.nvim_win_is_valid(win) then
+            vim.api.nvim_win_close(win, true)
+        end
+    end
+
+    local function select()
+        local idx = vim.api.nvim_win_get_cursor(win)[1]
+        local choice = format_options[idx]
+        close()
+        on_select(choice)
+    end
+
+    local opts = { buffer = buf, noremap = true, silent = true }
+    vim.keymap.set("n", "<CR>", select, opts)
+    vim.keymap.set("n", "<Esc>", close, opts)
+    vim.keymap.set("n", "q", close, opts)
+    vim.keymap.set("n", "j", "j", opts)
+    vim.keymap.set("n", "k", "k", opts)
+    
+    -- Disable other inputs to strictly allow only selection
+    vim.cmd("setlocal nomodifiable")
+end
+
 function M.convert()
     local mode = vim.api.nvim_get_mode().mode
     local start_pos, end_pos, text
 
     if mode:find('[vV]') then
-        -- Visual mode
         local _start = vim.fn.getpos("'<")
         local _end = vim.fn.getpos("'>")
         local line_start, col_start = _start[2], _start[3]
         local line_end, col_end = _end[2], _end[3]
-        
-        -- Adjust for end of line selection
         local lines = vim.api.nvim_buf_get_text(0, line_start - 1, col_start - 1, line_end - 1, col_end, {})
         text = table.concat(lines, "\n")
         start_pos = {line_start, col_start}
         end_pos = {line_end, col_end}
     else
-        -- Normal mode
         local sc, ec = get_word_range()
         local line = vim.api.nvim_get_current_line()
         text = line:sub(sc, ec)
         if text == "" then return end
-        
         local row = vim.api.nvim_win_get_cursor(0)[1]
         start_pos = {row, sc}
         end_pos = {row, ec}
@@ -132,20 +178,9 @@ function M.convert()
     local words = get_words(text)
     if #words == 0 then return end
 
-    vim.ui.select(format_options, {
-        prompt = 'Convert "' .. text .. '" to:',
-        format_item = function(item)
-            return string.format("%-22s (e.g. %s)", item, formatters[item]({ 'user', 'name' }))
-        end,
-    }, function(choice)
-        if not choice then return end
+    open_picker(text, words, function(choice)
         local new_text = formatters[choice](words)
-        
-        if mode:find('[vV]') then
-            vim.api.nvim_buf_set_text(0, start_pos[1] - 1, start_pos[2] - 1, end_pos[1] - 1, end_pos[2], {new_text})
-        else
-            vim.api.nvim_buf_set_text(0, start_pos[1] - 1, start_pos[2] - 1, end_pos[1] - 1, end_pos[2], {new_text})
-        end
+        vim.api.nvim_buf_set_text(0, start_pos[1] - 1, start_pos[2] - 1, end_pos[1] - 1, end_pos[2], {new_text})
     end)
 end
 
@@ -155,9 +190,8 @@ return {
     dir = vim.fn.stdpath("config") .. "/lua/plugins",
     init = function()
         vim.keymap.set({'n', 'v'}, '<leader>t', function()
-            -- Ensure we capture the selection if in visual mode
             if vim.api.nvim_get_mode().mode:find('[vV]') then
-                vim.cmd('normal! vv') -- escape to normal to get marks, or just use marks
+                vim.cmd('normal! vv')
             end
             M.convert()
         end, { desc = 'Case Converter', silent = true })
