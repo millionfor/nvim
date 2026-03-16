@@ -69,7 +69,15 @@ end
 vim.keymap.set('n', 's', '<nop>', opts('禁用s键，避免误触'))
 vim.keymap.set({ 'n', 'v' }, ';', ':', opts('将;键映射为:，方便输入命令', { silent = false }))
 -- vim.keymap.set('n', ',', '@q', opts(',执行宏q'))
-vim.keymap.set('n', '\\', ':nohlsearch<CR>', opts('按\\取消高亮搜索'))
+local function clear_highlights()
+    vim.cmd('nohlsearch')
+    if pcall(require, 'interestingwords') then
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('FF', true, false, true), 'm', true)
+    end
+end
+
+vim.keymap.set('n', '\\', clear_highlights, opts('取消高亮搜索 (包括 ff FF)'))
+vim.keymap.set('n', '<Esc>', clear_highlights, opts('取消高亮搜索 (包括 ff FF)'))
 vim.keymap.set('n', '+', '<c-a>', opts('+ = ctrl-a'))
 vim.keymap.set('n', '_', '<c-x>', opts('- = ctrl-x'))
 vim.keymap.set('n', '<bs>', '"_ciw', opts('快速删除'))
