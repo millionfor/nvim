@@ -93,6 +93,9 @@ end
 
 function M.config()
     require('nvim-treesitter').setup({
+        autotag = {
+            enable = true,
+        },
         incremental_selection = {
             enable = true,
             keymaps = {
@@ -102,11 +105,11 @@ function M.config()
             },
         },
     })
-    local langs = { 'typescript', 'javascript', 'vue', 'go', 'lua', 'markdown', 'markdown_inline', 'bash' }
+    local langs = { 'typescript', 'javascript', 'vue', 'go', 'lua', 'markdown', 'markdown_inline', 'bash', 'html', 'css', 'scss', 'less' }
     for _, lang in ipairs(langs) do M.install(lang) end
     vim.cmd([[ au FileType * lua require('plugins/tree-sitter').M.parser_bootstrap() ]])
     vim.cmd([[ au BufRead,BufNewFile * lua require('plugins/tree-sitter').M.start() ]])
     M.parser_bootstrap()
 end
 
-return { "nvim-treesitter/nvim-treesitter", build = ':TSUpdate', init = M.init, config = M.config, M = M }
+return { "nvim-treesitter/nvim-treesitter", build = ':TSUpdate', dependencies = { 'windwp/nvim-ts-autotag' }, init = M.init, config = M.config, M = M }
