@@ -105,11 +105,15 @@ end
 -- Custom floating menu implementation
 local function open_picker(text, words, on_select)
     local items = {}
+    local max_len = 0
     for _, fmt in ipairs(format_options) do
-        table.insert(items, string.format(" %-20s -> %s ", fmt, formatters[fmt]({ 'user', 'name' })))
+        local result = formatters[fmt](words)
+        local line = string.format(" %-20s -> %s ", fmt, result)
+        table.insert(items, line)
+        max_len = math.max(max_len, #line)
     end
 
-    local width = 45
+    local width = math.max(45, max_len)
     local height = #items
     local buf = vim.api.nvim_create_buf(false, true)
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, items)
@@ -148,7 +152,6 @@ local function open_picker(text, words, on_select)
     vim.keymap.set("n", "j", "j", opts)
     vim.keymap.set("n", "k", "k", opts)
     
-    -- Disable other inputs to strictly allow only selection
     vim.cmd("setlocal nomodifiable")
 end
 
