@@ -219,7 +219,6 @@ end
 return {
     "custom_comment",
     virtual = true,
-    dir = vim.fn.stdpath("config") .. "/lua/plugins/custom-comment-virtual",
     init = function()
         vim.keymap.set({'n', 'v'}, '?', function() M.comment_code() end, { desc = 'Custom Comment', silent = true })
         vim.keymap.set({'n', 'v'}, '<S-/>', function() M.comment_code() end, { desc = 'Custom Comment', silent = true })

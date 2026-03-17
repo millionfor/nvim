@@ -81,7 +81,7 @@ function M.init_comment()
     }
     vim.keymap.set('n', '??', ':NToggleComment<cr>', { silent = true, noremap = true })
     vim.keymap.set('v', '/', ':<c-u>VToggleComment<cr>', { silent = true, noremap = true })
-    vim.keymap.set('v', '?', ':<c-u>CToggleComment<cr>', { silent = true, noremap = true })
+    -- vim.keymap.set('v', '?', ':<c-u>CToggleComment<cr>', { silent = true, noremap = true }) -- Commented out to prevent conflict with custom_comment.lua
 end
 
 function M.init_echo()
