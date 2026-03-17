@@ -373,6 +373,7 @@ M.config()
 
 return {
     "github-gist", -- Placeholder name since it's a local config
-    dir = vim.fn.stdpath("config") .. "/lua/plugins", -- Not really used but follows pattern
+    virtual = true,
+    dir = vim.fn.stdpath("config") .. "/lua/plugins/github-gist-virtual", -- Not really used but follows pattern
     lazy = false,
 }

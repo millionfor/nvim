@@ -190,7 +190,7 @@ end
 return {
     "case-converter",
     virtual = true,
-    dir = vim.fn.stdpath("config") .. "/lua/plugins",
+    dir = vim.fn.stdpath("config") .. "/lua/plugins/case-converter-virtual",
     init = function()
         vim.keymap.set({'n', 'v'}, '<leader>t', function()
             if vim.api.nvim_get_mode().mode:find('[vV]') then
