@@ -195,10 +195,13 @@ for _, c in ipairs({ '(', '[', '{', ')', ']', '}', '"', "'", '`' }) do
 end
 vim.keymap.set('i', '<BS>', magic_delpair, { expr = true, noremap = true })
 -- 选中范围文字
-vim.keymap.set('n', "<leader>'", "vi'", opts("选中 '' 内的文字"))
-vim.keymap.set('n', "<leader>''", 'vi"', opts("选中 \"\" 内的文字"))
-vim.keymap.set('n', "<leader>[[", "vi{", opts("选中 {} 内的数据"))
-vim.keymap.set('n', "<leader>[", "vi[", opts("选中 [] 内的数据"))
+vim.keymap.set('n', "<leader>'", function() vim.g.last_select_type = "'" return "vi'" end, opts("选中 '' 内的文字", { expr = true }))
+vim.keymap.set('n', "<leader>''", function() vim.g.last_select_type = '"' return 'vi"' end, opts('选中 "" 内的文字', { expr = true }))
+vim.keymap.set('n', "<leader>(", function() vim.g.last_select_type = 'b' return "vib" end, opts("选中 () 内的数据", { expr = true }))
+vim.keymap.set('n', "<leader>)", function() vim.g.last_select_type = 'b' return "vib" end, opts("选中 () 内的数据", { expr = true }))
+vim.keymap.set('n', "<leader>[", function() vim.g.last_select_type = '[' return "vi[" end, opts("选中 [] 内的数据", { expr = true }))
+vim.keymap.set('n', "<leader>[[", function() vim.g.last_select_type = '{' return "vi{" end, opts("选中 {} 内的数据", { expr = true }))
+vim.keymap.set('x', '<CR>', function() return 'a' .. (vim.g.last_select_type or "'") end, opts('扩大选中范围包含边界 (Enter)', { expr = true }))
 vim.keymap.set('n', "<leader><leader>", "vit", opts("选中当前层标签"))
 vim.keymap.set('x', "<leader>", "it", opts("扩大选中范围"))
 
