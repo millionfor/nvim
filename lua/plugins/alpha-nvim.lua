@@ -99,6 +99,14 @@ function M.config()
     }
   }
   alpha.setup(config)
+
+  -- Esc 退出
+  vim.api.nvim_create_autocmd('FileType', {
+    pattern = 'alpha',
+    callback = function()
+      vim.keymap.set('n', '<Esc>', ':qa<CR>', { buffer = true, silent = true })
+    end,
+  })
 end
 
 return {
