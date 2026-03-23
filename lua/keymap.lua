@@ -145,6 +145,14 @@ vim.keymap.set('n', '<c-u>', 'cc<Esc>', opts('Ctrl-u 清空一行'))
 vim.keymap.set('i', '<c-u>', '<Esc>cc', opts('Ctrl-u 清空一行'))
 
 -- windows & buffers
+local function smart_close_buffer()
+    if vim.bo.filetype == 'alpha' or #vim.fn.getbufinfo({ buflisted = 1 }) <= 1 then
+        vim.cmd('qa')
+    else
+        vim.cmd('bw')
+    end
+end
+
 vim.keymap.set('n', 'sv', ':vsp<cr><c-w>w', opts('左右分屏'))
 vim.keymap.set('n', 'sp', ':sp<cr><c-w>w', opts('上下分屏'))
 vim.keymap.set('n', 'sc', ':close<cr>', opts('关闭当前窗口'))
@@ -158,9 +166,9 @@ vim.keymap.set('n', '<leader>f', '<c-w>w', opts('切换窗口'))
 vim.keymap.set('n', 's=', '<c-w>=', opts('平均分配窗口'))
 vim.keymap.set('n', '<m-.>', function() return vim.fn.winnr() <= vim.fn.winnr('$') - vim.fn.winnr() and '<c-w>10>' or '<c-w>10<' end, opts('增大当前窗口', { expr = true }))
 vim.keymap.set('n', '<m-,>', function() return vim.fn.winnr() <= vim.fn.winnr('$') - vim.fn.winnr() and '<c-w>10<' or '<c-w>10>' end, opts('缩小当前窗口', { expr = true }))
-vim.keymap.set('n', 'W', ':bw<cr>', opts('关闭当前buffer'))
-vim.keymap.set('n', 'sd', ':bw<cr>', opts('关闭当前buffer'))
-vim.keymap.set('n', '<Esc><Esc>', 'sd', { remap = true, desc = '按两下esc 执行 sd 关闭buffer' })
+vim.keymap.set('n', 'W', smart_close_buffer, opts('关闭当前buffer'))
+vim.keymap.set('n', 'sd', smart_close_buffer, opts('关闭当前buffer'))
+vim.keymap.set('n', '<Esc><Esc>', smart_close_buffer, opts('按两下esc 关闭buffer/退出'))
 vim.keymap.set('n', 'ss', ':bn<cr>', opts('切换到下一个buffer'))
 vim.keymap.set('n', '<m-left>', ':bp<cr>', opts('切换到上一个buffer'))
 vim.keymap.set('n', '<m-right>', ':bn<cr>', opts('切换到下一个buffer'))
@@ -203,6 +211,7 @@ vim.keymap.set('n', "<leader>(", function() vim.g.last_select_type = 'b' return 
 vim.keymap.set('n', "<leader>)", function() vim.g.last_select_type = 'b' return "vib" end, opts("选中 () 内的数据", { expr = true }))
 vim.keymap.set('n', "<leader>[", function() vim.g.last_select_type = '[' return "vi[" end, opts("选中 [] 内的数据", { expr = true }))
 vim.keymap.set('n', "<leader>[[", function() vim.g.last_select_type = '{' return "vi{" end, opts("选中 {} 内的数据", { expr = true }))
+vim.keymap.set('n', "<leader>`", function() vim.g.last_select_type = '`' return "vi`" end, opts("选中 `` 内的数据", { expr = true }))
 vim.keymap.set('x', '<Space>', function() return 'a' .. (vim.g.last_select_type or "'") end, opts('扩大选中范围包含边界 (Space)', { expr = true }))
 vim.keymap.set('n', "<leader><leader>", "vit", opts("选中当前层标签"))
 vim.keymap.set('x', "<leader>", "it", opts("扩大选中范围"))
