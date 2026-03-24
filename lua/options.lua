@@ -79,3 +79,14 @@ function MagicFoldText()
     }
     return funcs[empty <= 2 and empty or -1](empty) .. ' folded ' .. folded .. ' lines '
 end
+
+-- Custom UI Highlights
+vim.api.nvim_create_autocmd("ColorScheme", {
+    pattern = "*",
+    callback = function()
+        vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
+        vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#8e44ad" })
+    end,
+})
+vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
+vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#8e44ad" })

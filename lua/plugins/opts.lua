@@ -143,6 +143,6 @@ return {
         version = "*",
         config = M.config_tt,
         keys = { 'mm' },
-        opts = { target = "zh", display = "float", keymaps = { translate = "mm", translate_word = "mm" }, float = { nvim_open_win = { relative = "cursor", row = 1, col = 0, anchor = "NW", border = "single", title = "" }, max_width = 50, max_height = 10 } }
+        opts = { target = "zh", display = "float", keymaps = { translate = "mm", translate_word = "mm" }, float = { nvim_open_win = { relative = "cursor", row = 1, col = 0, anchor = "NW", border = require("gradient_border").get(), title = "" }, max_width = 50, max_height = 10 } }
     },
 }

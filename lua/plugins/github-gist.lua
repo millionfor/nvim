@@ -247,30 +247,6 @@ function M.update_gist()
   end
 end
 
-local function define_gradient_highlights()
-  local colors = {
-    "#87d7ff", "#87afff", "#af87ff", "#d787ff",
-    "#ff87ff", "#ff87d7", "#ff87af", "#87d7ff"
-  }
-  for i, color in ipairs(colors) do
-    vim.api.nvim_set_hl(0, "GistGradient" .. i, { fg = color })
-  end
-end
-
-local function get_gradient_border()
-  define_gradient_highlights()
-  return {
-    { "╭", "GistGradient1" },
-    { "─", "GistGradient2" },
-    { "╮", "GistGradient3" },
-    { "│", "GistGradient4" },
-    { "╯", "GistGradient5" },
-    { "─", "GistGradient6" },
-    { "╰", "GistGradient7" },
-    { "│", "GistGradient8" },
-  }
-end
-
 function M.list_gists()
   local ok, fzf = pcall(require, "fzf-lua")
   if not ok then
@@ -313,7 +289,7 @@ function M.list_gists()
             width = 0.8,
             row = 0.5,
             col = 0.5,
-            border = get_gradient_border(),
+            border = require("gradient_border").get(),
             title = " GitHub Gists ",
             title_pos = "center",
         },

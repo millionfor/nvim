@@ -125,7 +125,7 @@ local function open_picker(text, words, on_select)
         width = width,
         height = height,
         style = "minimal",
-        border = "rounded",
+        border = require("gradient_border").get(),
         title = " Case Converter ",
         title_pos = "center",
     })

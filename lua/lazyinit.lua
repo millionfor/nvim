@@ -13,6 +13,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", {
     git = { timeout = 120, depth = 1 },
     ui = {
-        border = "rounded",
+        border = require("gradient_border").get(),
     },
 })

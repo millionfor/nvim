@@ -4,6 +4,8 @@ local M = {}
 function M.init_blink()
     vim.api.nvim_set_hl(0, "BlinkCmpSignatureHelpActiveParameter", { fg = "#00afaf", bold = true })
     vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#00afaf" })
+    -- Making scrollbar darker, using a deeper purple to match the gradient tone
+    vim.api.nvim_set_hl(0, "BlinkCmpMenuScrollbar", { fg = "#8e44ad" })
 end
 
 M.blink_opts = {
@@ -21,16 +23,16 @@ M.blink_opts = {
     },
     appearance = { nerd_font_variant = 'mono' },
     completion = {
-        documentation = { auto_show = true, auto_show_delay_ms = 200, window = { border = 'rounded' } },
+        documentation = { auto_show = true, auto_show_delay_ms = 200, window = { border = require('gradient_border').get() } },
         menu = {
-            border = 'rounded',
+            border = require('gradient_border').get(),
             draw = { columns = { { "kind_icon" }, { "label", "label_description", gap = 1 } } }
         },
         list = { selection = { preselect = true, auto_insert = true } },
         ghost_text = { enabled = false },
         accept = { auto_brackets = { enabled = false } }
     },
-    signature = { enabled = true, window = { border = 'rounded' } },
+    signature = { enabled = true, window = { border = require('gradient_border').get() } },
     cmdline = {
         keymap = {
 
@@ -73,7 +75,7 @@ M.blink_opts = {
 function M.saga_config()
     local capabilities = require('blink.cmp').get_lsp_capabilities()
     require('lspsaga').setup({
-        ui = { border = 'rounded', code_action = '💡' },
+        ui = { border = require('gradient_border').get(), code_action = '💡' },
         lightbulb = { enable = false },
         symbol_in_winbar = { enable = false },
         finder = { keys = { toggle_or_open = '<cr>', quit = { 'q', '<esc>' } } },
@@ -112,7 +114,7 @@ function M.saga_config()
 end
 
 return {
-    { "mason-org/mason.nvim", lazy = false, opts = { ui = { border = "rounded" } } },
+    { "mason-org/mason.nvim", lazy = false, opts = { ui = { border = require("gradient_border").get() } } },
     { 'nvimdev/lspsaga.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons', 'saghen/blink.cmp' }, lazy = false, config = M.saga_config },
     {
         "L3MON4D3/LuaSnip",

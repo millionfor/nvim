@@ -99,30 +99,6 @@ local function get_chinese_weekday()
     return days[day] or day
 end
 
-local function define_gradient_highlights()
-    local colors = {
-        "#87d7ff", "#87afff", "#af87ff", "#d787ff",
-        "#ff87ff", "#ff87d7", "#ff87af", "#87d7ff"
-    }
-    for i, color in ipairs(colors) do
-        vim.api.nvim_set_hl(0, "NvimTreeGradient" .. i, { fg = color })
-    end
-end
-
-local function get_gradient_border()
-    define_gradient_highlights()
-    return {
-        { "╭", "NvimTreeGradient1" },
-        { "─", "NvimTreeGradient2" },
-        { "╮", "NvimTreeGradient3" },
-        { "│", "NvimTreeGradient4" },
-        { "╯", "NvimTreeGradient5" },
-        { "─", "NvimTreeGradient6" },
-        { "╰", "NvimTreeGradient7" },
-        { "│", "NvimTreeGradient8" },
-    }
-end
-
 function M.config()
     local nvim_tree = require("nvim-tree")
     local api = require("nvim-tree.api")
@@ -179,7 +155,7 @@ function M.config()
                     local height = math.max(lines - 6, 10)
                     local left = math.ceil((columns - width) * 0.5)
                     local top = 3
-                    return { relative = "editor", border = get_gradient_border(), width = width, height = height, row = top, col = left }
+                    return { relative = "editor", border = require("gradient_border").get(), width = width, height = height, row = top, col = left }
                 end,
             }
         },
