@@ -147,9 +147,9 @@ vim.keymap.set('i', '<c-u>', '<Esc>cc', opts('Ctrl-u 清空一行'))
 -- windows & buffers
 local function smart_close_buffer()
     if vim.bo.filetype == 'alpha' or #vim.fn.getbufinfo({ buflisted = 1 }) <= 1 then
-        vim.cmd('qa')
+        vim.cmd('confirm qa')
     else
-        vim.cmd('bw')
+        vim.cmd('confirm bw')
     end
 end
 
