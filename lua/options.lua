@@ -87,10 +87,10 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
         vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#8e44ad" })
         vim.api.nvim_set_hl(0, "FzfLuaScrollFloatEmpty", { bg = "NONE" })
-        vim.api.nvim_set_hl(0, "FzfLuaScrollFloat", { bg = "#ff0000" })
+        vim.api.nvim_set_hl(0, "FzfLuaScrollFloat", { bg = "#8E44AD" })
     end,
 })
 vim.api.nvim_set_hl(0, "PmenuSbar", { bg = "NONE" })
 vim.api.nvim_set_hl(0, "PmenuThumb", { bg = "#8e44ad" })
 vim.api.nvim_set_hl(0, "FzfLuaScrollFloatEmpty", { bg = "NONE" })
-vim.api.nvim_set_hl(0, "FzfLuaScrollFloat", { bg = "#ff0000" })
+vim.api.nvim_set_hl(0, "FzfLuaScrollFloat", { bg = "#8E44AD" })
