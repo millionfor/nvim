@@ -11,6 +11,11 @@ end
 
 function M.config()
     require("fzf-lua").setup({
+        hls = {
+            border         = "FloatBorder",
+            scrollbar_f    = "FzfLuaScrollBorderFull",
+            scrollbar_e    = "FzfLuaScrollBorderEmpty",
+        },
         winopts = {
             border = require("gradient_border").get(),
             preview = {

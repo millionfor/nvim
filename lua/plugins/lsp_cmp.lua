@@ -4,8 +4,8 @@ local M = {}
 function M.init_blink()
     vim.api.nvim_set_hl(0, "BlinkCmpSignatureHelpActiveParameter", { fg = "#00afaf", bold = true })
     vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#00afaf" })
-    -- Making scrollbar darker, using a deeper purple to match the gradient tone
-    vim.api.nvim_set_hl(0, "BlinkCmpMenuScrollbar", { fg = "#8e44ad" })
+    -- Making scrollbar match the gradient border color
+    vim.api.nvim_set_hl(0, "BlinkCmpMenuScrollbar", { fg = "#ff87d7" })
 end
 
 M.blink_opts = {
