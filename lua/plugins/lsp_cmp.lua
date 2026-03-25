@@ -77,6 +77,7 @@ function M.saga_config()
     require('lspsaga').setup({
         ui = { border = require('gradient_border').get(), code_action = '💡' },
         lightbulb = { enable = false },
+        beacon = { enable = false },
         symbol_in_winbar = { enable = false },
         finder = { keys = { toggle_or_open = '<cr>', quit = { 'q', '<esc>' } } },
         definition = { keys = { edit = '<cr>', quit = { 'q', '<esc>' } } },
@@ -95,7 +96,8 @@ function M.saga_config()
             end
 
             local opts = { silent = true, buffer = bufnr }
-            vim.keymap.set('n', 'gd', '<cmd>Lspsaga goto_definition<cr>', opts)
+            local frontend_jump = require('frontend_jump')
+            vim.keymap.set('n', 'gd', function() frontend_jump.jump() end, opts)
             vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
             vim.keymap.set('n', 'gy', '<cmd>Lspsaga goto_type_definition<cr>', opts)
             vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
