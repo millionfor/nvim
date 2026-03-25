@@ -176,7 +176,10 @@ function M.config()
                 }
             }
         },
-        filters = { dotfiles = true },
+        filters = { 
+            dotfiles = false,
+            custom = { "^\\.git$" }
+        },
         diagnostics = {
             enable = true,
             show_on_dirs = true,
