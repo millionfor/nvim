@@ -114,7 +114,7 @@ function M.saga_config()
 end
 
 return {
-    { "mason-org/mason.nvim", lazy = false, opts = { ui = { border = require("gradient_border").get() } } },
+    { "mason-org/mason.nvim", lazy = false, opts = { ui = { border = require("gradient_border").get() } }, keys = { { '<leader>m', '<cmd>Mason<cr>', desc = 'Mason' } } },
     { 'nvimdev/lspsaga.nvim', dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons', 'saghen/blink.cmp' }, lazy = false, config = M.saga_config },
     {
         "L3MON4D3/LuaSnip",
