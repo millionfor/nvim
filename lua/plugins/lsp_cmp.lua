@@ -6,6 +6,15 @@ function M.init_blink()
     vim.api.nvim_set_hl(0, "BlinkCmpLabelMatch", { fg = "#00afaf" })
     -- Making scrollbar match the gradient border color
     vim.api.nvim_set_hl(0, "BlinkCmpMenuScrollbar", { fg = "#ff87d7" })
+    
+    vim.api.nvim_create_autocmd('CmdlineEnter', {
+        callback = function()
+            local type = vim.fn.getcmdtype()
+            if type == '/' or type == '?' then
+                vim.schedule(function() require('blink.cmp').show() end)
+            end
+        end
+    })
 end
 
 M.blink_opts = {
@@ -58,7 +67,7 @@ M.blink_opts = {
             },
             ['<C-e>'] = { 'cancel', 'fallback' },
         },
-        sources = { "fixedkeyword", "cmdline", "buffer" },
+        sources = { "search_history", "fixedkeyword", "cmdline", "buffer" },
         completion = { menu = { auto_show = true }, list = { selection = { preselect = true, auto_insert = true } } }
     },
     sources = {
@@ -66,7 +75,15 @@ M.blink_opts = {
         providers = {
             datword = { name = "datword", module = "blink-cmp-dat-word", opts = { paths = {  vim.fn.stdpath('config') .. "/word.txt" } } },
             ripgrep = { name = "ripgrep", module = "blink-ripgrep", opts = { debounce_ms = 200, max_item_count = 100 } },
-            fixedkeyword = { name = 'keyword 固定在第一位', module = 'fixedkeyword', opts = {}, score_offset = 999 }
+            fixedkeyword = { name = 'keyword 固定在第一位', module = 'fixedkeyword', opts = {}, score_offset = 999 },
+            search_history = {
+                name = 'Search History',
+                module = 'blink-cmp-history',
+                score_offset = 100,
+                async = false,
+                min_keyword_length = 0,
+                enabled = function() return vim.fn.getcmdtype() == '/' or vim.fn.getcmdtype() == '?' end,
+            }
         }
     },
     fuzzy = { implementation = "prefer_rust_with_warning" },
