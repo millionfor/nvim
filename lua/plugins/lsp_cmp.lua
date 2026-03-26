@@ -10,8 +10,12 @@ function M.init_blink()
     vim.api.nvim_create_autocmd('CmdlineEnter', {
         callback = function()
             local type = vim.fn.getcmdtype()
-            if type == '/' or type == '?' then
-                vim.schedule(function() require('blink.cmp').show() end)
+            if type == '/' or type == '?' or type == ':' then
+                vim.schedule(function()
+                    if vim.fn.mode() == 'c' then
+                        require('blink.cmp').show()
+                    end
+                end)
             end
         end
     })
@@ -67,7 +71,7 @@ M.blink_opts = {
             },
             ['<C-e>'] = { 'cancel', 'fallback' },
         },
-        sources = { "search_history", "fixedkeyword", "cmdline", "buffer" },
+        sources = { "cmdlinehistory", "fixedkeyword", "cmdline", "buffer" },
         completion = { menu = { auto_show = true }, list = { selection = { preselect = true, auto_insert = true } } }
     },
     sources = {
@@ -76,13 +80,10 @@ M.blink_opts = {
             datword = { name = "datword", module = "blink-cmp-dat-word", opts = { paths = {  vim.fn.stdpath('config') .. "/word.txt" } } },
             ripgrep = { name = "ripgrep", module = "blink-ripgrep", opts = { debounce_ms = 200, max_item_count = 100 } },
             fixedkeyword = { name = 'keyword 固定在第一位', module = 'fixedkeyword', opts = {}, score_offset = 999 },
-            search_history = {
-                name = 'Search History',
-                module = 'blink-cmp-history',
+            cmdlinehistory = {
+                name = 'history',
+                module = 'cmdlinehistory',
                 score_offset = 100,
-                async = false,
-                min_keyword_length = 0,
-                enabled = function() return vim.fn.getcmdtype() == '/' or vim.fn.getcmdtype() == '?' end,
             }
         }
     },
@@ -146,7 +147,7 @@ return {
     },
     {
         'saghen/blink.cmp',
-        dependencies = { "L3MON4D3/LuaSnip", "xieyonn/blink-cmp-dat-word", "mikavilpas/blink-ripgrep.nvim", "yaocccc/blink-cmp-fixedkeyword" },
+        dependencies = { "L3MON4D3/LuaSnip", "xieyonn/blink-cmp-dat-word", "mikavilpas/blink-ripgrep.nvim", "yaocccc/blink-cmp-fixedkeyword", "yaocccc/blink-cmp-cmdlinehistory" },
         version = '1.*',
         lazy = false,
         init = M.init_blink,

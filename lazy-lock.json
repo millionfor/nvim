@@ -3,6 +3,7 @@
   "align.nvim": { "branch": "v2", "commit": "bc5d57df5f4c26f6abee6b6c8529308c2c126d2b" },
   "alpha-nvim": { "branch": "main", "commit": "a9d8fb72213c8b461e791409e7feabb74eb6ce73" },
   "babel.nvim": { "branch": "main", "commit": "cd76c79deb9eb0f61b06a2e4f33f8cc28eba4f9d" },
+  "blink-cmp-cmdlinehistory": { "branch": "master", "commit": "63c6cd77fd82f03283bac19506e6272dbd9fd3b2" },
   "blink-cmp-dat-word": { "branch": "main", "commit": "0c58fe92bd94710c52a5cb3a89c63a47bc851733" },
   "blink-cmp-fixedkeyword": { "branch": "master", "commit": "8ebecdb9de5efc5cddd60544bb50fd99ff1aea9f" },
   "blink-ripgrep.nvim": { "branch": "main", "commit": "d879b9b54cb70ae9e8585fc6c834d2682a17d4a9" },
