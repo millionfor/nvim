@@ -71,7 +71,7 @@ M.blink_opts = {
             },
             ['<C-e>'] = { 'cancel', 'fallback' },
         },
-        sources = { "cmdlinehistory", "fixedkeyword", "cmdline", "buffer" },
+        sources = { "cmdlinehistory", "cmdline", "buffer" },
         completion = { menu = { auto_show = true }, list = { selection = { preselect = true, auto_insert = true } } }
     },
     sources = {
@@ -79,7 +79,6 @@ M.blink_opts = {
         providers = {
             datword = { name = "datword", module = "blink-cmp-dat-word", opts = { paths = {  vim.fn.stdpath('config') .. "/word.txt" } } },
             ripgrep = { name = "ripgrep", module = "blink-ripgrep", opts = { debounce_ms = 200, max_item_count = 100 } },
-            fixedkeyword = { name = 'keyword 固定在第一位', module = 'fixedkeyword', opts = {}, score_offset = 999 },
             cmdlinehistory = {
                 name = 'history',
                 module = 'cmdlinehistory',
@@ -147,7 +146,7 @@ return {
     },
     {
         'saghen/blink.cmp',
-        dependencies = { "L3MON4D3/LuaSnip", "xieyonn/blink-cmp-dat-word", "mikavilpas/blink-ripgrep.nvim", "yaocccc/blink-cmp-fixedkeyword", "yaocccc/blink-cmp-cmdlinehistory" },
+        dependencies = { "L3MON4D3/LuaSnip", "xieyonn/blink-cmp-dat-word", "mikavilpas/blink-ripgrep.nvim", "yaocccc/blink-cmp-cmdlinehistory" },
         version = '1.*',
         lazy = false,
         init = M.init_blink,
