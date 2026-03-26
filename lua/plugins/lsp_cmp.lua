@@ -66,7 +66,7 @@ M.blink_opts = {
                         end
                     end
                 end,
-                'select_and_accept',
+                'select_accept_and_enter',
                 'fallback'
             },
             ['<C-e>'] = { 'cancel', 'fallback' },
