@@ -8,13 +8,13 @@ return {
         vtsls = {
             tsserver = {
                 globalPlugins = {
-                    {
-                        name = '@vue/typescript-plugin',
-                        location = vue_plugin_path,
-                        languages = { 'vue' },
-                        configNamespace = 'typescript',
-                        enableForWorkspaceTypeScriptVersions = true,
-                    },
+                    -- {
+                    --     name = '@vue/typescript-plugin',
+                    --     location = vue_plugin_path,
+                    --     languages = { 'vue' },
+                    --     configNamespace = 'typescript',
+                    --     enableForWorkspaceTypeScriptVersions = true,
+                    -- },
                 },
             },
         },
