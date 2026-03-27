@@ -1,4 +1,4 @@
-local vue_plugin_path = vim.fn.stdpath('data') .. '/mason/packages/vue-language-server/node_modules/@vue/language-server'
+local vue_plugin_path = vim.fn.stdpath('data') .. '/mason/packages/vue-language-server/node_modules/@vue/typescript-plugin'
 
 return {
     cmd = { 'vtsls', '--stdio' },
