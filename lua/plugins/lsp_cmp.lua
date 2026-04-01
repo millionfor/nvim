@@ -29,6 +29,9 @@ M.blink_opts = {
         ['<Up>'] = { 'select_prev', 'fallback' },
         ['<Down>'] = { 'select_next', 'fallback' },
 
+        ['<Tab>'] = { 'snippet_forward', 'fallback' },
+        ['<S-Tab>'] = { 'snippet_backward', 'fallback' },
+
         ['<CR>'] = { 'accept', 'fallback' },
         ['<C-y>'] = { 'select_and_accept', 'fallback' },
         ['<C-e>'] = { 'cancel', 'fallback' },
@@ -83,7 +86,10 @@ M.blink_opts = {
                 name = 'history',
                 module = 'cmdlinehistory',
                 score_offset = 100,
-            }
+            },
+            snippets = {
+                score_offset = 100,
+            },
         }
     },
     fuzzy = { implementation = "prefer_rust_with_warning" },
