@@ -78,7 +78,7 @@ M.blink_opts = {
         completion = { menu = { auto_show = true }, list = { selection = { preselect = true, auto_insert = true } } }
     },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', "ripgrep", "datword" },
+        default = { 'path', 'lsp', 'snippets', 'buffer', "ripgrep", "datword" },
         providers = {
             datword = { name = "datword", module = "blink-cmp-dat-word", opts = { paths = {  vim.fn.stdpath('config') .. "/word.txt" } } },
             ripgrep = { name = "ripgrep", module = "blink-ripgrep", opts = { debounce_ms = 200, max_item_count = 100 } },
@@ -89,6 +89,18 @@ M.blink_opts = {
             },
             snippets = {
                 score_offset = 100,
+            },
+            path = {
+                name = 'path',
+                module = 'blink.cmp.sources.path',
+                score_offset = 150,
+                min_keyword_length = 0,
+                opts = {
+                    trailing_slash = true,
+                    label_trailing_slash = true,
+                    get_cwd = function(context) return vim.fn.expand(('#%d:p:h'):format(context.bufnr)) end,
+                    show_hidden_files_by_default = true,
+                }
             },
         }
     },

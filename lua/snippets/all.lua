@@ -2,6 +2,9 @@ local ls = require("luasnip")
 local s = ls.snippet
 local t = ls.text_node
 local f = ls.function_node
+local i = ls.insert_node
+local d = ls.dynamic_node
+local sn = ls.snippet_node
 
 return {
     s("upv", {
@@ -100,5 +103,20 @@ return {
             end
             return "weather fetch failed"
         end)
+    }),
+    s("im", {
+        t("import "),
+        d(2, function(args)
+            local path = args[1][1]
+            local name = path:match("([^/]+)$") or ""
+            name = name:gsub("%.%w+$", "")
+            if path:match("^%./_source/") then
+                name = "m" .. name:gsub("^%l", string.upper)
+            end
+            return sn(nil, { i(1, name) })
+        end, { 1 }),
+        t(" from '"),
+        i(1, "./"),
+        t("';")
     })
 }
