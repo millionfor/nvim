@@ -36,15 +36,15 @@ function G_markdown_loadafter(_bufnr)
         vim.bo.softtabstop = 2
 
         vim.cmd([[
-            syn match markdownError "\w\@<=\w\@="
+            hi link markdownError Normal
             syn match MDDoneDate /[SD]:\d\{4\}\([\/-]\d\d\)\{2\}/ contained
             syn match MDTodoDate /[SD]:\d\{4\}\([\/-]\d\d\)\{2\}/ contained
             syn match MDDoneText /\zs.*- \[x\] \zs.*/ contains=MDDoneDate contained
             syn match MDTodoText /- \[ \] \zs.*/ contains=MDTodoDate contained
             syn match MDTask /\zs.*- \[\(x\| \)\] .*/ contains=MDDoneText,MDTodoText
-            call matchadd('MDDeadline', 'D:'.strftime("%Y-%m-%d"))
-            call matchadd('MDNearline', 'D:'.strftime("%Y-%m-%d", localtime() + 3600 * 24))
-            call matchadd('MDNearline', 'D:'.strftime("%Y-%m-%d", localtime() + 3600 * 48))
+            exe 'syn match MDDeadline "D:'.strftime("%Y-%m-%d").'"'
+            exe 'syn match MDNearline "D:'.strftime("%Y-%m-%d", localtime() + 3600 * 24).'"'
+            exe 'syn match MDNearline "D:'.strftime("%Y-%m-%d", localtime() + 3600 * 48).'"'
         ]])
     end)
 end

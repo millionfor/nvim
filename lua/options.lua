@@ -98,3 +98,11 @@ vim.api.nvim_set_hl(0, "FzfLuaScrollFloatEmpty", { bg = "NONE", fg = "NONE" })
 vim.api.nvim_set_hl(0, "FzfLuaScrollFloatFull", { bg = "#ff87d7", fg = "#ff87d7" })
 vim.api.nvim_set_hl(0, "FzfLuaScrollBorderEmpty", { bg = "NONE", fg = "NONE" })
 vim.api.nvim_set_hl(0, "FzfLuaScrollBorderFull", { bg = "NONE", fg = "#ff87d7" })
+
+-- 修复使用输入法或修改注入 Markdown 模块时，有时引起 Treesitter 偶发跨区越界报错问题
+local orig_set_extmark = vim.api.nvim_buf_set_extmark
+vim.api.nvim_buf_set_extmark = function(bufnr, ns_id, line, col, opts)
+    local ok, res = pcall(orig_set_extmark, bufnr, ns_id, line, col, opts)
+    if not ok then return 0 end
+    return res
+end
