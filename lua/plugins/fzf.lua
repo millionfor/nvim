@@ -13,7 +13,7 @@ function M.init()
             -- fd options: hide .git, follow links, handle gitignore logic
             fd_opts = "--color=never --type f --hidden --follow --exclude .git" .. (not has_gitignore and " --no-ignore" or ""),
             -- rg options: formatting for live grep, handle gitignore logic, exclude .git
-            rg_opts = "--column --line-number --no-heading --color=always --smart-case --hidden " .. (not has_gitignore and "--no-ignore " or "") .. "-g '!.git'",
+            rg_opts = "--column --line-number --no-heading --color=always --smart-case --fixed-strings --hidden " .. (not has_gitignore and "--no-ignore " or "") .. "-g '!.git'",
         }
     end
 
