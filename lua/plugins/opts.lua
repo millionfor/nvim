@@ -40,29 +40,28 @@ function M.init_line()
     vim.cmd('au VimEnter * hi VimLine_Other ctermfg=245 guifg=#8a8a8a')
 end
 
-function M.init_mc()
-    vim.g.VM_theme = 'ocean'
-    vim.g.VM_highlight_matches = 'underline'
-    vim.g.VM_maps = {
-        ['Find Under'] = '<C-n>',
-        ['Find Subword Under'] = '<C-n>',
-        ['Select All'] = '<C-d>',
-        ['Select h'] = '<C-Left>',
-        ['Select l'] = '<C-Right>',
-        ['Add Cursor Up'] = '<C-Up>',
-        ['Add Cursor Down'] = '<C-Down>',
-        ['Add Cursor At Pos'] = '<C-x>',
-        ['Add Cursor At Word'] = '<C-w>',
-        ['Move Left'] = '<C-S-Left>',
-        ['Move Right'] = '<C-S-Right>',
-        ['Remove Region'] = 'q',
-        ['Increase'] = '+',
-        ['Decrease'] = '_',
-        ["Undo"] = 'u',
-        ["Redo"] = '<C-r>',
-        ["I Return"] = '',
+M.mc_opts = {
+    mappings = {
+        find_next = '<C-n>',
+        select_all = '<C-d>',
+        select_left = '<C-Left>',
+        select_right = '<C-Right>',
+        add_cursor_up = '<C-Up>',
+        add_cursor_down = '<C-Down>',
+        add_cursor = '<C-x>',
+        add_cursor_word = '<C-w>',
+        move_left = '<C-S-Left>',
+        move_right = '<C-S-Right>',
+        remove_region = 'q',
+        increase = '+',
+        decrease = '_',
+        undo = 'u',
+        redo = '<C-r>',
+    },
+    highlights = {
+        cursor = { bg = "#E0E094", fg = "#4e4e4e" },
     }
-end
+}
 
 function M.init_comment()
     vim.g.vim_line_comments = {
@@ -108,7 +107,7 @@ return {
     { "yianwillis/vimcdoc", event = "CmdLineEnter" },
     { "uga-rosa/ccc.nvim", cmd = { 'CccPick', 'CccHighlighterEnable' }, opts = {} },
     { "Mr-LLLLL/interestingwords.nvim", keys = { 'ff', 'FF' }, opts = iwopts },
-    { "mg979/vim-visual-multi", event = 'CursorHold', init = M.init_mc },
+    { "yaocccc/visual-multi.nvim", event = 'CursorHold', opts = M.mc_opts },
     { "yaocccc/nvim-lines.lua", init = M.init_line },
     { "yaocccc/vim-comment", cmd = { "NToggleComment", "VToggleComment", "CToggleComment" }, init = M.init_comment },
     { "yaocccc/nvim-foldsign", event = 'CursorHold', opts = {} },

@@ -21,6 +21,7 @@ M.lsp_by_ft = {
     sh = { "bashls" },
     bash = { "bashls" },
     zsh = { "bashls" },
+    java = { "jdtls" },
 }
 
 M.pkg_by_lsp = {
@@ -35,6 +36,7 @@ M.pkg_by_lsp = {
     tailwindcss = "tailwindcss-language-server",
     emmet_ls = "emmet-ls",
     solidity_ls = "nomicfoundation-solidity-language-server",
+    jdtls = "jdtls",
 }
 
 vim.diagnostic.config({ signs = { text = { [1] = '┃', [2] = '┃', [3] = '┃', [4] = '┃' } }, update_in_insert = false })
@@ -68,8 +70,10 @@ vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "VimEnter" }, {
                 if has_config then
                     lsp_config = config
                 end
-                vim.lsp.config(lsp, lsp_config)
-                vim.lsp.enable(lsp)
+                if lsp ~= "jdtls" then
+                    vim.lsp.config(lsp, lsp_config)
+                    vim.lsp.enable(lsp)
+                end
             end
         end
     end,
