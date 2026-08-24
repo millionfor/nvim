@@ -1,37 +1,5 @@
 local M = {}
 
-function M.install(lang)
-    local parsers = require('nvim-treesitter.parsers')
-    if not parsers[lang] then return end -- Silence warnings for unsupported filetypes
-
-    local config = require('nvim-treesitter.config')
-    local installed = config.get_installed()
-    if vim.list_contains(installed, lang) then return end
-    
-    vim.cmd('TSInstall ' .. lang)
-end
-
-function M.start()
-    local filetype = vim.bo.filetype
-    local lang = vim.treesitter.language.get_lang(filetype) or filetype
-    local parsers = require('nvim-treesitter.parsers')
-    if not parsers[lang] then return end
-
-    local config = require('nvim-treesitter.config')
-    if vim.list_contains(config.get_installed(), lang) then
-        vim.treesitter.start()
-    end
-end
-
-function M.parser_bootstrap()
-    local filetype = vim.bo.filetype
-    if not filetype or filetype == "" then return end
-    
-    local lang = vim.treesitter.language.get_lang(filetype) or filetype
-    M.install(lang)
-    M.start()
-end
-
 function M.init()
     vim.api.nvim_set_hl(0, "@identifier", { fg = "NONE" })
     vim.api.nvim_set_hl(0, "@variable", { fg = "NONE" })
@@ -85,31 +53,56 @@ function M.init()
     vim.api.nvim_set_hl(0, "TodoText", { fg = "#00afd7", bg = 'NONE', bold = true })
     vim.api.nvim_set_hl(0, "Note", { fg = "#1c1c1c", bg = "#5fd787", bold = true })
     vim.api.nvim_set_hl(0, "NoteText", { fg = "#5fd787", bg = 'NONE', bold = true })
-    vim.cmd([[call matchadd('Todo', 'TODO!*:\{0,1\}')]])
-    vim.cmd([[call matchadd('TodoText', 'TODO!*:\{0,1\}\zs.*')]])
-    vim.cmd([[call matchadd('Note', 'NOTE!*:\{0,1\}')]])
-    vim.cmd([[call matchadd('NoteText', 'NOTE!*:\{0,1\}\zs.*')]])
+end
+
+function M.start_treesitter(bufnr)
+    bufnr = bufnr or vim.api.nvim_get_current_buf()
+    if not vim.api.nvim_buf_is_valid(bufnr) then return end
+    
+    local ft = vim.bo[bufnr].filetype
+    if not ft or ft == "" or ft == "lazy" or ft == "mason" or ft == "NvimTree" then return end
+
+    -- 大文件保护（超过 100KB 禁用 treesitter 高亮，防止卡顿）
+    local name = vim.api.nvim_buf_get_name(bufnr)
+    if name ~= "" then
+        local ok_stat, stats = pcall(vim.uv.fs_stat, name)
+        if ok_stat and stats and stats.size > 100 * 1024 then
+            return
+        end
+    end
+
+    local ok = pcall(vim.treesitter.start, bufnr)
+    if ok then
+        -- 启动 Treesitter 后关闭 Vim 传统慢速正则语法高亮，避免重复双重渲染卡顿
+        vim.bo[bufnr].syntax = ""
+    end
 end
 
 function M.config()
-    require('nvim-treesitter').setup({
-        autotag = {
-            enable = true,
-        },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                init_selection = "<leader><leader>",
-                node_incremental = "<leader>",
-                node_decremental = "<bs>",
-            },
-        },
+    require('nvim-treesitter').setup()
+
+    -- 自动配置 autotag
+    pcall(function()
+        require('nvim-ts-autotag').setup()
+    end)
+
+    -- 监听文件类型与读取事件，启动高性能 Treesitter 高亮
+    local group = vim.api.nvim_create_augroup("TreeSitterStarter", { clear = true })
+    vim.api.nvim_create_autocmd({ "FileType", "BufReadPost" }, {
+        group = group,
+        callback = function(args)
+            M.start_treesitter(args.buf)
+        end,
     })
-    local langs = { 'typescript', 'javascript', 'vue', 'go', 'lua', 'markdown', 'markdown_inline', 'bash', 'html', 'css', 'scss', 'less' }
-    for _, lang in ipairs(langs) do M.install(lang) end
-    vim.cmd([[ au FileType * lua require('plugins/tree-sitter').M.parser_bootstrap() ]])
-    vim.cmd([[ au BufRead,BufNewFile * lua require('plugins/tree-sitter').M.start() ]])
-    M.parser_bootstrap()
+
+    M.start_treesitter()
 end
 
-return { "nvim-treesitter/nvim-treesitter", build = ':TSUpdate', dependencies = { 'windwp/nvim-ts-autotag' }, init = M.init, config = M.config, M = M }
+return {
+    "nvim-treesitter/nvim-treesitter",
+    build = ':TSUpdate',
+    dependencies = { 'windwp/nvim-ts-autotag' },
+    init = M.init,
+    config = M.config,
+    M = M,
+}
