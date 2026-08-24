@@ -113,8 +113,17 @@ function M.config()
         vim.keymap.set('n', '<BS>', api.tree.change_root_to_parent, opts('Up'))
         vim.keymap.set('n', '<Esc>', api.tree.close, opts('Close'))
         vim.keymap.set('n', '<Left>', api.node.navigate.parent_close, opts('Close Directory'))
-        vim.keymap.set('n', '<Right>', api.node.open.edit, opts('Open'))
-        vim.keymap.set('n', '<CR>', api.node.open.edit, opts('Open'))
+        local function open_or_preview()
+            local node = api.tree.get_node_under_cursor()
+            if node and node.type == "file" and require("image_preview").is_image(node.absolute_path) then
+                require("image_preview").open(node.absolute_path)
+                return
+            end
+            api.node.open.edit()
+        end
+
+        vim.keymap.set('n', '<Right>', open_or_preview, opts('Open / Preview'))
+        vim.keymap.set('n', '<CR>', open_or_preview, opts('Open / Preview'))
         vim.keymap.set('n', ')', api.node.navigate.git.next, opts('Next Git'))
         vim.keymap.set('n', '(', api.node.navigate.git.prev, opts('Prev Git'))
         vim.keymap.set('n', '>', api.node.navigate.diagnostics.next, opts('Next Diagnostic'))

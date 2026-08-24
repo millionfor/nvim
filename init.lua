@@ -3,6 +3,7 @@ require('options')  -- 基础配置
 require('lazyinit') -- 插件配置 (lazy.nvim)
 require('keymap')   -- 按键配置
 require('lspinit')  -- LSP 配置
+require('image_preview').setup() -- 图片预览配置与拦截
 
 -- 保存更新当前时间
 vim.api.nvim_create_autocmd("BufWritePre", {
