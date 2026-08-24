@@ -22,6 +22,8 @@ vim.opt.whichwrap = 'b,s,<,>,h,'
 vim.opt.mouse = 'a'
 vim.opt.vb = true
 vim.opt.hidden = true
+vim.opt.synmaxcol = 300
+vim.opt.redrawtime = 1500
 vim.opt.autoindent = true
 vim.opt.smartindent = true
 vim.opt.tabstop = 2
@@ -55,8 +57,8 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, { command = [[if &buftype == '' && &
 vim.api.nvim_create_autocmd({ "BufReadPost" }, { command = [[if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif]] })
 vim.api.nvim_create_autocmd({ "FileType" }, { command = "try | silent! loadview | catch | endtry" })
 vim.api.nvim_create_autocmd({ "BufLeave", "BufWinLeave" }, { command = "silent! mkview" })
-vim.api.nvim_create_autocmd({ "InsertEnter" }, { command = "hi CursorLine ctermbg=235 guibg=#262626" })
-vim.api.nvim_create_autocmd({ "InsertLeave" }, { command = "hi CursorLine ctermbg=none guibg=none" })
+vim.api.nvim_create_autocmd({ "InsertEnter" }, { callback = function() vim.api.nvim_set_hl(0, "CursorLine", { bg = "#262626", ctermbg = 235 }) end })
+vim.api.nvim_create_autocmd({ "InsertLeave" }, { callback = function() vim.api.nvim_set_hl(0, "CursorLine", { bg = "none", ctermbg = "none" }) end })
 
 -- 展示FoldText的方法
 function MagicFoldText()
@@ -99,10 +101,3 @@ vim.api.nvim_set_hl(0, "FzfLuaScrollFloatFull", { bg = "#ff87d7", fg = "#ff87d7"
 vim.api.nvim_set_hl(0, "FzfLuaScrollBorderEmpty", { bg = "NONE", fg = "NONE" })
 vim.api.nvim_set_hl(0, "FzfLuaScrollBorderFull", { bg = "NONE", fg = "#ff87d7" })
 
--- 修复使用输入法或修改注入 Markdown 模块时，有时引起 Treesitter 偶发跨区越界报错问题
-local orig_set_extmark = vim.api.nvim_buf_set_extmark
-vim.api.nvim_buf_set_extmark = function(bufnr, ns_id, line, col, opts)
-    local ok, res = pcall(orig_set_extmark, bufnr, ns_id, line, col, opts)
-    if not ok then return 0 end
-    return res
-end
