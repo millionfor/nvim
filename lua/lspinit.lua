@@ -52,27 +52,36 @@ vim.api.nvim_create_autocmd("CursorHold", {
     end
 })
 
-vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "VimEnter" }, {
+local initialized_lsp = {}
+vim.api.nvim_create_autocmd({ "FileType" }, {
     group = vim.api.nvim_create_augroup("MYLSPINIT", { clear = true }),
     callback = function(event)
-        local registry = require("mason-registry")
-        for _, lsp in ipairs(M.lsp_by_ft[vim.bo[event.buf].filetype] or {}) do
-            local pkg_name = M.pkg_by_lsp[lsp]
-            local ok, pkg = pcall(registry.get_package, pkg_name)
-            if ok then
-                if not pkg:is_installed() and not pkg:is_installing() then
-                    print("Installing " .. pkg_name .. " for " .. lsp)
-                    pkg:install()
-                end
+        local ft = vim.bo[event.buf].filetype
+        if not ft or ft == "" then return end
+        local lsps = M.lsp_by_ft[ft]
+        if not lsps then return end
 
-                local lsp_config = {}
-                local has_config, config = pcall(require, "lsp." .. lsp)
-                if has_config then
-                    lsp_config = config
-                end
-                if lsp ~= "jdtls" then
-                    vim.lsp.config(lsp, lsp_config)
-                    vim.lsp.enable(lsp)
+        local registry = require("mason-registry")
+        for _, lsp in ipairs(lsps) do
+            if not initialized_lsp[lsp] then
+                local pkg_name = M.pkg_by_lsp[lsp]
+                local ok, pkg = pcall(registry.get_package, pkg_name)
+                if ok then
+                    if not pkg:is_installed() and not pkg:is_installing() then
+                        print("Installing " .. pkg_name .. " for " .. lsp)
+                        pkg:install()
+                    end
+
+                    local lsp_config = {}
+                    local has_config, config = pcall(require, "lsp." .. lsp)
+                    if has_config then
+                        lsp_config = config
+                    end
+                    if lsp ~= "jdtls" then
+                        vim.lsp.config(lsp, lsp_config)
+                        vim.lsp.enable(lsp)
+                    end
+                    initialized_lsp[lsp] = true
                 end
             end
         end
