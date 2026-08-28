@@ -108,6 +108,17 @@ M.blink_opts = {
 }
 
 function M.saga_config()
+    -- 兼容补丁：Neovim 0.11+ 移除了内部私有函数 _get_line_byte_from_position，导致 lspsaga 跳转报错
+    if vim.lsp.util and not vim.lsp.util._get_line_byte_from_position then
+        vim.lsp.util._get_line_byte_from_position = function(bufnr, position, offset_encoding)
+            local bufnr_val = (bufnr == 0 or bufnr == nil) and vim.api.nvim_get_current_buf() or bufnr
+            local lines = vim.api.nvim_buf_get_lines(bufnr_val, position.line, position.line + 1, false)
+            if #lines == 0 then return 0 end
+            local ok, byte_idx = pcall(vim.str_byteindex, lines[1], position.character, offset_encoding == 'utf-16')
+            return ok and byte_idx or position.character
+        end
+    end
+
     local capabilities = require('blink.cmp').get_lsp_capabilities()
     require('lspsaga').setup({
         ui = { border = require('gradient_border').get(), code_action = '💡' },
