@@ -55,7 +55,6 @@ APT_PACKAGES=(
     gzip
     ripgrep
     fd-find
-    fzf
     xclip
     wl-clipboard
     ranger
@@ -76,13 +75,16 @@ fi
 
 # 2. Debian 12 fd 命令别名兼容 (fdfind -> fd)
 log_info "配置 Debian 12 fd 命令适配..."
-if has_cmd fdfind && ! has_cmd fd; then
+if has_cmd fdfind; then
     FDFIND_PATH="$(command -v fdfind)"
     if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
+        run_sudo rm -f /usr/local/bin/fd /usr/bin/fd 2>/dev/null || true
         run_sudo ln -sf "$FDFIND_PATH" /usr/local/bin/fd
-        log_success "已创建软链接: /usr/local/bin/fd -> ${FDFIND_PATH}"
+        run_sudo ln -sf "$FDFIND_PATH" /usr/bin/fd 2>/dev/null || true
+        log_success "已创建软链接并覆盖: /usr/local/bin/fd -> ${FDFIND_PATH}"
     else
         mkdir -p "${HOME}/.local/bin"
+        rm -f "${HOME}/.local/bin/fd" 2>/dev/null || true
         ln -sf "$FDFIND_PATH" "${HOME}/.local/bin/fd"
         log_success "已创建软链接: ~/.local/bin/fd -> ${FDFIND_PATH}"
     fi
@@ -149,11 +151,14 @@ if [ "$NEEDS_NVIM_INSTALL" -eq 1 ]; then
             run_sudo mkdir -p /opt
             run_sudo rm -rf "/opt/nvim-linux-${NVIM_ARCH}"
             run_sudo tar -C /opt -xzf "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
+            run_sudo rm -f /usr/local/bin/nvim /usr/bin/nvim 2>/dev/null || true
             run_sudo ln -sf "/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" /usr/local/bin/nvim
+            run_sudo ln -sf /usr/local/bin/nvim /usr/bin/nvim 2>/dev/null || true
         else
             mkdir -p "${HOME}/.local/opt" "${HOME}/.local/bin"
             rm -rf "${HOME}/.local/opt/nvim-linux-${NVIM_ARCH}"
             tar -C "${HOME}/.local/opt" -xzf "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
+            rm -f "${HOME}/.local/bin/nvim" 2>/dev/null || true
             ln -sf "${HOME}/.local/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" "${HOME}/.local/bin/nvim"
         fi
     fi
@@ -170,6 +175,7 @@ if [ "$NEEDS_NVIM_INSTALL" -eq 1 ]; then
         make CMAKE_BUILD_TYPE=RelWithDebInfo
         if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
             run_sudo make install
+            run_sudo rm -f /usr/bin/nvim 2>/dev/null || true
             run_sudo ln -sf /usr/local/bin/nvim /usr/bin/nvim 2>/dev/null || true
         else
             make CMAKE_INSTALL_PREFIX="${HOME}/.local" install
@@ -287,10 +293,13 @@ if ! has_cmd lazygit; then
     if curl -fsSL "$LAZYGIT_URL" -o "${TMP_LZ_DIR}/lazygit.tar.gz"; then
         tar -xf "${TMP_LZ_DIR}/lazygit.tar.gz" -C "$TMP_LZ_DIR"
         if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
+            run_sudo rm -f /usr/local/bin/lazygit /usr/bin/lazygit 2>/dev/null || true
             run_sudo install -m 755 "${TMP_LZ_DIR}/lazygit" /usr/local/bin/lazygit || true
-            log_success "Lazygit 已安装至 /usr/local/bin/lazygit"
+            run_sudo ln -sf /usr/local/bin/lazygit /usr/bin/lazygit 2>/dev/null || true
+            log_success "Lazygit 已安装至 /usr/local/bin/lazygit 并覆盖 /usr/bin/lazygit"
         else
             mkdir -p "${HOME}/.local/bin"
+            rm -f "${HOME}/.local/bin/lazygit" 2>/dev/null || true
             install -m 755 "${TMP_LZ_DIR}/lazygit" "${HOME}/.local/bin/lazygit" || true
             log_success "Lazygit 已安装至 ~/.local/bin/lazygit"
         fi
