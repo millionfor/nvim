@@ -9,3 +9,4 @@ log/
 **/dump.rdb
 **/.DS_Store
 plugin/packer_compiled.lua
+QuanQuan.rc

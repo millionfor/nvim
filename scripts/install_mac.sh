@@ -105,10 +105,13 @@ if has_cmd pip3; then
     log_success "Python 依赖环境已就绪"
 fi
 
-# 5. 配置 Neovim 软链接
+# 5. 初始化本地账号密钥配置文件 (QuanQuan.rc)
+setup_user_rc "$SCRIPT_DIR"
+
+# 6. 配置 Neovim 软链接
 setup_nvim_symlink "$SCRIPT_DIR"
 
-# 6. 同步插件
+# 7. 同步插件
 if [ "$SYNC_PLUGINS" -eq 1 ]; then
     sync_lazy_plugins
 fi

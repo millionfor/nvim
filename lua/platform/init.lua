@@ -23,8 +23,33 @@ function M.open_file(path)
     end
 end
 
+--- 自动加载 QuanQuan.rc 本地用户专属账号密码与密钥配置
+local function load_user_rc()
+    local rc_file = vim.fn.stdpath("config") .. "/QuanQuan.rc"
+    if vim.fn.filereadable(rc_file) ~= 1 then
+        return
+    end
+
+    local lines = vim.fn.readfile(rc_file)
+    for _, line in ipairs(lines) do
+        local trimmed = vim.trim(line)
+        if trimmed ~= "" and not trimmed:match("^#") then
+            local key, val = trimmed:match("^export%s+([%w_]+)%s*=%s*['\"]?(.-)['\"]?$")
+            if not key then
+                key, val = trimmed:match("^([%w_]+)%s*=%s*['\"]?(.-)['\"]?$")
+            end
+            if key and val and val ~= "" then
+                vim.env[key] = val
+                if key == "GITLAB_BASE_URL" then vim.g.gitlab_snippet_base_url = val end
+                if key == "GITLAB_TOKEN" then vim.g.gitlab_snippet_token = val end
+            end
+        end
+    end
+end
+
 --- 平台专用环境与特性初始化
 function M.setup()
+    load_user_rc()
     if M.is_mac then
         local ok, mac = pcall(require, "platform.mac")
         if ok and mac.setup then

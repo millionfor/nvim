@@ -153,3 +153,32 @@ sync_lazy_plugins() {
         log_warn "未找到 nvim 命令，跳过插件预热。"
     fi
 }
+
+# 初始化用户账号密码与密钥配置文件 (QuanQuan.rc)
+setup_user_rc() {
+    local repo_dir="$1"
+    local rc_file="${repo_dir}/QuanQuan.rc"
+    local example_file="${repo_dir}/QuanQuan.rc.example"
+
+    if [ ! -f "$rc_file" ]; then
+        if [ -f "$example_file" ]; then
+            cp "$example_file" "$rc_file"
+        else
+            cat << 'EOF' > "$rc_file"
+# ==============================================================================
+# ⚡ QuanQuan.rc - Neovim 本地用户账号、密码与私密 Token 配置
+# (注：此文件已被 .gitignore 忽略，不会提交到 Git 仓库，请放心填写)
+# ==============================================================================
+export GITHUB_TOKEN=""
+export GITLAB_BASE_URL=""
+export GITLAB_TOKEN=""
+export NVIM_USER_NAME="QuanQuan"
+export NVIM_USER_EMAIL="millionfor@apache.org"
+EOF
+        fi
+        log_success "已自动在根目录创建账号密钥配置文件: ${rc_file}"
+        log_info "💡 可在 ${rc_file} 中填写 GitHub/GitLab Token 等私密配置（已被 .gitignore 严格忽略）。"
+    else
+        log_info "检测到已有账号密钥配置文件: ${rc_file} (保留现有配置)"
+    fi
+}
