@@ -34,7 +34,15 @@ end
 
 -- Setup global fzf-lua options
 function M.config()
+    local fzf_bin = "fzf"
+    if vim.fn.executable("/usr/local/bin/fzf") == 1 then
+        fzf_bin = "/usr/local/bin/fzf"
+    elseif vim.fn.executable(vim.fn.expand("~/.local/bin/fzf")) == 1 then
+        fzf_bin = vim.fn.expand("~/.local/bin/fzf")
+    end
+
     require("fzf-lua").setup({
+        fzf_bin = fzf_bin,
         -- Highlight group configurations
         hls = {
             border         = "FloatBorder",

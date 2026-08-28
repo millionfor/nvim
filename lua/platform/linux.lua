@@ -2,26 +2,14 @@ local M = {}
 
 --- 配置 Linux / Debian 专属环境变量与路径
 local function setup_env()
-    local extra_paths = {
+    local priority_paths = {
         vim.fn.expand("$HOME/.local/bin"),
         vim.fn.expand("$HOME/.cargo/bin"),
         "/usr/local/bin",
-        "/usr/bin",
-        "/bin",
     }
 
     local current_path = vim.env.PATH or ""
-    local new_paths = {}
-
-    for _, p in ipairs(extra_paths) do
-        if vim.fn.isdirectory(p) == 1 and not string.find(":" .. current_path .. ":", ":" .. p .. ":", 1, true) then
-            table.insert(new_paths, p)
-        end
-    end
-
-    if #new_paths > 0 then
-        vim.env.PATH = table.concat(new_paths, ":") .. ":" .. current_path
-    end
+    vim.env.PATH = table.concat(priority_paths, ":") .. ":" .. current_path
 end
 
 --- 剪贴板环境校验与适配 (xclip / wl-clipboard / OSC52)

@@ -238,8 +238,9 @@ if ! check_fzf_ok; then
         tar -xf "${TMP_FZF_DIR}/fzf.tar.gz" -C "$TMP_FZF_DIR"
         if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
             run_sudo install -m 755 "${TMP_FZF_DIR}/fzf" /usr/local/bin/fzf
+            run_sudo rm -f /usr/bin/fzf 2>/dev/null || true
             run_sudo ln -sf /usr/local/bin/fzf /usr/bin/fzf 2>/dev/null || true
-            log_success "最新版 fzf (${FZF_VER}) 已安装至 /usr/local/bin/fzf"
+            log_success "最新版 fzf (${FZF_VER}) 已安装至 /usr/local/bin/fzf 并替换 /usr/bin/fzf"
         else
             mkdir -p "${HOME}/.local/bin"
             install -m 755 "${TMP_FZF_DIR}/fzf" "${HOME}/.local/bin/fzf"
