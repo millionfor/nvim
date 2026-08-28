@@ -63,9 +63,15 @@ BREW_PACKAGES=(
 
 for pkg in "${BREW_PACKAGES[@]}"; do
     if brew list "$pkg" >/dev/null 2>&1; then
-        log_info "组件已安装: $pkg"
+        if [ "$pkg" = "neovim" ]; then
+            log_info "检查并确保 Neovim 为最新版本..."
+            brew upgrade neovim 2>/dev/null || true
+            log_success "Neovim 当前版本: $(nvim --version | head -n 1)"
+        else
+            log_info "组件已安装: $pkg"
+        fi
     else
-        log_info "正在安装: $pkg ..."
+        log_info "正在安装最新版: $pkg ..."
         brew install "$pkg" || log_warn "安装 $pkg 失败，请稍后手动排查。"
     fi
 done

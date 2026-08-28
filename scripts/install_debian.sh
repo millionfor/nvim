@@ -88,20 +88,25 @@ if has_cmd fdfind && ! has_cmd fd; then
     fi
 fi
 
-# 3. 安装/升级 Neovim 0.10+ (Debian 12 默认 apt 的 0.8.3 版本不兼容)
-log_info "检查 Neovim 版本..."
+# 3. 安装/升级至 Neovim 官方最新 Release (0.10+)
+log_info "检查 Neovim 官方最新版本状态..."
+LATEST_NVIM_TAG="$(curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep -Po '"tag_name": "\K[^"]*' || echo "")"
 NEEDS_NVIM_INSTALL=1
+
 if has_cmd nvim; then
     NVIM_VER_STR="$(nvim --version | head -n 1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' || echo 'v0.0.0')"
-    log_info "当前 Neovim 版本: ${NVIM_VER_STR}"
-    # 提取次版本号
-    MINOR_VER="$(echo "$NVIM_VER_STR" | cut -d. -f2)"
-    MAJOR_VER="$(echo "$NVIM_VER_STR" | cut -d. -f1 | tr -d 'v')"
-    if [ "$MAJOR_VER" -gt 0 ] || [ "$MINOR_VER" -ge 10 ]; then
-        log_success "Neovim 版本已满足要求 (>= 0.10.0)"
-        NEEDS_NVIM_INSTALL=0
+    log_info "当前已安装 Neovim 版本: ${NVIM_VER_STR}"
+    
+    # 检查是否可正常运行且已是最新版本
+    if nvim --version >/dev/null 2>&1; then
+        if [ -n "$LATEST_NVIM_TAG" ] && [ "$NVIM_VER_STR" = "$LATEST_NVIM_TAG" ]; then
+            log_success "当前 Neovim 已是官方最新版本 (${NVIM_VER_STR})"
+            NEEDS_NVIM_INSTALL=0
+        else
+            log_info "发现新版本或需要重新部署 (当前: ${NVIM_VER_STR}, 目标: ${LATEST_NVIM_TAG:-最新Release})..."
+        fi
     else
-        log_warn "Debian 自带的 Neovim (${NVIM_VER_STR}) 低于 0.10.0，本项目特性需要 0.10+，准备下载官方最新 Release..."
+        log_warn "当前 Neovim 无法正常执行，准备重新部署最新版本..."
     fi
 fi
 
