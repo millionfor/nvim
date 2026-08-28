@@ -230,12 +230,22 @@ if ! check_fzf_ok; then
         *) FZF_ARCH="amd64" ;;
     esac
 
-    FZF_VER="$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | grep -Po '"tag_name": "v?\K[0-9.]+' || echo "0.55.0")"
-    FZF_URL="https://github.com/junegunn/fzf/releases/latest/download/fzf-${FZF_VER}-linux_${FZF_ARCH}.tar.gz"
+    FZF_VER="$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | grep -Po '"tag_name": "v?\K[0-9.]+' || echo "0.74.3")"
+    FZF_URL="https://github.com/junegunn/fzf/releases/download/v${FZF_VER}/fzf-${FZF_VER}-linux_${FZF_ARCH}.tar.gz"
     TMP_FZF_DIR="$(mktemp -d)"
 
-    if curl -fsSL "$FZF_URL" -o "${TMP_FZF_DIR}/fzf.tar.gz"; then
+    if curl -fsSL "$FZF_URL" -o "${TMP_FZF_DIR}/fzf.tar.gz" 2>/dev/null; then
         tar -xf "${TMP_FZF_DIR}/fzf.tar.gz" -C "$TMP_FZF_DIR"
+    else
+        log_info "正在通过官方 Git 方式下载最新版 fzf..."
+        git clone --depth 1 https://github.com/junegunn/fzf.git "${HOME}/.fzf" 2>/dev/null || git -C "${HOME}/.fzf" pull || true
+        "${HOME}/.fzf/install" --bin >/dev/null 2>&1 || true
+        if [ -f "${HOME}/.fzf/bin/fzf" ]; then
+            cp "${HOME}/.fzf/bin/fzf" "${TMP_FZF_DIR}/fzf"
+        fi
+    fi
+
+    if [ -f "${TMP_FZF_DIR}/fzf" ]; then
         if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
             run_sudo install -m 755 "${TMP_FZF_DIR}/fzf" /usr/local/bin/fzf
             run_sudo rm -f /usr/bin/fzf 2>/dev/null || true
@@ -246,6 +256,8 @@ if ! check_fzf_ok; then
             install -m 755 "${TMP_FZF_DIR}/fzf" "${HOME}/.local/bin/fzf"
             log_success "最新版 fzf (${FZF_VER}) 已安装至 ~/.local/bin/fzf"
         fi
+    else
+        log_warn "fzf 下载安装受阻，请稍后手动安装。"
     fi
     rm -rf "$TMP_FZF_DIR"
 else
