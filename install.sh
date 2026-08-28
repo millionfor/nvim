@@ -152,10 +152,10 @@ log_info "识别目标操作系统类型: ${TARGET_PLATFORM}"
 
 case "$TARGET_PLATFORM" in
     macos)
-        bash "${SCRIPT_DIR}/scripts/install_mac.sh" "${PASSTHROUGH_ARGS[@]}"
+        bash "${SCRIPT_DIR}/scripts/install_mac.sh" ${PASSTHROUGH_ARGS[@]+"${PASSTHROUGH_ARGS[@]}"}
         ;;
     debian|ubuntu|linux)
-        bash "${SCRIPT_DIR}/scripts/install_debian.sh" "${PASSTHROUGH_ARGS[@]}"
+        bash "${SCRIPT_DIR}/scripts/install_debian.sh" ${PASSTHROUGH_ARGS[@]+"${PASSTHROUGH_ARGS[@]}"}
         ;;
     *)
         log_error "暂不支持当前操作系统: ${TARGET_PLATFORM}"
