@@ -206,7 +206,52 @@ if [ "$NEEDS_NODE" -eq 1 ]; then
     fi
 fi
 
-# 5. 安装 Lazygit 二进制
+# 5. 安装/升级 fzf 独立二进制至最新版 (解决旧系统 apt fzf < 0.36 报错问题)
+log_info "检查 fzf 版本..."
+check_fzf_ok() {
+    if ! has_cmd fzf; then return 1; fi
+    local fzf_ver
+    fzf_ver="$(fzf --version 2>/dev/null | grep -oE '[0-9]+\.[0-9]+' | head -n 1 || echo '0.0')"
+    local fzf_major fzf_minor
+    fzf_major="$(echo "$fzf_ver" | cut -d. -f1)"
+    fzf_minor="$(echo "$fzf_ver" | cut -d. -f2)"
+    if [ "$fzf_major" -gt 0 ] || [ "$fzf_minor" -ge 36 ]; then
+        return 0
+    fi
+    return 1
+}
+
+if ! check_fzf_ok; then
+    log_warn "当前 fzf 版本过低或未安装 (fzf-lua 要求 >= 0.36)，正在下载官方最新独立二进制..."
+    FZF_ARCH="amd64"
+    case "$ARCH" in
+        x86_64) FZF_ARCH="amd64" ;;
+        arm64) FZF_ARCH="arm64" ;;
+        *) FZF_ARCH="amd64" ;;
+    esac
+
+    FZF_VER="$(curl -s "https://api.github.com/repos/junegunn/fzf/releases/latest" | grep -Po '"tag_name": "v?\K[0-9.]+' || echo "0.55.0")"
+    FZF_URL="https://github.com/junegunn/fzf/releases/latest/download/fzf-${FZF_VER}-linux_${FZF_ARCH}.tar.gz"
+    TMP_FZF_DIR="$(mktemp -d)"
+
+    if curl -fsSL "$FZF_URL" -o "${TMP_FZF_DIR}/fzf.tar.gz"; then
+        tar -xf "${TMP_FZF_DIR}/fzf.tar.gz" -C "$TMP_FZF_DIR"
+        if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
+            run_sudo install -m 755 "${TMP_FZF_DIR}/fzf" /usr/local/bin/fzf
+            run_sudo ln -sf /usr/local/bin/fzf /usr/bin/fzf 2>/dev/null || true
+            log_success "最新版 fzf (${FZF_VER}) 已安装至 /usr/local/bin/fzf"
+        else
+            mkdir -p "${HOME}/.local/bin"
+            install -m 755 "${TMP_FZF_DIR}/fzf" "${HOME}/.local/bin/fzf"
+            log_success "最新版 fzf (${FZF_VER}) 已安装至 ~/.local/bin/fzf"
+        fi
+    fi
+    rm -rf "$TMP_FZF_DIR"
+else
+    log_success "fzf 版本满足要求: $(fzf --version)"
+fi
+
+# 6. 安装 Lazygit 二进制
 if ! has_cmd lazygit; then
     log_info "安装 Lazygit 最新二进制..."
     LAZYGIT_ARCH=""
