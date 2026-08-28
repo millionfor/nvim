@@ -46,6 +46,10 @@ APT_PACKAGES=(
     gcc
     g++
     make
+    cmake
+    ninja-build
+    gettext
+    software-properties-common
     unzip
     tar
     gzip
@@ -127,15 +131,55 @@ if [ "$NEEDS_NVIM_INSTALL" -eq 1 ]; then
         run_sudo rm -rf "/opt/nvim-linux-${NVIM_ARCH}"
         run_sudo tar -C /opt -xzf "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
         run_sudo ln -sf "/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" /usr/local/bin/nvim
-        log_success "Neovim 0.10+ 成功安装至 /usr/local/bin/nvim"
+        log_success "Neovim 0.10+ 二进制已部署至 /usr/local/bin/nvim"
     else
         mkdir -p "${HOME}/.local/opt" "${HOME}/.local/bin"
         rm -rf "${HOME}/.local/opt/nvim-linux-${NVIM_ARCH}"
         tar -C "${HOME}/.local/opt" -xzf "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
         ln -sf "${HOME}/.local/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" "${HOME}/.local/bin/nvim"
-        log_success "Neovim 0.10+ 成功安装至 ~/.local/bin/nvim"
+        log_success "Neovim 0.10+ 二进制已部署至 ~/.local/bin/nvim"
     fi
     rm -rf "$TMP_NVIM_DIR"
+
+    # 验证二进制是否能在当前系统的 glibc 下正常执行 (如 Ubuntu 20.04 的 glibc 2.31 无法执行新预编译包)
+    if ! nvim --version >/dev/null 2>&1; then
+        log_warn "检测到系统 glibc 与官方预编译二进制不匹配 (常见于 Ubuntu 20.04 等发行版)。"
+        log_info "正在自动启动兼容性安装方案..."
+
+        # 尝试方案 1: Ubuntu PPA (neovim-ppa/unstable)
+        if [ "$(detect_os)" = "ubuntu" ] && has_cmd add-apt-repository; then
+            log_info "尝试通过 PPA (ppa:neovim-ppa/unstable) 安装适配本系统 glibc 的 Neovim..."
+            run_sudo add-apt-repository -y ppa:neovim-ppa/unstable || true
+            run_sudo apt-get update -y || true
+            run_sudo apt-get install -y neovim || true
+            if [ -f "/usr/bin/nvim" ]; then
+                run_sudo ln -sf /usr/bin/nvim /usr/local/bin/nvim || true
+            fi
+        fi
+
+        # 尝试方案 2: 若依然无法运行，直接从源码极速编译 (100% 适配宿主机 glibc)
+        if ! nvim --version >/dev/null 2>&1; then
+            log_info "正在自动从源码编译安装 Neovim (100% 兼容当前系统)..."
+            run_sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential || true
+            TMP_BUILD_DIR="$(mktemp -d)"
+            git clone --depth 1 --branch stable https://github.com/neovim/neovim.git "$TMP_BUILD_DIR"
+            pushd "$TMP_BUILD_DIR" >/dev/null
+            make CMAKE_BUILD_TYPE=RelWithDebInfo
+            if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
+                run_sudo make install
+            else
+                make CMAKE_INSTALL_PREFIX="${HOME}/.local" install
+            fi
+            popd >/dev/null
+            rm -rf "$TMP_BUILD_DIR"
+        fi
+
+        if nvim --version >/dev/null 2>&1; then
+            log_success "Neovim 兼容性安装成功！当前版本: $(nvim --version | head -n 1)"
+        else
+            log_error "Neovim 兼容性构建受阻，请检查系统依赖。"
+        fi
+    fi
 fi
 
 # 4. 安装 Node.js 20+ LTS (Mason LSP 所需)
