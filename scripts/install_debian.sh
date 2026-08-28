@@ -90,24 +90,39 @@ fi
 
 # 3. 安装/升级至 Neovim 官方最新 Release (0.10+)
 log_info "检查 Neovim 官方最新版本状态..."
+
+check_nvim_version_ok() {
+    if ! has_cmd nvim; then
+        return 1
+    fi
+    local ver_line
+    if ! ver_line="$(nvim --version 2>/dev/null | head -n 1)"; then
+        return 1
+    fi
+    local ver_str
+    ver_str="$(echo "$ver_line" | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' || echo 'v0.0.0')"
+    local major minor
+    major="$(echo "$ver_str" | cut -d. -f1 | tr -d 'v')"
+    minor="$(echo "$ver_str" | cut -d. -f2)"
+    if [ "$major" -gt 0 ] || [ "$minor" -ge 10 ]; then
+        return 0
+    fi
+    return 1
+}
+
 LATEST_NVIM_TAG="$(curl -s "https://api.github.com/repos/neovim/neovim/releases/latest" | grep -Po '"tag_name": "\K[^"]*' || echo "")"
 NEEDS_NVIM_INSTALL=1
 
-if has_cmd nvim; then
-    NVIM_VER_STR="$(nvim --version | head -n 1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' || echo 'v0.0.0')"
-    log_info "当前已安装 Neovim 版本: ${NVIM_VER_STR}"
-    
-    # 检查是否可正常运行且已是最新版本
-    if nvim --version >/dev/null 2>&1; then
-        if [ -n "$LATEST_NVIM_TAG" ] && [ "$NVIM_VER_STR" = "$LATEST_NVIM_TAG" ]; then
-            log_success "当前 Neovim 已是官方最新版本 (${NVIM_VER_STR})"
-            NEEDS_NVIM_INSTALL=0
-        else
-            log_info "发现新版本或需要重新部署 (当前: ${NVIM_VER_STR}, 目标: ${LATEST_NVIM_TAG:-最新Release})..."
-        fi
+if check_nvim_version_ok; then
+    CURRENT_NVIM_VER="$(nvim --version | head -n 1 | grep -oE 'v[0-9]+\.[0-9]+\.[0-9]+' || echo '')"
+    if [ -n "$LATEST_NVIM_TAG" ] && [ "$CURRENT_NVIM_VER" = "$LATEST_NVIM_TAG" ]; then
+        log_success "当前 Neovim 已是官方最新版本 (${CURRENT_NVIM_VER})"
+        NEEDS_NVIM_INSTALL=0
     else
-        log_warn "当前 Neovim 无法正常执行，准备重新部署最新版本..."
+        log_info "检测到可升级至最新版本 (当前: ${CURRENT_NVIM_VER:-未知}, 目标: ${LATEST_NVIM_TAG:-最新Release})..."
     fi
+else
+    log_info "未检测到符合版本要求 (>= 0.10.0) 的 Neovim，准备部署最新版..."
 fi
 
 if [ "$NEEDS_NVIM_INSTALL" -eq 1 ]; then
@@ -128,62 +143,46 @@ if [ "$NEEDS_NVIM_INSTALL" -eq 1 ]; then
     NVIM_URL="https://github.com/neovim/neovim/releases/latest/download/${NVIM_TARBALL}"
     TMP_NVIM_DIR="$(mktemp -d)"
 
-    log_info "正在下载 Neovim 最新预编译二进制 (${NVIM_URL})..."
-    curl -fsSL "$NVIM_URL" -o "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
-
-    if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
-        run_sudo mkdir -p /opt
-        run_sudo rm -rf "/opt/nvim-linux-${NVIM_ARCH}"
-        run_sudo tar -C /opt -xzf "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
-        run_sudo ln -sf "/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" /usr/local/bin/nvim
-        log_success "Neovim 0.10+ 二进制已部署至 /usr/local/bin/nvim"
-    else
-        mkdir -p "${HOME}/.local/opt" "${HOME}/.local/bin"
-        rm -rf "${HOME}/.local/opt/nvim-linux-${NVIM_ARCH}"
-        tar -C "${HOME}/.local/opt" -xzf "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
-        ln -sf "${HOME}/.local/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" "${HOME}/.local/bin/nvim"
-        log_success "Neovim 0.10+ 二进制已部署至 ~/.local/bin/nvim"
+    log_info "尝试下载并部署官方最新预编译二进制 (${NVIM_URL})..."
+    if curl -fsSL "$NVIM_URL" -o "${TMP_NVIM_DIR}/${NVIM_TARBALL}"; then
+        if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
+            run_sudo mkdir -p /opt
+            run_sudo rm -rf "/opt/nvim-linux-${NVIM_ARCH}"
+            run_sudo tar -C /opt -xzf "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
+            run_sudo ln -sf "/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" /usr/local/bin/nvim
+        else
+            mkdir -p "${HOME}/.local/opt" "${HOME}/.local/bin"
+            rm -rf "${HOME}/.local/opt/nvim-linux-${NVIM_ARCH}"
+            tar -C "${HOME}/.local/opt" -xzf "${TMP_NVIM_DIR}/${NVIM_TARBALL}"
+            ln -sf "${HOME}/.local/opt/nvim-linux-${NVIM_ARCH}/bin/nvim" "${HOME}/.local/bin/nvim"
+        fi
     fi
     rm -rf "$TMP_NVIM_DIR"
 
-    # 验证二进制是否能在当前系统的 glibc 下正常执行 (如 Ubuntu 20.04 的 glibc 2.31 无法执行新预编译包)
-    if ! nvim --version >/dev/null 2>&1; then
-        log_warn "检测到系统 glibc 与官方预编译二进制不匹配 (常见于 Ubuntu 20.04 等发行版)。"
-        log_info "正在自动启动兼容性安装方案..."
-
-        # 尝试方案 1: Ubuntu PPA (neovim-ppa/unstable)
-        if [ "$(detect_os)" = "ubuntu" ] && has_cmd add-apt-repository; then
-            log_info "尝试通过 PPA (ppa:neovim-ppa/unstable) 安装适配本系统 glibc 的 Neovim..."
-            run_sudo add-apt-repository -y ppa:neovim-ppa/unstable || true
-            run_sudo apt-get update -y || true
-            run_sudo apt-get install -y neovim || true
-            if [ -f "/usr/bin/nvim" ]; then
-                run_sudo ln -sf /usr/bin/nvim /usr/local/bin/nvim || true
-            fi
-        fi
-
-        # 尝试方案 2: 若依然无法运行，直接从源码极速编译 (100% 适配宿主机 glibc)
-        if ! nvim --version >/dev/null 2>&1; then
-            log_info "正在自动从源码编译安装 Neovim (100% 兼容当前系统)..."
-            run_sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential || true
-            TMP_BUILD_DIR="$(mktemp -d)"
-            git clone --depth 1 --branch stable https://github.com/neovim/neovim.git "$TMP_BUILD_DIR"
-            pushd "$TMP_BUILD_DIR" >/dev/null
-            make CMAKE_BUILD_TYPE=RelWithDebInfo
-            if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
-                run_sudo make install
-            else
-                make CMAKE_INSTALL_PREFIX="${HOME}/.local" install
-            fi
-            popd >/dev/null
-            rm -rf "$TMP_BUILD_DIR"
-        fi
-
-        if nvim --version >/dev/null 2>&1; then
-            log_success "Neovim 兼容性安装成功！当前版本: $(nvim --version | head -n 1)"
+    # 如果预编译包因系统 glibc 较旧 (如 Ubuntu 20.04) 无法运行或低于 0.10.0，立即从源码编译最新稳定版
+    if ! check_nvim_version_ok; then
+        log_warn "官方预编译包因宿主机 glibc 版本限制无法直接运行，正在从源码极速编译安装官方最新 stable 版本..."
+        run_sudo apt-get install -y ninja-build gettext cmake unzip curl build-essential || true
+        TMP_BUILD_DIR="$(mktemp -d)"
+        log_info "正在拉取 Neovim 官方最新 stable 源码分支..."
+        git clone --depth 1 --branch stable https://github.com/neovim/neovim.git "$TMP_BUILD_DIR"
+        pushd "$TMP_BUILD_DIR" >/dev/null
+        make CMAKE_BUILD_TYPE=RelWithDebInfo
+        if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
+            run_sudo make install
+            run_sudo ln -sf /usr/local/bin/nvim /usr/bin/nvim 2>/dev/null || true
         else
-            log_error "Neovim 兼容性构建受阻，请检查系统依赖。"
+            make CMAKE_INSTALL_PREFIX="${HOME}/.local" install
         fi
+        popd >/dev/null
+        rm -rf "$TMP_BUILD_DIR"
+    fi
+
+    if check_nvim_version_ok; then
+        log_success "Neovim 最新版本安装成功！当前版本: $(nvim --version | head -n 1)"
+    else
+        log_error "Neovim 最新版安装受阻，请检查编译依赖后重试。"
+        exit 1
     fi
 fi
 
