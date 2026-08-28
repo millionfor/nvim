@@ -229,6 +229,15 @@ check_fzf_ok() {
 
 if ! check_fzf_ok; then
     log_warn "当前 fzf 版本过低或未安装 (fzf-lua 要求 >= 0.36)，正在下载官方最新独立二进制..."
+    
+    # 彻底清理系统 apt 旧包与各路径历史残留
+    if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
+        run_sudo apt-get remove -y fzf 2>/dev/null || true
+        run_sudo rm -rf /usr/bin/fzf /usr/local/bin/fzf "${HOME}/.local/bin/fzf" 2>/dev/null || true
+    else
+        rm -rf "${HOME}/.local/bin/fzf" 2>/dev/null || true
+    fi
+
     FZF_ARCH="amd64"
     case "$ARCH" in
         x86_64) FZF_ARCH="amd64" ;;
@@ -254,12 +263,13 @@ if ! check_fzf_ok; then
     if [ -f "${TMP_FZF_DIR}/fzf" ]; then
         if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
             run_sudo install -m 755 "${TMP_FZF_DIR}/fzf" /usr/local/bin/fzf
-            run_sudo rm -f /usr/bin/fzf 2>/dev/null || true
             run_sudo ln -sf /usr/local/bin/fzf /usr/bin/fzf 2>/dev/null || true
-            log_success "最新版 fzf (${FZF_VER}) 已安装至 /usr/local/bin/fzf 并替换 /usr/bin/fzf"
+            hash -r 2>/dev/null || true
+            log_success "最新版 fzf (${FZF_VER}) 已安装至 /usr/local/bin/fzf 并强制替换 /usr/bin/fzf"
         else
             mkdir -p "${HOME}/.local/bin"
             install -m 755 "${TMP_FZF_DIR}/fzf" "${HOME}/.local/bin/fzf"
+            hash -r 2>/dev/null || true
             log_success "最新版 fzf (${FZF_VER}) 已安装至 ~/.local/bin/fzf"
         fi
     else
