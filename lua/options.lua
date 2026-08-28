@@ -1,7 +1,16 @@
-vim.env.PATH = "/opt/homebrew/bin:" .. vim.env.PATH
 vim.cmd('hi Normal ctermfg=7 guifg=#c0c0c0 ctermbg=NONE cterm=NONE')
 vim.cmd.colorscheme('solarized8_high')
-vim.g.python3_host_prog = os.getenv('PYTHON') -- export PYTHON=$(which python3)
+
+-- Python3 解释器探测 (支持 PYTHON 环境变量、专用 nvim-venv 与系统 python3)
+local nvim_venv_py = vim.fn.expand("~/.local/share/nvim-venv/bin/python3")
+if os.getenv('PYTHON') and os.getenv('PYTHON') ~= "" then
+    vim.g.python3_host_prog = os.getenv('PYTHON')
+elseif vim.fn.filereadable(nvim_venv_py) == 1 then
+    vim.g.python3_host_prog = nvim_venv_py
+elseif vim.fn.executable("python3") == 1 then
+    vim.g.python3_host_prog = vim.fn.exepath("python3")
+end
+
 vim.g.editorconfig = false
 vim.opt.termguicolors = true
 vim.opt.showcmd = true

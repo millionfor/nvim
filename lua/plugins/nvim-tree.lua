@@ -134,16 +134,13 @@ function M.config()
         vim.keymap.set('n', 'r', api.fs.rename, opts('Rename'))
         vim.keymap.set('n', 'C', M.magicCd, opts('Magic CD'))
 
-        -- 当前目录
+        -- 当前目录在系统文件管理器中打开
         vim.keymap.set("n", "op", function()
             local node = api.tree.get_node_under_cursor()
             if node then
-                local path = node.absolute_path
-                -- 转义单引号和空格
-                path = path:gsub("'", "'\\''")
-                vim.cmd("silent !/usr/bin/open '" .. path .. "'")
+                require("platform").open_file(node.absolute_path)
             end
-        end, opts("Open in Finder"))
+        end, opts("Open in System File Manager"))
     end
 
     nvim_tree.setup({

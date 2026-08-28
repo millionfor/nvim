@@ -1,4 +1,5 @@
 vim.g.mapleader = ","
+require('platform').setup() -- 跨平台环境与系统专属适配 (macOS / Debian Linux)
 require('options')  -- 基础配置
 require('lazyinit') -- 插件配置 (lazy.nvim)
 require('keymap')   -- 按键配置
@@ -27,19 +28,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
         
         -- 恢复光标位置
         vim.api.nvim_win_set_cursor(0, current_pos)
-    end,
-})
-
--- 自动切换到英文输入法（适用于 Neovim 0.7+）
-vim.api.nvim_create_autocmd({"FocusGained", "BufEnter"}, {
-    callback = function()
-        os.execute("macism com.apple.keylayout.ABC") -- ABC 是默认英文输入法
-    end
-})
-vim.api.nvim_create_autocmd("InsertLeave", {
-    pattern = "*",
-    callback = function()
-        vim.fn.system("macism com.apple.keylayout.ABC") -- 切换到英文输入法
     end,
 })
 

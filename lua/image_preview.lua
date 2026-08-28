@@ -196,8 +196,7 @@ local function render_and_display()
 
     -- 系统默认查看器打开
     vim.keymap.set({ "n", "t" }, "o", function()
-        local escaped_path = filepath:gsub("'", "'\\''")
-        vim.cmd("silent !/usr/bin/open '" .. escaped_path .. "'")
+        require("platform").open_file(filepath)
         vim.notify("已在系统默认查看器中打开: " .. filename, vim.log.levels.INFO)
     end, map_opts)
 

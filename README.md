@@ -1,6 +1,72 @@
-# ⚡ Neovim 快捷键配置指南 (Mac & Windows/Linux)
+# ⚡ Neovim 现代化 IDE 配置 (macOS & Debian 12 深度适配)
 
-> 本文档汇总了项目 (`~/.config/nvim`) 中定义的所有全局按键映射、插件快捷键及语言专属快捷键。
+> 极致性能、开箱即用、全自动化依赖管理的现代 Neovim 配置。深度支持 **macOS (Apple Silicon & Intel)** 与 **Debian 12 (Bookworm) / Linux** 双平台，并实现系统专属特性的解耦隔离。
+
+---
+
+## 🚀 一键安装指南
+
+本项目自带生产级一键安装脚本，自动检测系统与架构（x86_64 / arm64），智能补齐全部 CLI 依赖、LSP、Nerd 字体及运行时环境：
+
+### 1. 快速安装
+
+#### 方式 A：远程一行命令安装（推荐）
+
+```bash
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/millionfor/nvim/main/install.sh)"
+```
+
+#### 方式 B：手动克隆并安装
+
+```bash
+git clone https://github.com/millionfor/nvim.git ~/.config/nvim
+cd ~/.config/nvim && ./install.sh
+```
+
+### 2. 脚本特性与参数
+
+- **智能多平台适配**：
+  - **macOS**：自动配置 Homebrew、`macism` 英文输入法自动切换、Apple Silicon/Intel 路径注入、JetBrains Mono 字体。
+  - **Debian 12**：Debian 12 默认 apt 的 Neovim (0.8.3) 无法满足现代 LSP 需求，脚本将**自动下载并部署官方最新的 Neovim 0.10+ 二进制**、自动处理 `fdfind -> fd` 软链接、NodeSource Node.js 20 LTS、独立的 Python 虚拟环境（优雅突破 PEP 668 限制）、Lazygit 与剪贴板工具 (`xclip`/`wl-clipboard`)。
+- **自定义安装选项**：
+  ```bash
+  ./install.sh --help       # 查看帮助信息
+  ./install.sh --no-font    # 跳过 Nerd Font 下载
+  ./install.sh --no-sync    # 跳过 Lazy 插件预热
+  ./install.sh --mac        # 强制执行 macOS 安装流程
+  ./install.sh --debian     # 强制执行 Debian 12 安装流程
+  ```
+
+---
+
+## 📁 平台隔离与架构设计
+
+为了保持配置的纯粹与可移植性，本项目将操作系统相关特性收敛于 `lua/platform/` 模块：
+
+```text
+~/.config/nvim
+├── init.lua                  # 入口文件 (先初始化 platform 平台层)
+├── install.sh                # 统一安装入口脚本
+├── scripts/                  # 平台安装子脚本
+│   ├── common.sh             # 公共工具函数库 (架构/日志/备份/软链)
+│   ├── install_mac.sh        # macOS 专属安装器 (Homebrew/macism/字体)
+│   └── install_debian.sh     # Debian 12 专属安装器 (Nvim 0.10+/Node 20/venv)
+├── lua/
+│   ├── platform/             # 跨平台解耦层
+│   │   ├── init.lua          # 平台抽象入口 (统一 open_file / 系统判断)
+│   │   ├── mac.lua           # macOS 专属: macism 输入法、Homebrew PATH
+│   │   └── linux.lua         # Linux 专属: 剪贴板校验、fdfind/fcitx 适配
+│   ├── options.lua           # 基础 Vim 选项与全局高亮
+│   ├── keymap.lua            # 全局按键映射与智能编辑增强
+│   ├── lazyinit.lua          # Lazy.nvim 插件管理器引导
+│   ├── lspinit.lua           # 现代化 LSP / Mason 自动注册
+│   ├── lsp/                  # 各语言 LSP 定制选项 (vtsls, vue, gopls...)
+│   ├── plugins/              # 各功能插件配置 (fzf, tree, cmp, git...)
+│   └── utils/                # 辅助脚本 (image_render.py 终端图片真彩预览)
+├── ftplugin/                 # 语言特定快捷键与功能 (Java, Markdown, Vue...)
+├── snippets/                 # VSCode 格式代码片段
+└── templates/                # 新建文件智能模板
+```
 
 ---
 
