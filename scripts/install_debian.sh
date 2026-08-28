@@ -36,7 +36,7 @@ log_info "检测到系统 CPU 架构: ${ARCH}"
 
 # 1. 更新 apt 并安装基础构建工具及核心 CLI
 log_info "更新 APT 软件包索引并安装基础开发工具..."
-run_sudo apt-get update -y
+run_sudo apt-get update -y || log_warn "APT 索引更新存在部分源警告（可能是系统第三方 PPA 签名失效），继续执行后续安装..."
 
 APT_PACKAGES=(
     git
@@ -62,10 +62,13 @@ APT_PACKAGES=(
     python3-venv
 )
 
-log_info "正在通过 apt 安装基础组件: ${APT_PACKAGES[*]}"
-run_sudo apt-get install -y "${APT_PACKAGES[@]}" || {
-    log_warn "部分软件包安装失败，尝试继续后续步骤..."
-}
+log_info "正在通过 apt 安装基础组件..."
+if ! run_sudo apt-get install -y --no-install-recommends "${APT_PACKAGES[@]}"; then
+    log_warn "批量 apt 安装存在部分包缺失，正在逐个安装关键组件..."
+    for pkg in "${APT_PACKAGES[@]}"; do
+        run_sudo apt-get install -y "$pkg" || log_warn "软件包 $pkg 安装失败，跳过..."
+    done
+fi
 
 # 2. Debian 12 fd 命令别名兼容 (fdfind -> fd)
 log_info "配置 Debian 12 fd 命令适配..."
@@ -148,9 +151,11 @@ fi
 
 if [ "$NEEDS_NODE" -eq 1 ]; then
     log_info "安装 Node.js 20 LTS (NodeSource)..."
-    curl -fsSL https://deb.nodesource.com/setup_20.x | run_sudo bash -
-    run_sudo apt-get install -y nodejs
-    log_success "Node.js 安装成功: $(node -v)"
+    (curl -fsSL https://deb.nodesource.com/setup_20.x | run_sudo bash -) || log_warn "NodeSource 脚本执行有警告，尝试直接安装 nodejs..."
+    run_sudo apt-get install -y nodejs || log_warn "Node.js 安装受阻，请稍后手动安装。"
+    if has_cmd node; then
+        log_success "Node.js 安装成功: $(node -v)"
+    fi
 fi
 
 # 5. 安装 Lazygit 二进制
@@ -173,16 +178,18 @@ if ! has_cmd lazygit; then
     LAZYGIT_URL="https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VER}_Linux_${LAZYGIT_ARCH}.tar.gz"
     TMP_LZ_DIR="$(mktemp -d)"
 
-    curl -fsSL "$LAZYGIT_URL" -o "${TMP_LZ_DIR}/lazygit.tar.gz"
-    tar -xf "${TMP_LZ_DIR}/lazygit.tar.gz" -C "$TMP_LZ_DIR"
-
-    if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
-        run_sudo install -m 755 "${TMP_LZ_DIR}/lazygit" /usr/local/bin/lazygit
-        log_success "Lazygit 已安装至 /usr/local/bin/lazygit"
+    if curl -fsSL "$LAZYGIT_URL" -o "${TMP_LZ_DIR}/lazygit.tar.gz"; then
+        tar -xf "${TMP_LZ_DIR}/lazygit.tar.gz" -C "$TMP_LZ_DIR"
+        if [ "$(id -u)" -eq 0 ] || has_cmd sudo; then
+            run_sudo install -m 755 "${TMP_LZ_DIR}/lazygit" /usr/local/bin/lazygit || true
+            log_success "Lazygit 已安装至 /usr/local/bin/lazygit"
+        else
+            mkdir -p "${HOME}/.local/bin"
+            install -m 755 "${TMP_LZ_DIR}/lazygit" "${HOME}/.local/bin/lazygit" || true
+            log_success "Lazygit 已安装至 ~/.local/bin/lazygit"
+        fi
     else
-        mkdir -p "${HOME}/.local/bin"
-        install -m 755 "${TMP_LZ_DIR}/lazygit" "${HOME}/.local/bin/lazygit"
-        log_success "Lazygit 已安装至 ~/.local/bin/lazygit"
+        log_warn "Lazygit 下载失败，跳过安装。"
     fi
     rm -rf "$TMP_LZ_DIR"
 else
@@ -194,11 +201,17 @@ log_info "配置 Python 独立虚拟环境及 pynvim, pillow (图片预览支持
 PYTHON_VENV="${HOME}/.local/share/nvim-venv"
 mkdir -p "${HOME}/.local/share"
 if [ ! -d "$PYTHON_VENV" ]; then
-    python3 -m venv "$PYTHON_VENV"
+    python3 -m venv "$PYTHON_VENV" >/dev/null 2>&1 || python3 -m virtualenv "$PYTHON_VENV" >/dev/null 2>&1 || true
 fi
-"${PYTHON_VENV}/bin/pip" install --upgrade pip >/dev/null 2>&1 || true
-"${PYTHON_VENV}/bin/pip" install pynvim pillow
-log_success "Python 专属环境已就绪: ${PYTHON_VENV}"
+
+if [ -f "${PYTHON_VENV}/bin/pip" ]; then
+    "${PYTHON_VENV}/bin/pip" install --upgrade pip >/dev/null 2>&1 || true
+    "${PYTHON_VENV}/bin/pip" install pynvim pillow >/dev/null 2>&1 || true
+    log_success "Python 专属虚拟环境已就绪: ${PYTHON_VENV}"
+else
+    pip3 install --user --break-system-packages pynvim pillow >/dev/null 2>&1 || pip3 install --user pynvim pillow >/dev/null 2>&1 || true
+    log_info "已尝试通过用户目录安装 Python 扩展"
+fi
 
 # 7. 安装 JetBrains Mono Nerd Font 字体
 if [ "$INSTALL_FONT" -eq 1 ]; then
